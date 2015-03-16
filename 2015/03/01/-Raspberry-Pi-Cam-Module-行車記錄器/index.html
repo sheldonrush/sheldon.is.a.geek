@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[Raspberry Pi][Cam Module] 行車記錄器 | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  <meta name="description" content="目的自從桃園一場大水以後, 
+
+我的小佛浮起來了,行車記錄器也跟着消失了...
+最近一直聽到有關行車糾紛,心理怕怕,但是又不想花錢買行車記錄器.
+所以想說用免錢的PI camera module 來玩玩.
+方法1.製作免費的case,在上一篇文章中, 可以參考一下. 
+2. 我主要參考這篇 
+這篇功">
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title">[Raspberry Pi][Cam Module] 行車記錄器</h1>
+  
+
+    <time datetime="2015-02-28T23:19:58.000Z">
+  <span class="day">1</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>自從桃園一場大水以後, </p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/11245.jpg">
+<p>我的小佛浮起來了,行車記錄器也跟着消失了...
+最近一直聽到有關行車糾紛,心理怕怕,但是又不想花錢買行車記錄器.
+所以想說用免錢的PI camera module 來玩玩.</p>
+<h2 id="方法">方法</h2><p><strong><em>1.製作免費的case,在<a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-%E8%A3%BD%E4%BD%9CPI%E7%9A%84%E8%A1%A3%E6%9C%8D-Case/" target="_blank" rel="external">上一篇文章</a>中, 可以參考一下. </em></strong></p>
+<p><strong><em>2. 我主要<a href="http://dreamgreenhouse.com/projects/2013/picar/" target="_blank" rel="external">參考這篇</a> </em></strong></p>
+<p>這篇功能超級多...但是我現在其實只要錄制的功能, 所以我把大部分的東西都拔掉了.
+假如想要玩更高階的行車記錄器,可以仔細研究聯結.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="comment"># Purpose : Just test for recording video on cam module of raspberry pi</span></span><br><span class="line"><span class="comment"># Author : Sheldon</span></span><br><span class="line"><span class="built_in">echo</span> `date +%D` <span class="string">", Start the test for cam module !!"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/pi</span><br><span class="line"><span class="comment"># set limit of rolling videos to 16GB</span></span><br><span class="line"><span class="built_in">limit</span>=<span class="number">4000000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> [ <span class="literal">true</span> ]; <span class="keyword">do</span> </span><br><span class="line">        <span class="comment"># Video disk space used</span></span><br><span class="line">        used=$(du Video | tail -<span class="number">1</span> | awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line">        <span class="comment">#echo `date +%s` "U Video" $used</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Free up disk space if needed</span></span><br><span class="line">        <span class="keyword">while</span> [ <span class="variable">$limit</span> -le <span class="variable">$used</span> ]</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                remove=$(ls -<span class="number">1</span>tr Video | grep .h264 | head -n <span class="number">1</span>)</span><br><span class="line">                <span class="built_in">echo</span> `date +%D` <span class="string">"-"</span> <span class="variable">$remove</span></span><br><span class="line">                rm Video/<span class="variable">$remove</span></span><br><span class="line">                <span class="comment"># Calculate disk space used</span></span><br><span class="line">                used=$(du Video | tail -<span class="number">1</span> | awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># New file name</span></span><br><span class="line">        current=$(date +<span class="string">"%Y_%m_%d_%H:%M:%S.h264"</span>)</span><br><span class="line">        <span class="built_in">echo</span> `date +%s` <span class="string">"+"</span> <span class="variable">$current</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Capture a 5 minute segment of video</span></span><br><span class="line">        raspivid -n -b <span class="number">9000000</span> -w <span class="number">1280</span> -h <span class="number">720</span> -o Video/<span class="variable">$current</span> -t <span class="number">300000</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="成果">成果</h2><p>Raspberry Pi 放反了,..主要是來測試cam module, 基本功能看起來work...XDD</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/dSsiKKEKirw" frameborder="0" allowfullscreen></iframe></div>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+<section id="comment">
+  <div id="disqus_thread" aria-live="polite">
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</article></div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

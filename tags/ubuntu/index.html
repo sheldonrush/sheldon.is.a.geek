@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ubuntu | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">標籤：ubuntu</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/">[Network] fping的用法</a></h1>
+  
+
+    <time datetime="2015-02-25T10:04:09.000Z">
+  <span class="day">25</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="目的">目的</h1><p>之前遇到了一個問題, 假如我現在在一個封閉的區域網路內, 
+我要如何得知在這個網域裏面, 有存在哪些其他電腦. </p>
+<h1 id="做法">做法</h1><p>這時後就可以用ubuntu 裏面的fpring 來解決這個問題. </p>
+<p><strong><em>1.先利用ifconfig 來觀察, 你現在所在的網域.</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/ifconfig.jpeg">
+<p><strong><em>2. 再利用fping 來觀察其他電腦IP</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/fping.jpeg">
+<p><strong><em>-g addr/mask</em></strong></p>
+<p>   Generate a target list from a supplied IP netmask, or a starting and ending IP.  Specify the netmask or start/end in the targets
+   portion of the command line. If a network with netmask is given, the network and broadcast addresses will be excluded. ex. To ping the
+   network 192.168.1.0/24, the specified command line could look like either:</p>
+<p>   fping -g 192.168.1.0/24 or fping -g 192.168.1.1 192.168.1.254</p>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Network/">Network</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/network/">network</a><a href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

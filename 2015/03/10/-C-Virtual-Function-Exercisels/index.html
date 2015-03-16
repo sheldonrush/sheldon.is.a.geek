@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[C++][Virtual Function] Exercises | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  <meta name="description" content="目的最近在練習基本的clss的用法, 突然想到一些問題. 
+
+我們利用關鍵字virtual 來使用extend 的function member 的時候,
+base class 是否需要有相同引數的function member? 
+--&amp;gt;  答案是要的
+
+extend class 要如何存取">
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title">[C++][Virtual Function] Exercises</h1>
+  
+
+    <time datetime="2015-03-10T15:07:33.000Z">
+  <span class="day">10</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
+<ol>
+<li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
+base class 是否需要有相同引數的function member? </p>
+<p>--&gt;  <strong><em>答案是要的</em></strong></p>
+</li>
+<li><p>extend class 要如何存取 base class 的 member data</p>
+<p>--&gt; <strong><em>將base class的member data 從private 改成protected</em></strong></p>
+</li>
+<li><p>extend class 在用 virtual 關鍵字的時候, 是否需要在function 宣告的前面加上 virtual</p>
+<p>--&gt; <strong><em>不用</em></strong></p>
+</li>
+</ol>
+<h2 id="Exercise">Exercise</h2><p>底下是間單的測試code.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.10</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class base_class </span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">      base_class(void);</span><br><span class="line">      virtual void set_value(int);</span><br><span class="line">      virtual void set_value(int, int);</span><br><span class="line">      void print_value(void);</span><br><span class="line"></span><br><span class="line">  protected : </span><br><span class="line">      int v1; </span><br><span class="line">      int v2; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">base_class :: base_class(void)</span><br><span class="line">&#123;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "base_class constructor !!" &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value1" &lt;&lt;endl;</span><br><span class="line">  v1 += a ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">void base_class :: print_value(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "v1 = " &lt;&lt; v1 &lt;&lt;endl;</span><br><span class="line">  cout &lt;&lt; "v2 = " &lt;&lt; v2 &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class extend_class : public base_class</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    extend_class(void);  </span><br><span class="line">    void set_value(int, int);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">extend_class :: extend_class(void) : base_class()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend clss constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void extend_class::set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 += a;</span><br><span class="line">  v2 += b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  base_class BC;</span><br><span class="line">  extend_class EC;</span><br><span class="line"></span><br><span class="line">  base_class* base_ptr;</span><br><span class="line"></span><br><span class="line">  // base class</span><br><span class="line">  base_ptr = &amp;BC;</span><br><span class="line">  base_ptr-&gt;</span>set_value(10);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  // extended class</span><br><span class="line">  base_ptr = &amp;EC;</span><br><span class="line">  base_ptr-&gt;set_value(5, 5);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/C/">C++</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C++</a><a href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a><a href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+<section id="comment">
+  <div id="disqus_thread" aria-live="polite">
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</article></div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

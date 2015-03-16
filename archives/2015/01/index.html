@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>彙整：2015/1 | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">彙整：2015/1</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a></h1>
+  
+
+    <time datetime="2015-01-29T15:10:14.000Z">
+  <span class="day">29</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
+<p>因式分解 </p>
+<p><strong><em>&amp;*ptr</em></strong></p>
+<ol>
+<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
+<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
+</ol>
+<p><strong><em>*&amp;ptr</em></strong></p>
+<ol>
+<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
+<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
+</ol>
+<p>因此
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/pointer/">pointer</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/pointer/">pointer</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/">[GCC][MACRO-LOG]</a></h1>
+  
+
+    <time datetime="2015-01-29T00:21:34.000Z">
+  <span class="day">29</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>以前一直是用printf來debug, 每次都寫差不多格式的log,
+所以去查了一下, 在巨集裏面要如何把default foramt 添加上去,
+是時後要學點GDB了.... XD.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine <span class="function"><span class="title">DBG</span><span class="params">(fmt, vars...)</span></span> <span class="function"><span class="title">printf</span><span class="params">(<span class="string">"[%s][%d] "</span>fmt, __FUNCTION__, __LINE__, ##vars)</span></span></span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/GCC/">GCC</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GCC/">GCC</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/">理財-基本面名詞-損益表</a></h1>
+  
+
+    <time datetime="2015-01-16T00:49:39.000Z">
+  <span class="day">16</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="損益表">損益表</h1><p>要看一間公司賺不賺錢, 就可以從損益表, 一窺究竟. 損益表是由許多經濟名詞組合
+而成, 所以要想從損益表來得知公司情況好壞的話, 
+這些名詞是必須要清楚明白的.</p>
+<p><strong>營業收入</strong> = 公司從客戶上賺的錢</p>
+<p><strong>營業成本</strong> = (直接成本) 生產產品所需要的原物料成本, 經營公司所用倒的人事成本, 公司所在辦公大樓的租金</p>
+<p><strong>營業毛利</strong> = 營業收入-營業成本</p>
+<p><strong>營業費用</strong> = （間接成本）行銷, 研發經費</p>
+<p><strong>營業外收入</strong> = 與本業無關的收入</p>
+<p><strong>營業外支出</strong> = 與本業無關的支出</p>
+<p><strong>營業外收支</strong> = 營業外收入 - 營業外支出</p>
+<p><strong>稅前純益</strong> = 營業毛利 - 營業費用 - 營業外收支</p>
+<p><strong>稅後純益</strong> = 稅後純益 - 稅</p>
+<h2 id="EPS_(Earning_Per_Share)_,_公司最後就會用稅後純益來決定每一個股要發多少錢給各股東-">EPS (Earning Per Share) , 公司最後就會用稅後純益來決定每一個股要發多少錢給各股東.</h2>
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/理財/">理財</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Finance/">Finance</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">My First Post</a></h1>
+  
+
+    <time datetime="2015-01-13T16:06:08.000Z">
+  <span class="day">14</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="Why_Do_I_Create_This_Blog_?">Why Do I Create This Blog ?</h1><p>This blog tell what I learn in my life. I waste a lot of time in nothing thing. 
+So right now, it is the time to tell more about the signitifant thing, such as 
+technical skill, knowledgement, programming, life news, funny things, how to
+manage your finance and how to be a wonderful man. </p>
+<h1 id="Who_Am_I_?">Who Am I ?</h1><p>I was a physics students in the university. Then I got the master degree of EE.
+But I was interested in computer science for a long time, so I took an effert to learn the knowledge by myself. 
+Finally, I am a software engineer. Hope that I can be an entrepreneur in the software field. </p>
+<h2 id="Technical_Skill">Technical Skill</h2><ol>
+<li>Programming : C/Matlab/Python/Shell Scripts</li>
+<li>OS : Linux/Ecos</li>
+<li>Embedded Chip : Raspberry Pi/ MSTAR&#39;s Chip</li>
+<li>Distributed revision control system : GIT</li>
+<li>Android RIL</li>
+<li>Video Decoder knowldege.</li>
+<li>TV knowledge (T-CON/Over-Driver/Decompression/Local Dimming)</li>
+<li>Closed Caption knowledge</li>
+</ol>
+<h2 id="Working_Experience">Working Experience</h2><h3 id="MSTAR_(2014/2~now)">MSTAR (2014/2~now)</h3><h3 id="HTC_(2011/11~2014/1)">HTC (2011/11~2014/1)</h3><h3 id="CHEMI_(2008/11~2011/11)">CHEMI (2008/11~2011/11)</h3><h2 id="Academic">Academic</h2><h3 id="Master_Degree">Master Degree</h3><h3 id="Bachelor">Bachelor</h3><h1 id="How_to_contact_me_?">How to contact me ?</h1><p><em>PM me to following email</em></p>
+<blockquote>
+<p><strong>rushpeng@gmail.com</strong></p>
+</blockquote>
+<p><em>LinkedIn</em> </p>
+<blockquote>
+<p><strong><a href="https://www.linkedin.com/profile/public-profile-settings?trk=prof-edit-edit-public_profile" target="_blank" rel="external">My_LinkedIN</a></strong></p>
+</blockquote>
+<p><em>Phone</em></p>
+<blockquote>
+<p><strong>(+886)918721062</strong></p>
+</blockquote>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/ME/">ME</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/geek/">geek</a><a href="/sheldon.is.a.geek/tags/resume/">resume</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

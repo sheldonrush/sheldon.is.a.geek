@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Socket | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">標籤：Socket</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/">[Raspberry Pi] Socket Programming and GPIO</a></h1>
+  
+
+    <time datetime="2015-03-01T00:30:29.000Z">
+  <span class="day">1</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>很久之前, 曾經做過 socket programming在樹梅派的應用. 
+也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
+我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD</p>
+<p>這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又想模擬mutlit-client的情況, 
+所以我在laptop又多起一個task去送訊號給server. </p>
+<h2 id="Demo_on_Youtube">Demo on Youtube</h2><p>This  demo tell how to control GPIO and send the data to server.
+About socket programming, server can receive the data from multi client.</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/i2Jig5vebBk" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="Source_code-">Source code.</h2><a href="http://sheldonrush.github.io/sheldon.is.a.geek/doc/Pi_is_client_PC_is_server.tar.7z" target="_blank" rel="external">下載Download</a>
+<p><strong><em>1. server端</em></strong></p>
+<p>// sr_server.c</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : socket code for server</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> connfd = <span class="number">0</span>, n = <span class="number">0</span>, listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> charBuff[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">char</span> recvBuff[<span class="number">1024</span>];</span><br><span class="line">    time_t ticks;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init the data structure of serv_addr</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;serv_addr, <span class="string">'0'</span>, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line">    <span class="built_in">memset</span>(charBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(charBuff));</span><br><span class="line">    <span class="built_in">memset</span>(recvBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(recvBuff));</span><br><span class="line"></span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    serv_addr.sin_port = htons(<span class="number">8998</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// assign the scket port to socket</span></span><br><span class="line">    bind(listenfd, (<span class="keyword">struct</span> sockaddr*)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line"></span><br><span class="line">    listen(listenfd, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        connfd = accept(listenfd, (<span class="keyword">struct</span> sockaddr*)NULL, NULL);</span><br><span class="line">   </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s %d \n"</span>, <span class="string">"server: connfd is"</span>, connfd);</span><br><span class="line">        ticks = time(NULL);</span><br><span class="line">        <span class="built_in">snprintf</span>(charBuff, <span class="keyword">sizeof</span>(charBuff), <span class="string">"%s\n"</span>, ctime(&amp;ticks));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"server: %s\n"</span>, charBuff);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> ( (n = read(connfd, recvBuff, <span class="keyword">sizeof</span>(recvBuff)-<span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">           recvBuff[n] = <span class="number">0</span>;</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: read %d bytes \n"</span>, n);</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: EOF = %d \n"</span>, EOF);</span><br><span class="line">           <span class="keyword">if</span> ( <span class="built_in">fputs</span>(recvBuff, stdout) == EOF)</span><br><span class="line">           &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Error : Fputs error \n"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Error : read errpr \n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//  write(connfd, sendBuff, strlen(sendBuff));</span></span><br><span class="line">        close(connfd);</span><br><span class="line">        sleep(<span class="number">1</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. Clinet 端</em></strong></p>
+<p>// main.c</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Detect whether GPIO[17] is high or low</span><br><span class="line">Arthur : Sheldon RUsh Peng</span><br><span class="line">Date : 2013/7/27</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;wiringPi.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h" </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> False 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> True 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> pin 0 <span class="comment">//GPIO[17]</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pin_value = False;</span><br><span class="line">    time_t current_time;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt; \n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (-<span class="number">1</span> == wiringPiSetup())</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init GPIO[17] to be INPUT port </span></span><br><span class="line">    pinMode(pin, INPUT);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        current_time = time(NULL); </span><br><span class="line">        pin_value = digitalRead(pin);</span><br><span class="line">        <span class="keyword">if</span> (True == pin_value)</span><br><span class="line">        &#123;</span><br><span class="line">            count ++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\n\n%s\n"</span>, ctime(&amp;current_time));</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Work station call help [%d] time\n"</span>, count);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (<span class="number">0</span> != socket_clinit_main(argc,argv))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"cannot call help \n"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sleep(<span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.h </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>;</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.c </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Socket code for clinit</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = <span class="number">0</span>, n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> sendBuff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : cannot create a socket\n"</span>); </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(sendBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(sendBuff));</span><br><span class="line">    </span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;serv_addr.sin_addr) &lt;= <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s \n"</span> , <span class="string">" Error : cannot convert text to ip binary"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( connect(sockfd, (<span class="keyword">struct</span> sockaddr *)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr)) &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : canot connect server\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clinit: Send data to server, station id = %d\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">snprintf</span>(sendBuff,  <span class="keyword">sizeof</span>(sendBuff), <span class="string">"hi Sheldon, I am station id [%d]\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clint: data is &#123;%s&#125;\n"</span>, sendBuff);</span><br><span class="line">    write(sockfd, sendBuff, <span class="built_in">strlen</span>(sendBuff));</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line"><span class="comment">/*</span><br><span class="line">    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        recvBuff[n] =0;</span><br><span class="line">        if ( fputs(recvBuff, stdout) == EOF)</span><br><span class="line">        &#123;</span><br><span class="line">           printf("Error : Fputs error \n");</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   if (n &lt; 0)</span><br><span class="line">   &#123;</span><br><span class="line">        printf("Error : read error \n");</span><br><span class="line">        return 1;</span><br><span class="line">   &#125;</span><br><span class="line">*/</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a><a href="/sheldon.is.a.geek/tags/Socket/">Socket</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>QT | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">分類：QT</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/">[QT][GUI][Ubuntu] Hello World !</a></h1>
+  
+
+    <time datetime="2015-03-15T08:38:42.000Z">
+  <span class="day">15</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>最近在學習用QT這個third party 來寫GUI界面.</p>
+<p>之前有用過 QT creator 這個IDE， 用拖曳的方式產生GUI 的component</p>
+<p>用起來挺順手的. 但是整個project 怎麼生出來的, .pro 檔市幹嗎用的, qmke 和make有什麼差異</p>
+<p>完全不清楚在做什麼. 所以今天花了一點時間, 查了要如何透過command line的方式</p>
+<p>一步一步的靠近. <a href="http://www.wikihow.com/Create-Your-First-Qt-Program-on-Ubuntu-Linux" target="_blank" rel="external">我參考這篇</a></p>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>qt_demo.cpp</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QApplication&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QLabel&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QWidget&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">  <span class="function">QLabel <span class="title">hello</span><span class="params">(&lt;center&gt;This is my first QT hello world!!&lt;/center&gt;)</span></span>;</span><br><span class="line">  hello.setWindowTitle(<span class="string">"My First Qt Program"</span>);</span><br><span class="line">  hello.resize(<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line">  hello.show();</span><br><span class="line">  <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="How_to_compile_QT_program_by_command_line">How to compile QT program by command line</h2><p><strong><em>1. copy qt_demo.cpp to your directory.</em></strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp qt_demo<span class="class">.cpp</span> [your directory]</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. generate the .pro file for QT project setting</em></strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake -<span class="keyword">project</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>3. 將你程式需要的QT module, 放到 .pro file (前一步, 產生出來的)</em></strong></p>
+<p>底下是將 core gui widgets 這三個加入要用的module list 裡面. 
+當 compiler 要做compile/link 的時候, 才會找得到.</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">####</span><br><span class="line"># Automatically generated by qmake (3.0) ?? 3? 15 16:33:14 2015</span><br><span class="line">###</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">TEMPLATE = app</span><br><span class="line">TARGET = qt_tutorial</span><br><span class="line">INCLUDEPATH += .</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">QT += core gui</span><br><span class="line">QT += widgets</span><br><span class="line"></span><br><span class="line"><span class="comment"># Input</span></span><br><span class="line">SOURCES += qt_demo.cpp</span><br></pre></td></tr></table></figure>
+<p><strong><em>4.利用qmake 指令, 將make 產生出來</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake</span><br></pre></td></tr></table></figure>
+<p>你會發現, 你現在這個folder 底下, 會產生一個make 檔</p>
+<p><strong><em>5. Compile</em></strong></p>
+<p>就直接下 make 囉!!!
+就會產生一個執行檔.</p>
+<p><strong><em>6. 成果</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./qt_tutorial</span><br></pre></td></tr></table></figure>
+<p>這樣就產生了hello world 了.., 假如要省事的話, </p>
+<p>還是用qt creator 吧... kerker</p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/qt_tutoral.png">
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/QT/">QT</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GUI/">GUI</a><a href="/sheldon.is.a.geek/tags/QT/">QT</a><a href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a><a href="/sheldon.is.a.geek/tags/compiler/">compiler</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

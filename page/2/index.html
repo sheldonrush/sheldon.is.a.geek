@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 2 頁 | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/">[Raspberry Pi] 製作PI的衣服 (Case)</a></h1>
+  
+
+    <time datetime="2015-02-26T09:59:37.000Z">
+  <span class="day">26</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>最近想把PI帶出去外面走走, 但是只帶裸機, 未免有點不體面. 
+所以想他找找有沒有比較他便宜他的外殼可以用, 而且還要有cam module 的外殼.
+網拍找了找, 都是出奇的貴鬆鬆, 都要能夠他買個一個新的PI了. WTF,
+爲了省錢, 所以只能來個DIY.... </p>
+<h2 id="方法">方法</h2><p><strong><em>1. 準被材料</em></strong></p>
+<p>a. 瓦楞紙 20 NTD</p>
+<p>b. 印一張A4 紙 2 NTD --&gt; <a href="http://sheldonrush.github.io/sheldon.is.a.geek/doc/raspberry_case.pdf" target="_blank" rel="external">下載草稿</a></p>
+<p>c. 白膠和橡皮筋 (家裏就有了, 不用錢)</p>
+<p>比一下PI跟草稿圖是不是很合. XD
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/IMG_1242.JPG"></p>
+<p><strong><em>2.痛苦又有趣的開始</em></strong></p>
+<p>a. 將A4紙粘貼在瓦楞紙的上面, 並沿着實線將不要的瓦楞紙剪下來.
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/IMG_1249.JPG"></p>
+<p>b. 我把CAM年粘在正中央, 
+   並用常識把應該折的地方折好, 使力的讓你的PI適應新的衣服 QQ. 
+   就大功告成了</p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/IMG_1250.JPG">
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/IMG_1251.JPG">
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/IMG_1252.JPG">
+<p><strong><em>3. 結論 </em></strong></p>
+<p>我果然不適合做手工藝的東西, 弄的太醜了, 或許應該來買一臺3D printer
+弄個模子之類的, 就不用這麼花時了. 
+剩下的就等着明天來實際, 測試一下我的車用行車記錄器. 
+HaHa</p>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Case/">Case</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/">[Raspberry Pi] 要如何自動的進入shell裏面, 而不需要輸入密碼</a></h1>
+  
+
+    <time datetime="2015-02-25T15:35:19.000Z">
+  <span class="day">25</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>假如你寫了一程式， 但是你希望他能在Pi上, 從一上電後自己能夠執行. 
+要怎麼做呢?</p>
+<h2 id="方法">方法</h2><p>我參考了這篇. <a href="http://dreamgreenhouse.com/projects/2013/picar/" target="_blank" rel="external">auto_login</a></p>
+<p><strong><em>1. 將/etc/inittab 裏面的, 下面這行mark.</em></strong></p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line <span class="number">54</span> =<span class="function">=&gt;</span> <span class="comment">#1:2345:respawn:/sbin/getty --noclear 38400 tty1</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>2. 並將底下這行附在剛剛mark的地方</em></strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Line </span><span class="number">55</span> ==&gt; <span class="number">1</span><span class="symbol">:</span><span class="number">2345</span><span class="symbol">:respawn</span><span class="symbol">:/bin/login</span> -f pi tty1 &lt;<span class="regexp">/dev/tty</span>1 &gt;<span class="regexp">/dev/tty</span>1 <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>不知道有沒有人會跟我一樣好奇, 爲什麼上面這行, 沒有帶密碼但是卻能夠, 自動的登入. 
+我google了一下, 有<a href="http://www.raspberrypi.org/forums/viewtopic.php?f=63&amp;t=66251" target="_blank" rel="external">網友說</a></p>
+<blockquote>
+<p>The commands in inittab are run as root and root does not need passwords for many things.</p>
+</blockquote>
+<p>也就是說， 在執行inittab的時候, 程式就是root了, 所以根本不需要密碼. </p>
+<p><strong><em>3. 將你要跑的script 放在.bashrc 裏面.</em></strong></p>
+<p>例如底下</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./your_script<span class="class">.sh</span> &amp;</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/">[Raspberry Pi] How to get the root</a></h1>
+  
+
+    <time datetime="2015-02-25T14:08:00.000Z">
+  <span class="day">25</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p><strong><em>How to get the root on Raspberry Pi  ?  </em></strong></p>
+<p>Just use the following command.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> su</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a><a href="/sheldon.is.a.geek/tags/root/">root</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/">[Network] fping的用法</a></h1>
+  
+
+    <time datetime="2015-02-25T10:04:09.000Z">
+  <span class="day">25</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="目的">目的</h1><p>之前遇到了一個問題, 假如我現在在一個封閉的區域網路內, 
+我要如何得知在這個網域裏面, 有存在哪些其他電腦. </p>
+<h1 id="做法">做法</h1><p>這時後就可以用ubuntu 裏面的fpring 來解決這個問題. </p>
+<p><strong><em>1.先利用ifconfig 來觀察, 你現在所在的網域.</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/ifconfig.jpeg">
+<p><strong><em>2. 再利用fping 來觀察其他電腦IP</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/fping.jpeg">
+<p><strong><em>-g addr/mask</em></strong></p>
+<p>   Generate a target list from a supplied IP netmask, or a starting and ending IP.  Specify the netmask or start/end in the targets
+   portion of the command line. If a network with netmask is given, the network and broadcast addresses will be excluded. ex. To ping the
+   network 192.168.1.0/24, the specified command line could look like either:</p>
+<p>   fping -g 192.168.1.0/24 or fping -g 192.168.1.1 192.168.1.254</p>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Network/">Network</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/network/">network</a><a href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/">[GDB] 基本指令</a></h1>
+  
+
+    <time datetime="2015-02-04T00:22:05.000Z">
+  <span class="day">4</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>GDB 是一個很好的除錯指令, 這給了一個方法, 去快速知道你的程式發生了闍麼問題. </p>
+<p>而不要一直使用<strong><em>printf</em></strong>去做debug. gdb 可以用在 server/client 的online debug 模式,</p>
+<p>或是僅僅offline 的觀察coredump. </p>
+<p>使用gdb 除錯, 你必須在編code的時候, 在gcc 的compiler option 多加<strong><em>-g</em></strong></p>
+<p>底下是我最近練習到的gdb指令.</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(gdb) r     <span class="string">\\</span> 開始執行程式</span><br><span class="line">(gdb) c     <span class="string">\\</span> 假如你現在停在breakpoint, 接着執行程式（<span class="keyword">continue</span>） </span><br><span class="line">(gdb) b <span class="keyword">function</span>  <span class="string">\\</span> 設定中斷點</span><br><span class="line">(gdb) b <span class="attribute">file</span>:line <span class="string">\\</span> 設定中斷點的另一個方法</span><br><span class="line">(gdb) layout src  <span class="string">\\</span> 將現在程式跑到的位置,  跟src code做一個mapping.</span><br><span class="line">(gdb) stack <span class="string">\\</span> 觀察現在的stack</span><br><span class="line">(gdb) info all-registers <span class="string">\\</span> 觀察現在所有的registers</span><br><span class="line">(gdb) p $r0      <span class="string">\\</span> 讀取現在的cpu $r0 registers</span><br><span class="line">(gdb) threads    <span class="string">\\</span> 觀察program 裏面, 所有的thread 運行的情況卒. (有點像ps)</span><br><span class="line">(gdb) s          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 進入<span class="keyword">function</span>的stack. </span><br><span class="line">(gdb) c          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, ___不___進入<span class="keyword">function</span>的stack</span><br><span class="line">(gdb) <span class="keyword">return</span>     <span class="string">\\</span> 離開現在的fucntion, 返回calling</span><br><span class="line">(gdb) jump line  <span class="string">\\</span> 將PC 指向程式的line的位置</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/GDB/">GDB</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GDB/">GDB</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a></h1>
+  
+
+    <time datetime="2015-01-29T15:10:14.000Z">
+  <span class="day">29</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
+<p>因式分解 </p>
+<p><strong><em>&amp;*ptr</em></strong></p>
+<ol>
+<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
+<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
+</ol>
+<p><strong><em>*&amp;ptr</em></strong></p>
+<ol>
+<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
+<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
+</ol>
+<p>因此
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/pointer/">pointer</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/pointer/">pointer</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/">[GCC][MACRO-LOG]</a></h1>
+  
+
+    <time datetime="2015-01-29T00:21:34.000Z">
+  <span class="day">29</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>以前一直是用printf來debug, 每次都寫差不多格式的log,
+所以去查了一下, 在巨集裏面要如何把default foramt 添加上去,
+是時後要學點GDB了.... XD.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine <span class="function"><span class="title">DBG</span><span class="params">(fmt, vars...)</span></span> <span class="function"><span class="title">printf</span><span class="params">(<span class="string">"[%s][%d] "</span>fmt, __FUNCTION__, __LINE__, ##vars)</span></span></span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/GCC/">GCC</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GCC/">GCC</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/">理財-基本面名詞-損益表</a></h1>
+  
+
+    <time datetime="2015-01-16T00:49:39.000Z">
+  <span class="day">16</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="損益表">損益表</h1><p>要看一間公司賺不賺錢, 就可以從損益表, 一窺究竟. 損益表是由許多經濟名詞組合
+而成, 所以要想從損益表來得知公司情況好壞的話, 
+這些名詞是必須要清楚明白的.</p>
+<p><strong>營業收入</strong> = 公司從客戶上賺的錢</p>
+<p><strong>營業成本</strong> = (直接成本) 生產產品所需要的原物料成本, 經營公司所用倒的人事成本, 公司所在辦公大樓的租金</p>
+<p><strong>營業毛利</strong> = 營業收入-營業成本</p>
+<p><strong>營業費用</strong> = （間接成本）行銷, 研發經費</p>
+<p><strong>營業外收入</strong> = 與本業無關的收入</p>
+<p><strong>營業外支出</strong> = 與本業無關的支出</p>
+<p><strong>營業外收支</strong> = 營業外收入 - 營業外支出</p>
+<p><strong>稅前純益</strong> = 營業毛利 - 營業費用 - 營業外收支</p>
+<p><strong>稅後純益</strong> = 稅後純益 - 稅</p>
+<h2 id="EPS_(Earning_Per_Share)_,_公司最後就會用稅後純益來決定每一個股要發多少錢給各股東-">EPS (Earning Per Share) , 公司最後就會用稅後純益來決定每一個股要發多少錢給各股東.</h2>
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/理財/">理財</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Finance/">Finance</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">My First Post</a></h1>
+  
+
+    <time datetime="2015-01-13T16:06:08.000Z">
+  <span class="day">14</span><span class="month">Jan</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h1 id="Why_Do_I_Create_This_Blog_?">Why Do I Create This Blog ?</h1><p>This blog tell what I learn in my life. I waste a lot of time in nothing thing. 
+So right now, it is the time to tell more about the signitifant thing, such as 
+technical skill, knowledgement, programming, life news, funny things, how to
+manage your finance and how to be a wonderful man. </p>
+<h1 id="Who_Am_I_?">Who Am I ?</h1><p>I was a physics students in the university. Then I got the master degree of EE.
+But I was interested in computer science for a long time, so I took an effert to learn the knowledge by myself. 
+Finally, I am a software engineer. Hope that I can be an entrepreneur in the software field. </p>
+<h2 id="Technical_Skill">Technical Skill</h2><ol>
+<li>Programming : C/Matlab/Python/Shell Scripts</li>
+<li>OS : Linux/Ecos</li>
+<li>Embedded Chip : Raspberry Pi/ MSTAR&#39;s Chip</li>
+<li>Distributed revision control system : GIT</li>
+<li>Android RIL</li>
+<li>Video Decoder knowldege.</li>
+<li>TV knowledge (T-CON/Over-Driver/Decompression/Local Dimming)</li>
+<li>Closed Caption knowledge</li>
+</ol>
+<h2 id="Working_Experience">Working Experience</h2><h3 id="MSTAR_(2014/2~now)">MSTAR (2014/2~now)</h3><h3 id="HTC_(2011/11~2014/1)">HTC (2011/11~2014/1)</h3><h3 id="CHEMI_(2008/11~2011/11)">CHEMI (2008/11~2011/11)</h3><h2 id="Academic">Academic</h2><h3 id="Master_Degree">Master Degree</h3><h3 id="Bachelor">Bachelor</h3><h1 id="How_to_contact_me_?">How to contact me ?</h1><p><em>PM me to following email</em></p>
+<blockquote>
+<p><strong>rushpeng@gmail.com</strong></p>
+</blockquote>
+<p><em>LinkedIn</em> </p>
+<blockquote>
+<p><strong><a href="https://www.linkedin.com/profile/public-profile-settings?trk=prof-edit-edit-public_profile" target="_blank" rel="external">My_LinkedIN</a></strong></p>
+</blockquote>
+<p><em>Phone</em></p>
+<blockquote>
+<p><strong>(+886)918721062</strong></p>
+</blockquote>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/ME/">ME</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/geek/">geek</a><a href="/sheldon.is.a.geek/tags/resume/">resume</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+
+
+<nav id="pagenavi">
+  
+    <a href="/sheldon.is.a.geek/" class="alignleft prev">上一頁</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>

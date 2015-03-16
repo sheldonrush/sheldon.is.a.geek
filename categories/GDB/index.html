@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>GDB | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">分類：GDB</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/">[GDB] 基本指令</a></h1>
+  
+
+    <time datetime="2015-02-04T00:22:05.000Z">
+  <span class="day">4</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>GDB 是一個很好的除錯指令, 這給了一個方法, 去快速知道你的程式發生了闍麼問題. </p>
+<p>而不要一直使用<strong><em>printf</em></strong>去做debug. gdb 可以用在 server/client 的online debug 模式,</p>
+<p>或是僅僅offline 的觀察coredump. </p>
+<p>使用gdb 除錯, 你必須在編code的時候, 在gcc 的compiler option 多加<strong><em>-g</em></strong></p>
+<p>底下是我最近練習到的gdb指令.</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(gdb) r     <span class="string">\\</span> 開始執行程式</span><br><span class="line">(gdb) c     <span class="string">\\</span> 假如你現在停在breakpoint, 接着執行程式（<span class="keyword">continue</span>） </span><br><span class="line">(gdb) b <span class="keyword">function</span>  <span class="string">\\</span> 設定中斷點</span><br><span class="line">(gdb) b <span class="attribute">file</span>:line <span class="string">\\</span> 設定中斷點的另一個方法</span><br><span class="line">(gdb) layout src  <span class="string">\\</span> 將現在程式跑到的位置,  跟src code做一個mapping.</span><br><span class="line">(gdb) stack <span class="string">\\</span> 觀察現在的stack</span><br><span class="line">(gdb) info all-registers <span class="string">\\</span> 觀察現在所有的registers</span><br><span class="line">(gdb) p $r0      <span class="string">\\</span> 讀取現在的cpu $r0 registers</span><br><span class="line">(gdb) threads    <span class="string">\\</span> 觀察program 裏面, 所有的thread 運行的情況卒. (有點像ps)</span><br><span class="line">(gdb) s          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 進入<span class="keyword">function</span>的stack. </span><br><span class="line">(gdb) c          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, ___不___進入<span class="keyword">function</span>的stack</span><br><span class="line">(gdb) <span class="keyword">return</span>     <span class="string">\\</span> 離開現在的fucntion, 返回calling</span><br><span class="line">(gdb) jump line  <span class="string">\\</span> 將PC 指向程式的line的位置</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/GDB/">GDB</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/GDB/">GDB</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>
