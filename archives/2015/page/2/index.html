@@ -59,6 +59,67 @@
   <header>
     
   
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/">[Raspberry Pi] 要如何自動的進入shell裏面, 而不需要輸入密碼</a></h1>
+  
+
+    <time datetime="2015-02-25T15:35:19.000Z">
+  <span class="day">25</span><span class="month">Feb</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>假如你寫了一程式， 但是你希望他能在Pi上, 從一上電後自己能夠執行. 
+要怎麼做呢?</p>
+<h2 id="方法">方法</h2><p>我參考了這篇. <a href="http://dreamgreenhouse.com/projects/2013/picar/" target="_blank" rel="external">auto_login</a></p>
+<p><strong><em>1. 將/etc/inittab 裏面的, 下面這行mark.</em></strong></p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line <span class="number">54</span> =<span class="function">=&gt;</span> <span class="comment">#1:2345:respawn:/sbin/getty --noclear 38400 tty1</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>2. 並將底下這行附在剛剛mark的地方</em></strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Line </span><span class="number">55</span> ==&gt; <span class="number">1</span><span class="symbol">:</span><span class="number">2345</span><span class="symbol">:respawn</span><span class="symbol">:/bin/login</span> -f pi tty1 &lt;<span class="regexp">/dev/tty</span>1 &gt;<span class="regexp">/dev/tty</span>1 <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>不知道有沒有人會跟我一樣好奇, 爲什麼上面這行, 沒有帶密碼但是卻能夠, 自動的登入. 
+我google了一下, 有<a href="http://www.raspberrypi.org/forums/viewtopic.php?f=63&amp;t=66251" target="_blank" rel="external">網友說</a></p>
+<blockquote>
+<p>The commands in inittab are run as root and root does not need passwords for many things.</p>
+</blockquote>
+<p>也就是說， 在執行inittab的時候, 程式就是root了, 所以根本不需要密碼. </p>
+<p><strong><em>3. 將你要跑的script 放在.bashrc 裏面.</em></strong></p>
+<p>例如底下</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./your_script<span class="class">.sh</span> &amp;</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
     <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/">[Raspberry Pi] How to get the root</a></h1>
   
 
