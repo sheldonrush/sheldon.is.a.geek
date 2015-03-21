@@ -68,11 +68,11 @@
 <p>底下的sample 主要做了底下這些事情. 一行一行做註解， 會殺了我...所以我列出concept, 讓入門人有個概念</p>
 <ol>
 <li>我用一個structure --&gt;  DArray, 來當作動態的array. 主要就是操作裏面的data</li>
-<li>這個sample 有讓array長大的api, 以及讓array所小的api, 可以參考.h 檔去追</li>
+<li>這個sample code有讓array長大的api, 以及讓array所小的api, 可以參考.h 檔去追</li>
 <li>DArray 裏面有兩個siz,
    int array_size;           --&gt; data array 的大小
    int allocated_array_size; --&gt; 我們用 malloc 實際跟系統要的memory size</li>
-<li>爲什麼要分兩個size呢, 原因是因爲跟效率有關, 你應該不會希望, 當我們要新增刪除一個member 就要
+<li>爲什麼要分兩個size呢, 原因是因爲跟記憶體有關, 你應該不會希望, 當我們要新增刪除一個member 就要
 call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynamic array 的好處之一...</li>
 </ol>
 <h2 id="Sample_Code">Sample Code</h2><p><strong><em>main.c</em></strong></p>
