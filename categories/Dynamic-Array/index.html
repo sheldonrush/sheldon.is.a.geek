@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dynamic Array | Sheldon</title>
+  <meta name="author" content="Sheldon Peng">
+
+  
+  
+
+  <link rel="alternate" href="/sheldon.is.a.geek/atom.xml" title="Sheldon" type="application/atom+xml">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/sheldon.is.a.geek/">Home</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a></li>
+    
+      <li><a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">分類：Dynamic Array</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
+    </form>
+  </div>
+</header>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/">[C][Dynamic Array] Exercise to operate the dyanmic array </a></h1>
+  
+
+    <time datetime="2015-03-21T07:28:52.000Z">
+  <span class="day">21</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行...</p>
+<p>哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算</p>
+<p>靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西, </p>
+<p>我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dynamic array 這個我還是第一次各聽到</p>
+<p>（是不是很虛， 沒辦法, 小弟不是資工的...走一步算一步吧!!） </p>
+<p>今天就花了時間, 學習了一下要如何操作 dynamic array... </p>
+<h2 id="結論">結論</h2><p>先來下個結論, 一開始我以爲dynamic array 是指array 可以動態的改變, 將底下的array, 大小改變...</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> static_array[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<p>但是我做了實驗, 發現是不行的(有錯的話, 請糾正我吧！！) </p>
+<p>基本上就是透過 malloc 要一塊heap 的記憶體,然後再用 realloc 的方式, 去放大縮小你的heap空間.</p>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>main,c</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******************************</span><br><span class="line"> *  Purpose : Exercise to operate the dynamic array</span><br><span class="line"> *  Arthur  : Sheldon Peng</span><br><span class="line"> *  Date    : 2015/3/21 </span><br><span class="line"> * */</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "main.h"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SR_DBG(fmt, vargs...) printf("[%s][%d]" fmt, __FUNCTION__, __LINE__, ##vargs)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> CHECK_NULL(PTR)  <span class="keyword">if</span>(!PTR)    \</span></span><br><span class="line">                          &#123;<span class="built_in">printf</span>(<span class="string">"ERROR!! the pointer is NULL \r\n"</span>);&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> RET <span class="title">DArray_shrink</span><span class="params">(DArray* thiz, <span class="keyword">int</span> shrink_size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  <span class="keyword">void</span>* shrink_data = realloc((<span class="keyword">void</span>*)thiz-&gt;data, shrink_size*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ( NULL!=shrink_data)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (<span class="keyword">char</span>*)shrink_data; </span><br><span class="line">    thiz-&gt;allocated_array_size = shrink_size; </span><br><span class="line">    SR_DBG(<span class="string">" SHRINK size to %d \r\n"</span>, shrink_size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"FAIL to realloc array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> RET_SUCCESS;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_delete</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">" ERROR to delete the dynamic array member beacuse the index is not belong into dynamic array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// remove the member from the dynamic array</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> (i=index;i&lt;(thiz-&gt;array_size-<span class="number">1</span>);i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i+<span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size-<span class="number">1</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Shrink the dynamic array if the pool size is enough to use .</span></span><br><span class="line">  <span class="keyword">int</span> shrink_size = thiz-&gt;array_size + (thiz-&gt;array_size&gt;&gt;<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (shrink_size &lt; thiz-&gt;allocated_array_size)</span><br><span class="line">  &#123;</span><br><span class="line">     <span class="keyword">if</span> ( RET_FAIL == DArray_shrink(thiz, shrink_size) )</span><br><span class="line">     &#123;</span><br><span class="line">       SR_DBG(<span class="string">"FAILLL to shrink the dynamic array \r\n"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> RET <span class="title">DArray_enlarge</span><span class="params">(DArray* thiz, <span class="keyword">int</span> enlarge_size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  <span class="keyword">void</span>* enlarge_data = realloc((<span class="keyword">void</span>*)thiz-&gt;data, enlarge_size*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( NULL!=enlarge_data )</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (<span class="keyword">char</span>*)enlarge_data;</span><br><span class="line">    thiz-&gt;allocated_array_size = enlarge_size;</span><br><span class="line">    SR_DBG(<span class="string">" ENLARGE size to %d \r\n"</span>, enlarge_size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"FAIL to realloc array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> RET_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_insert</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index, <span class="keyword">char</span> insert_data)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Your index is wrong, because the index is not wihin the array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (thiz-&gt;allocated_array_size &lt; thiz-&gt;array_size+<span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Because the space is not enough, so we need to enlarge the space for dynamic array \r\n"</span>);</span><br><span class="line">    <span class="keyword">int</span> enlarge_size = (thiz-&gt;array_size&gt;&gt;<span class="number">1</span>) + thiz-&gt;array_size;</span><br><span class="line">    <span class="keyword">if</span> (RET_FAIL == DArray_enlarge(thiz, enlarge_size ))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"FAILLL to enlarge the space of dynamic array \r\n"</span>);</span><br><span class="line">      <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> ( i=thiz-&gt;array_size; i&gt;index; i--)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i-<span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  thiz-&gt;data[index] = insert_data;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display_DArray</span><span class="params">(DArray* DArray_ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> size = DArray_ptr-&gt;array_size;</span><br><span class="line"></span><br><span class="line">  SR_DBG(<span class="string">"My Dynamic Array is : \r\n"</span>);</span><br><span class="line">  SR_DBG(<span class="string">"size is %d \r\n"</span>, size);</span><br><span class="line">  SR_DBG(<span class="string">"allocated size is %d \r\n"</span>, DArray_ptr-&gt;allocated_array_size);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i=<span class="number">0</span>; i&lt;size; i++)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%d, "</span>, DArray_ptr-&gt;data[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\r\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="comment">// Init my dynamic array</span></span><br><span class="line">  DArray myDArray;</span><br><span class="line">  myDArray.array_size = MINIMUN_ARRAY_SIZE;</span><br><span class="line">  myDArray.allocated_array_size = MINIMUN_ARRAY_SIZE+ (MINIMUN_ARRAY_SIZE&gt;&gt;<span class="number">1</span>); </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//char InitArray[myDArray.array_size];</span></span><br><span class="line">  myDArray.data = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*myDArray.array_size);</span><br><span class="line">  <span class="built_in">memset</span>((<span class="keyword">void</span>*)myDArray.data, <span class="number">0x0</span>, (myDArray.array_size)*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Display all dynamic array members. </span></span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// test</span></span><br><span class="line">  SR_DBG(<span class="string">"======== TEST for ENLARGINH D_ARRAY \r\n"</span>);</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, <span class="number">0</span>, i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, <span class="number">5</span>, i);</span><br><span class="line">  &#125;</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">  SR_DBG(<span class="string">"======== TEST for ENLARGINH D_ARRAY \r\n"</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">5</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">6</span>);</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>main.h</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MINIMUN_ARRAY_SIZE 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  RET_SUCCESS,</span><br><span class="line">  RET_FAIL,</span><br><span class="line">&#125;RET;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _DArray</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> array_size;</span><br><span class="line">  <span class="keyword">int</span> allocated_array_size;</span><br><span class="line">  <span class="keyword">char</span>* data;</span><br><span class="line">&#125;DArray;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_insert</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index, <span class="keyword">char</span> insert_data)</span></span>;</span><br><span class="line"><span class="function">RET <span class="title">DArray_delete</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index)</span></span>;</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a><a href="/sheldon.is.a.geek/tags/realloc/">realloc</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+
+  <nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/sheldon.is.a.geek/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2015 Sheldon Peng
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/sheldon.is.a.geek/js/jquery.imagesloaded.min.js"></script>
+<script src="/sheldon.is.a.geek/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'rushpeng';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/sheldon.is.a.geek/js/phasebeam.js"></script>
+</body>
+</html>
