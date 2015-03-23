@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>彙整 | Sheldon</title>
+  <title>Archives | Sheldon</title>
   <meta name="author" content="Sheldon Peng">
 
   
@@ -31,10 +31,10 @@
   <div id="content" class="inner">
 
 <header id="archive-header">
-  <h1 class="alignleft">彙整</h1>
+  <h1 class="alignleft">Archives</h1>
   <div class="search alignright">
     <form action="http://google.com/search" method="get" accept-charset="utf-8">
-      <input type="search" name="q" results="0" placeholder="搜尋">
+      <input type="search" name="q" results="0" placeholder="Search">
       <input type="hidden" name="q" value="site:sheldonrush.github.io/sheldon.is.a.geek">
     </form>
   </div>
@@ -68,20 +68,20 @@
   </header>
   <div class="entry-content">
     
-      <h2 id="Purpose">Purpose</h2><p>今天在練習如何使用pthread_create 和p pthread_join 去操作multi-thread 的操作.</p>
+      <h2 id="Purpose">Purpose</h2><p>今天在練習如何使用pthread_create 和p pthread_join 來練習multi-thread 的操作.</p>
 <p>multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch,</p>
 <p>整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成</p>
 <p>每個thread access 到其他人thread要用的資料, 底下有兩個sample code, 第一個sample code,</p>
-<p>不小心就出現這樣的錯誤.</p>
+<p>就出現這樣的錯誤.</p>
 <h2 id="Compiler">Compiler</h2><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc <span class="keyword">main</span>.c -lpthread -o <span class="keyword">main</span></span><br></pre></td></tr></table></figure>
 <p>由於pthread是在libpthread.so的lib裏面, 所以我們在compiler 的時候, 必須將pthread lib include 進去. </p>
 <p>.c 檔裏面, 也記得要include pthread.h.</p>
 <h2 id="Sample_Code_1">Sample Code 1</h2><p>你可以從底下的結果看出一個奇特的現象,</p>
 <p>我產生了10個thread, 但是印出thread id 的時候， thread id =5, 卻印了4次. </p>
-<p>這代表, 我create thread 的時侯, 帶下去的thread id (i), 被其他thread access到了.</p>
-<p>造成這個問題, 修這個bu的最簡單方法, 可以參考Sample Code 2.</p>
+<p>這代表, 我create thread 的時侯, 帶下去的thread id (i), 被其他thread access到了. 造成了這個問題, </p>
+<p>修這個bug的最簡單方法, 可以參考Sample Code 2.</p>
 <p>關於 pthread_join 的使用, 也很單純. </p>
-<p>他就wait 那裡,等待他要wait 的pthread id 被終止, 假如沒有終止的話, 那就GG了. </p>
+<p>他就wait 那裡,等待他要wait 的pthread id 被終止, 假如沒有終止的話, 那就GG了, 系統就會hang在那裏. </p>
 <p><strong><em>main.c</em></strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;pthread.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> THREAD_NUM 10</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SR_DBG(fmt,arg...) printf("[%s][%d] "fmt, __FUNCTION__,__LINE__, ##arg)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* thread_routine(<span class="keyword">void</span>* argv)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> my_id = *((<span class="keyword">int</span>*)argv);</span><br><span class="line">  SR_DBG(<span class="string">"hello, i'm new thread id, my name is id[%d] \r\n"</span>,my_id);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">create_multi_thread_test</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;i))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, create thread FAILLL!!! \r\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Wait for termination of thread id [%d] \r\n"</span>, i);</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, Mother thread cannot wait for thread id [%d]\r\n"</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  SR_DBG(<span class="string">"This is multi-thread test code \r\n"</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (-<span class="number">1</span> == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"the multi thread test is FAILLLLL!!! \r\n"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong><em>Result1</em></strong></p>
@@ -700,7 +700,7 @@ About socket programming, server can receive the data from multi client.</p>
   <nav id="pagenavi">
   
   
-    <a href="/sheldon.is.a.geek/archives/page/2/" class="alignright next">下一頁</a>
+    <a href="/sheldon.is.a.geek/archives/page/2/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
