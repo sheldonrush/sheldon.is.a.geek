@@ -59,6 +59,72 @@
   <header>
     
   
+    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/">[Ubuntu]如何在Ubuntu底下安裝LINE</a></h1>
+  
+
+    <time datetime="2015-02-28T17:08:03.000Z">
+  <span class="day">1</span><span class="month">Mar</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <h2 id="目的">目的</h2><p>我每次要用line的時候,都需要把virtual box的windows打開，這樣才能使用
+PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何使用LINE.</p>
+<p><strong><em>1. Ubuntu 版本</em></strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ <span class="keyword">cat</span> /etc/issue</span><br><span class="line">Ubuntu 14.04.2 LTS \<span class="keyword">n</span> \<span class="keyword">l</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>2. Wine 版本</em></strong></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ wine <span class="comment">--version</span></span><br><span class="line">wine-<span class="number">1.6</span><span class="number">.2</span></span><br></pre></td></tr></table></figure>
+<h2 id="方法">方法</h2><p>我參考了這個<a href="http://askubuntu.com/questions/517932/how-can-i-install-line" target="_blank" rel="external">聯結</a></p>
+<p><strong><em>0. 安裝p7zip以及vcrun2008</em></strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install p7zip  # [<span class="link_label">p7zip</span>](<span class="link_url">http://packages.ubuntu.com/zh-tw/lucid/utils/p7zip-full</span>)是具有高壓縮率的套件</span><br><span class="line">wget http://winetricks.org/winetricks # [<span class="link_label">winetricks</span>](<span class="link_url">http://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=66666</span>) 是wine自動安裝函式庫的好工具XD</span><br><span class="line">chmod +x winetricks # 賦予執行的權利</span><br><span class="line">./winetricks #執行winetricks</span><br></pre></td></tr></table></figure>
+<p><strong><em>參考底下圖片安裝vcrun2008</em></strong>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks1.png">
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks2.png">
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks3.png"></p>
+<p><strong><em>1. 產生一個暫存的line_tmp, 並cd 進去</em></strong></p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> line_tmp</span><br><span class="line"><span class="built_in">cd</span> line_tmp</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. wget 最新的LINE version, 並且利用7z去extract 資料出來</em></strong></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//dl.desktop.line.naver.jp/naver/LINE/win/LineInst.exe</span></span><br><span class="line"><span class="number">7</span>z x -y LineInst.exe</span><br><span class="line"><span class="preprocessor"># x      eXtract with full paths</span></span><br><span class="line"><span class="preprocessor"># -y     Assume Yes on all queries</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>3. 由於你7z extract 出來的三個資料夾都是亂碼, 所以用node number去將名字改成LINE/resources,並將resources 放到LINE folder中</em></strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">inode1=$(<span class="keyword">ls</span> -ilab | awk 'FNR == 4 &#123;<span class="keyword">print</span> $1&#125;')</span><br><span class="line">inode2=$(<span class="keyword">ls</span> -ilab | awk 'FNR == 6 &#123;<span class="keyword">print</span> $1&#125;')</span><br><span class="line">find . -inum <span class="label">$inode</span>1 -exec mv &#123;&#125; <span class="keyword">LINE</span> \;       #將inode1的folder更名成<span class="keyword">LINE</span></span><br><span class="line">find . -inum <span class="label">$inode</span>2 -exec mv &#123;&#125; resources \;  #將indoe2的folder更名成resources</span><br><span class="line">mv ./resources/res ./<span class="keyword">LINE</span></span><br><span class="line">mv ./<span class="keyword">LINE</span> ../</span><br><span class="line"><span class="keyword">cd</span> ..</span><br><span class="line"><span class="keyword">rm</span> -R line_tmp</span><br></pre></td></tr></table></figure>
+<p><strong><em>4. 用wine執行 Line.exe</em></strong></p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wine <span class="keyword">Line</span>.exe</span><br></pre></td></tr></table></figure>
+
+    
+    
+    <footer class="meta">
+      
+  <div class="cats">
+<a href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a></div>
+
+      
+  <div class="tags">
+<a href="/sheldon.is.a.geek/tags/Line/">Line</a><a href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article>
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
     <h1 class="title"><a href="/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/">[Raspberry Pi] 製作PI的衣服 (Case)</a></h1>
   
 
