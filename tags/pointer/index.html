@@ -41,9 +41,11 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/">Home</a>
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a>
         
       </nav>
       <nav id="sub-nav">
@@ -61,36 +63,65 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/sheldon.is.a.geek/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" class="archive-article-date">
-  <time datetime="2015-01-29T15:10:14.000Z" itemprop="datePublished">Jan 29</time>
+    <article id="post--Pointer-Simple-concept" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" class="article-date">
+  <time datetime="2015-01-29T15:10:14.000Z" itemprop="datePublished">Jan 29 2015</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a>
+      <a class="article-title" href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
+<p>因式分解 </p>
+<p><strong><em>&amp;*ptr</em></strong></p>
+<ol>
+<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
+<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
+</ol>
+<p><strong><em>*&amp;ptr</em></strong></p>
+<ol>
+<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
+<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
+</ol>
+<p>因此
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="ci7lypdwv002qnlxkjls5kzws" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
+
+
   
-  
-    </div></section>
   
 </section>
         
@@ -178,9 +209,11 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Vdieo</a>
   
 </nav>
     

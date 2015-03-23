@@ -41,9 +41,11 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/">Home</a>
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a>
         
       </nav>
       <nav id="sub-nav">
@@ -61,36 +63,62 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/sheldon.is.a.geek/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" class="archive-article-date">
-  <time datetime="2015-02-25T10:04:09.000Z" itemprop="datePublished">Feb 25</time>
+    <article id="post--Network-fping的用法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" class="article-date">
+  <time datetime="2015-02-25T10:04:09.000Z" itemprop="datePublished">Feb 25 2015</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Network/">Network</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/">[Network] fping的用法</a>
+      <a class="article-title" href="/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/">[Network] fping的用法</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="目的">目的</h1><p>之前遇到了一個問題, 假如我現在在一個封閉的區域網路內, 
+我要如何得知在這個網域裏面, 有存在哪些其他電腦. </p>
+<h1 id="做法">做法</h1><p>這時後就可以用ubuntu 裏面的fpring 來解決這個問題. </p>
+<p><strong><em>1.先利用ifconfig 來觀察, 你現在所在的網域.</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/ifconfig.jpeg">
+<p><strong><em>2. 再利用fping 來觀察其他電腦IP</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/fping.jpeg">
+<p><strong><em>-g addr/mask</em></strong></p>
+<p>   Generate a target list from a supplied IP netmask, or a starting and ending IP.  Specify the netmask or start/end in the targets
+   portion of the command line. If a network with netmask is given, the network and broadcast addresses will be excluded. ex. To ping the
+   network 192.168.1.0/24, the specified command line could look like either:</p>
+<p>   fping -g 192.168.1.0/24 or fping -g 192.168.1.1 192.168.1.254</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="ci7lypdwy002wnlxkrzn7hyt8" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
+
+
   
-  
-    </div></section>
   
 </section>
         
@@ -178,9 +206,11 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Vdieo</a>
   
 </nav>
     
