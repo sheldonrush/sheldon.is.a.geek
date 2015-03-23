@@ -91,6 +91,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li></ol>
+        </div>
+        
         <h2 id="目的">目的</h2><p>最近遇到一個問題, 假如我希望我的程式能夠知道某個symbolic link 的指向. </p>
 <p>但是我又不希望用 fork+exec or system 的方式, 去產生另一個process 來執行&quot;ls -l&quot;</p>
 <p>直接單純的使用 <strong><em>uinstd.h</em></strong> 裏面的readlink來得到link的指向.</p>
