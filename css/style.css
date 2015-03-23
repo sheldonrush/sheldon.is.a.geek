@@ -302,7 +302,7 @@ body {
 }
 .article-entry ol,
 .widget ol {
-  list-style: decimal;
+  list-style: none;
 }
 .article-entry dt,
 .widget dt {
