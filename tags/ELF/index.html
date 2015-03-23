@@ -42,88 +42,27 @@
 
 
   
-    <article class="post">
   
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <header>
-    
-  
-    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/">[C][ELF] Attribute Section</a></h1>
-  
-
-    <time datetime="2015-03-12T16:58:10.000Z">
-  <span class="day">13</span><span class="month">Mar</span>
-</time>
-  </header>
-  <div class="entry-content">
-    
-      <h2 id="目的">目的</h2><p>這幾天看到有人的code, 在資料或是function前面多加 attribute 的關鍵字</p>
-<p>所以很好奇， 這東東是幹什麼用的. 花了一點時間讀了相關的<a href="http://enginechang.logdown.com/posts/248172-linker-loader-library" target="_blank" rel="external">blog</a>, 自己消化了一下, 寫了測試的code,  來驗證一下. </p>
-<p>自定section 的目的,  應該是要提高cache 的使用效率. 這樣的話, 但是相對的</p>
-<p>你要code size會變大,  畢竟你多了section header 的資料. </p>
-<h2 id="Background">Background</h2><p>在開始前可能要先明白什麼叫做section, 什麼是objuct code, 什麼ELF檔, </p>
-<p>objuct code 就是我們.c 檔compiler 過後的檔案， 假如在透過linker 的話, </p>
-<p>就會將所有的.o檔, reloate 成elf. </p>
-<p>一個.o 檔其實就可以把他拆解成許多的section. 相同特性的資料, 就會擺成相同的secion上面. </p>
-<p>那我們是否可以自定自己的section 呢, 答案是可以的, 讃阿～～</p>
-<p>就是透過attribute 來告知compiler, 我要自定自己的section.</p>
-<h2 id="快接近重點了XDD">快接近重點了XDD</h2><p>首先我寫了一個程式, 兩個file, 每個file, 任一個function.</p>
-<p>其實只是去印 global array 的值,  只是我將 int_array 放到我自定的section當中, </p>
-<p>我取名成 .sheldon.data </p>
-<p><strong><em>main.c</em></strong></p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// date : 2015/03/12</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;string.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define array_size 5</span></span><br><span class="line">__attribute__((section(<span class="string">".sheldon.data"</span>))) int int_array[array_size] = &#123;0,1,2,3,4&#125;;</span><br><span class="line"></span><br><span class="line">char test_bss[1024];</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  int size = array_size;</span><br><span class="line">  int_array[size-1] = 5;</span><br><span class="line"></span><br><span class="line">  memset(test_bss, 'a', sizeof(test_bss));</span><br><span class="line"></span><br><span class="line">  printf(<span class="string">"Hello, this is attribute section test \r\n"</span>);</span><br><span class="line">  extern void printf_array(int<span class="keyword">*</span>,int);</span><br><span class="line">  printf_array(int_array, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>printf_array.c</em></strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array</span><span class="params">(<span class="keyword">int</span>* ptr, <span class="keyword">int</span> size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"[%s] \r\n"</span>, __FUNCTION__); </span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;size; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d, "</span>, ptr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\n done \n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>常用指令</em></strong></p>
-<ol>
-<li>readelf -s   : 讀這個elf/object 的symbol </li>
-<li>readelf -S   : 讀這個elf/object 的Section</li>
-<li>readelf -a   : 讀所有的資訊</li>
-</ol>
-<h2 id="來驗證看看囉!!">來驗證看看囉!!</h2><p>先將兩個 .c 檔個別的compiler</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc -c print_array<span class="class">.c</span>              <span class="comment">// 產生 print_array.o (object)</span></span><br><span class="line">gcc -c main<span class="class">.c</span>                     <span class="comment">// 產生 main.o (object)</span></span><br><span class="line">gcc main<span class="class">.o</span> print_array<span class="class">.o</span> -o main  <span class="comment">// 產生 main   (elf)</span></span><br></pre></td></tr></table></figure>
-<p>透過下 readelf -S 來觀察自定的section. </p>
-<p>是不是多了 .sheldon.data XDD
-<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/readelf_S.png"></p>
-<p>其實還有非常多東西可以看, 像是還沒link前的symble 有什麼不一樣.</p>
-<p>某些default 的section各別代表什麼意義. 要如何找出， 你這個elf 有哪些dependency 的lib...</p>
-<p>非常非常多,  我也搞的物煞煞. 哈, 所以就走一步算一步.</p>
-
     
     
-    <footer class="meta">
       
-  <div class="cats">
-<a href="/sheldon.is.a.geek/categories/ELF/">ELF</a></div>
-
-      
-  <div class="tags">
-<a href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a><a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/ELF/">ELF</a><a href="/sheldon.is.a.geek/tags/readelf/">readelf</a></div>
-
-      
-    </footer>
+      </section><section class="archives"><div class="year">2015</div>
     
-  </div>
+    <article class="archive">
+      <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/">[C][ELF] Attribute Section</a></h1>
+      <footer>
+        <time datetime="2015-03-12T16:58:10.000Z">Mar 13</time>
+        
+          <span class="cats">
+<a href="/sheldon.is.a.geek/categories/ELF/">ELF</a></span>
+        
+        
+          <span class="tags">
+<a href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a>, <a href="/sheldon.is.a.geek/tags/C/">C</a>, <a href="/sheldon.is.a.geek/tags/ELF/">ELF</a>, <a href="/sheldon.is.a.geek/tags/readelf/">readelf</a></span>
+        
+      </footer>
+    </article>
   
-</article>
-  
-
-  <nav id="pagenavi">
-  
-  
-  <div class="clearfix"></div>
-</nav>
 </div>
   <footer id="footer" class="inner"><div class="social alignright">
   

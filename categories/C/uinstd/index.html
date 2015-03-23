@@ -42,68 +42,27 @@
 
 
   
-    <article class="post">
   
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <header>
-    
-  
-    <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/18/C-readlink/">[C][uinstd] 簡易使用 readlink </a></h1>
-  
-
-    <time datetime="2015-03-17T16:56:50.000Z">
-  <span class="day">18</span><span class="month">Mar</span>
-</time>
-  </header>
-  <div class="entry-content">
-    
-      <h2 id="目的">目的</h2><p>最近遇到一個問題, 假如我希望我的程式能夠知道某個symbolic link 的指向. </p>
-<p>但是我又不希望用 fork+exec or system 的方式, 去產生另一個process 來執行&quot;ls -l&quot;</p>
-<p>直接單純的使用 <strong><em>uinstd.h</em></strong> 裏面的readlink來得到link的指向.</p>
-<p>看起來fork+exec 的比較有趣困難 XDD, 過幾天再寫一下心得...哈</p>
-<h2 id="Sample_Code">Sample Code</h2><p><strong><em>1. 產生一個symbolic link</em></strong></p>
-<p>什麼是symbolic link呢？熟稱soft link, 有點像windows 底下的聯結, google一下巴...</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ ln <span class="operator">-s</span> ~/python link_<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p>我產生了一個link 稱作link_test, 這個link指向 ~/python</p>
-<p><strong><em>2. example code</em></strong></p>
-<p><strong><em>main.c</em></strong></p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Purpose : this is an sample code to use the api of readlink</span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015/3/18</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;string.h&gt;</span></span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  char link_path[] = <span class="string">"/home/sheldon/programming/c_language/readlink/link_test"</span>;</span><br><span class="line">  char target_path[256];</span><br><span class="line">  memset(target_path, 0, sizeof(target_path));</span><br><span class="line"></span><br><span class="line">  if ( -1 == readlink(link_path, target_path, sizeof(target_path)))</span><br><span class="line">  &#123;</span><br><span class="line">    printf(<span class="string">"Fail to read link path !!\r\n"</span>);</span><br><span class="line">  &#125;▫</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(<span class="string">"link path is %s \r\n"</span>, target_path);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
     
     
-    <footer class="meta">
       
-  <div class="cats">
-<a href="/sheldon.is.a.geek/categories/C/">C</a><a href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a></div>
-
-      
-  <div class="tags">
-<a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/ls/">ls</a><a href="/sheldon.is.a.geek/tags/readlink/">readlink</a></div>
-
-      
-    </footer>
+      </section><section class="archives"><div class="year">2015</div>
     
-  </div>
+    <article class="archive">
+      <h1 class="title"><a href="/sheldon.is.a.geek/2015/03/18/C-readlink/">[C][uinstd] 簡易使用 readlink </a></h1>
+      <footer>
+        <time datetime="2015-03-17T16:56:50.000Z">Mar 18</time>
+        
+          <span class="cats">
+<a href="/sheldon.is.a.geek/categories/C/">C</a>, <a href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a></span>
+        
+        
+          <span class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C</a>, <a href="/sheldon.is.a.geek/tags/ls/">ls</a>, <a href="/sheldon.is.a.geek/tags/readlink/">readlink</a></span>
+        
+      </footer>
+    </article>
   
-</article>
-  
-
-  <nav id="pagenavi">
-  
-  
-  <div class="clearfix"></div>
-</nav>
 </div>
   <footer id="footer" class="inner"><div class="social alignright">
   

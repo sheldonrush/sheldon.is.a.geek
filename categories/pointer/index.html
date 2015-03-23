@@ -42,72 +42,27 @@
 
 
   
-    <article class="post">
   
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <header>
-    
-  
-    <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a></h1>
-  
-
-    <time datetime="2015-01-29T15:10:14.000Z">
-  <span class="day">29</span><span class="month">Jan</span>
-</time>
-  </header>
-  <div class="entry-content">
-    
-      <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
-<p>因式分解 </p>
-<p><strong><em>&amp;*ptr</em></strong></p>
-<ol>
-<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
-<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
-</ol>
-<p><strong><em>*&amp;ptr</em></strong></p>
-<ol>
-<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
-<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
-</ol>
-<p>因此
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
-
     
     
-    <footer class="meta">
       
-  <div class="cats">
-<a href="/sheldon.is.a.geek/categories/pointer/">pointer</a></div>
-
-      
-  <div class="tags">
-<a href="/sheldon.is.a.geek/tags/C/">C</a><a href="/sheldon.is.a.geek/tags/pointer/">pointer</a></div>
-
-      
-    </footer>
+      </section><section class="archives"><div class="year">2015</div>
     
-  </div>
+    <article class="archive">
+      <h1 class="title"><a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a></h1>
+      <footer>
+        <time datetime="2015-01-29T15:10:14.000Z">Jan 29</time>
+        
+          <span class="cats">
+<a href="/sheldon.is.a.geek/categories/pointer/">pointer</a></span>
+        
+        
+          <span class="tags">
+<a href="/sheldon.is.a.geek/tags/C/">C</a>, <a href="/sheldon.is.a.geek/tags/pointer/">pointer</a></span>
+        
+      </footer>
+    </article>
   
-</article>
-  
-
-  <nav id="pagenavi">
-  
-  
-  <div class="clearfix"></div>
-</nav>
 </div>
   <footer id="footer" class="inner"><div class="social alignright">
   
