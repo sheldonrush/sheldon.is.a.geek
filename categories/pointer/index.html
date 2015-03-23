@@ -90,6 +90,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
 <p>因式分解 </p>
@@ -109,7 +110,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="ci7lypdwv002qnlxkjls5kzws" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="ci7m0clhb002qilxk0bcpja70" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -120,6 +121,7 @@
   </div>
   
 </article>
+
 
 
   

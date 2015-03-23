@@ -90,6 +90,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        
+        <div id="toc" class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Purpose"><span class="toc-number">1.</span> <span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compiler"><span class="toc-number">2.</span> <span class="toc-text">Compiler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code_1"><span class="toc-number">3.</span> <span class="toc-text">Sample Code 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code_2"><span class="toc-number">4.</span> <span class="toc-text">Sample Code 2</span></a></li></ol>
+                            </div>
+                            
         <h2 id="Purpose">Purpose</h2><p>今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作.</p>
 <p>multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch,</p>
 <p>整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成</p>
@@ -118,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="ci7lypdvu000xnlxk6zxx1rlz" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="ci7m0clg9000xilxkuru9texy" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -129,6 +134,7 @@
   </div>
   
 </article>
+
 
 
   
@@ -158,6 +164,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行...</p>
 <p>哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算</p>
 <p>靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西, </p>
@@ -186,7 +193,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="ci7lypdvz0017nlxkiubc00rt" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="ci7m0clge0017ilxk7x9fwm4q" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -197,6 +204,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
   </div>
   
 </article>
+
 
 
   
@@ -226,6 +234,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>最近遇到一個問題, 假如我希望我的程式能夠知道某個symbolic link 的指向. </p>
 <p>但是我又不希望用 fork+exec or system 的方式, 去產生另一個process 來執行&quot;ls -l&quot;</p>
 <p>直接單純的使用 <strong><em>uinstd.h</em></strong> 裏面的readlink來得到link的指向.</p>
@@ -241,7 +250,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="ci7lypdvp000nnlxk7vgj7px8" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="ci7m0clg5000nilxk4mueuva9" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -252,6 +261,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
   </div>
   
 </article>
+
 
 
   
@@ -281,6 +291,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>最近在學習用QT這個third party 來寫GUI界面.</p>
 <p>之前有用過 QT creator 這個IDE， 用拖曳的方式產生GUI 的component</p>
 <p>用起來挺順手的. 但是整個project 怎麼生出來的, .pro 檔市幹嗎用的, qmke 和make有什麼差異</p>
@@ -311,7 +322,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="ci7lypdwr002gnlxkukdinste" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="ci7m0clh7002gilxkamzhjtad" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -322,6 +333,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
   </div>
   
 </article>
+
 
 
   
@@ -351,6 +363,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>這幾天看到有人的code, 在資料或是function前面多加 attribute 的關鍵字</p>
 <p>所以很好奇， 這東東是幹什麼用的. 花了一點時間讀了相關的<a href="http://enginechang.logdown.com/posts/248172-linker-loader-library" target="_blank" rel="external">blog</a>, 自己消化了一下, 寫了測試的code,  來驗證一下. </p>
 <p>自定section 的目的,  應該是要提高cache 的使用效率. 這樣的話, 但是相對的</p>
@@ -386,7 +399,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="ci7lypdv50000nlxkhk8emnpl" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="ci7m0clfl0000ilxka3ro5uea" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -397,6 +410,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
   </div>
   
 </article>
+
 
 
   
@@ -426,6 +440,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
 <ol>
 <li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
@@ -445,7 +460,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="ci7lypdxd003onlxkdpuh5ta3" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="ci7m0cliw003oilxky6yk9fmp" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -456,6 +471,7 @@ base class 是否需要有相同引數的function member? </p>
   </div>
   
 </article>
+
 
 
   
@@ -485,6 +501,7 @@ base class 是否需要有相同引數的function member? </p>
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型. 
 我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純, 
 可以來記錄你養寵物的體重. 以及每天都喂他飼料的話, 
@@ -517,7 +534,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="ci7lypdx7003dnlxkl7tj1d47" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="ci7m0clip003dilxktyepmgub" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -528,6 +545,7 @@ base class 是否需要有相同引數的function member? </p>
   </div>
   
 </article>
+
 
 
   
@@ -557,6 +575,7 @@ base class 是否需要有相同引數的function member? </p>
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>很久之前, 曾經做過 socket programming在樹梅派的應用. 
 也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
 我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD</p>
@@ -580,7 +599,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="ci7lypdwf001wnlxkkw6ampxg" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="ci7m0clgu001wilxkhckguv9w" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -591,6 +610,7 @@ About socket programming, server can receive the data from multi client.</p>
   </div>
   
 </article>
+
 
 
   
@@ -620,6 +640,7 @@ About socket programming, server can receive the data from multi client.</p>
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="以下是我以前所做的demo_影片,_由於之前有換過站台,_大部分東西沒留下來QQ,_只剩下youtube的影片,_列出來留作紀念XD-">以下是我以前所做的demo 影片, 由於之前有換過站台, 大部分東西沒留下來QQ, 只剩下youtube的影片, 列出來留作紀念XD...</h2><p><strong><em>1. [Raspberry Pi] Connedted with PCA9505 I2C IO Expander </em></strong></p>
 <div class="video-container"><iframe src="//www.youtube.com/embed/vy-eMS_tIrY" frameborder="0" allowfullscreen></iframe></div>
 <p><strong><em>2. [Raspberry Pi] Face Detection by OpenCV </em></strong>
@@ -638,7 +659,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="ci7lypdwl0028nlxke5ohx70b" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="ci7m0clh20028ilxkc11pk43j" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -649,6 +670,7 @@ About socket programming, server can receive the data from multi client.</p>
   </div>
   
 </article>
+
 
 
   
@@ -678,6 +700,7 @@ About socket programming, server can receive the data from multi client.</p>
     
     <div class="article-entry" itemprop="articleBody">
       
+        
         <h2 id="目的">目的</h2><p>自從桃園一場大水以後, </p>
 <img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/11245.jpg">
 <p>我的小佛浮起來了,行車記錄器也跟着消失了...
@@ -694,7 +717,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="ci7lypdwo002bnlxk7xb3osl0" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="ci7m0clh4002bilxkxpg0ugt4" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -705,6 +728,7 @@ About socket programming, server can receive the data from multi client.</p>
   </div>
   
 </article>
+
 
 
   
