@@ -69,6 +69,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-HTTP-ASP-POST-分析網頁原始碼" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" class="article-date">
+  <time datetime="2015-03-28T14:56:02.000Z" itemprop="datePublished">Mar 28 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/POST/">POST</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/">[HTTP][ASP][POST][表單] 分析網頁原始碼</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introudction"><span class="toc-text">Introudction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表單"><span class="toc-text">表單</span></a></li></ol>
+        </div>
+        
+        <h1 id="Purpose">Purpose</h1><p>有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理</p>
+<p>他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料</p>
+<p><a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">抓取鉅亨網個股歷史行情</a></p>
+<p>老實說，我不是做web應用的，XDDD,當下的反應是 &quot;瓦阿哉&quot;. 所以爲了要保存一些顏面.</p>
+<p>花了時間看了一下. 怎麼分析html....</p>
+<h1 id="Introudction">Introudction</h1><p>他的目的是要抓取網頁中表單的資料, 所以必須要知道HTTP如何處理表單的方法. </p>
+<p>首先你必須要知道如何檢視html的原始碼,這個部份，最容易了.</p>
+<p>先來安裝個chrome. 然後找一個有<a href="http://www.cnyes.com/twstock/ps_historyprice/1101.htm" target="_blank" rel="external">表單的網頁</a></p>
+<p>(按右鍵) -&gt; (檢視網頁原始碼)</p>
+<p>大功告成, Aha....</p>
+<h1 id="表單">表單</h1><p>html的標籤有許多種, 這裡的<a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="external">聯結</a>作者很用新誒. </p>
+<p>但是現在我們其實只是要focus 在表單上.</p>
+<p>標籤的keyword 其實就是, &quot;<form>&quot;</form></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" data-id="ci7t7ry3i000wmlxk7rxpygkh" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ASP/">ASP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/POST/">POST</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Netwoek-Scan-IP-nmap" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" class="article-date">
@@ -111,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" data-id="ci7nhrirn000g5uxkonjs6ryz" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" data-id="ci7t7ry3a000gmlxki0rv177g" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -187,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="ci7nhris0000y5uxkfmh6tufr" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="ci7t7ry3q001fmlxk0rmgej7f" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -263,7 +328,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="ci7nhris500185uxk9l5ad8hy" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="ci7t7ry3v001pmlxky1ztfr9e" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -326,7 +391,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="ci7nhrirv000o5uxkinlurawn" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="ci7t7ry3m0015mlxks7sb8x9a" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -404,7 +469,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="ci7nhrit4002h5uxkmzbgu01l" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="ci7t7ry4v002ymlxkpkl1wssx" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -487,7 +552,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="ci7nhriqw00005uxksyckyh6j" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="ci7t7ry2k0000mlxkcbxegj6z" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -554,7 +619,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="ci7nhritx003p5uxkl46ocltl" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="ci7t7ry6n0045mlxka6xomzv4" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -634,7 +699,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="ci7nhritr003e5uxkg7mi6oy7" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="ci7t7ry5g003umlxklexvs4pi" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -705,78 +770,12 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="ci7nhrisp001x5uxkyfrpz3c3" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="ci7t7ry4h002emlxk6hrnuuae" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--Raspberry-Pi-Demod-Video" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="article-date">
-  <time datetime="2015-03-01T00:01:13.000Z" itemprop="datePublished">Mar 1 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">[Raspberry Pi] Demod_Video</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#以下是我以前所做的demo_影片,_由於之前有換過站台,_大部分東西沒留下來QQ,_只剩下youtube的影片,_列出來留作紀念XD-"><span class="toc-text">以下是我以前所做的demo 影片, 由於之前有換過站台, 大部分東西沒留下來QQ, 只剩下youtube的影片, 列出來留作紀念XD...</span></a></li></ol>
-        </div>
-        
-        <h2 id="以下是我以前所做的demo_影片,_由於之前有換過站台,_大部分東西沒留下來QQ,_只剩下youtube的影片,_列出來留作紀念XD-">以下是我以前所做的demo 影片, 由於之前有換過站台, 大部分東西沒留下來QQ, 只剩下youtube的影片, 列出來留作紀念XD...</h2><p><strong><em>1. [Raspberry Pi] Connedted with PCA9505 I2C IO Expander </em></strong></p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/vy-eMS_tIrY" frameborder="0" allowfullscreen></iframe></div>
-<p><strong><em>2. [Raspberry Pi] Face Detection by OpenCV </em></strong>
-<div class="video-container"><iframe src="//www.youtube.com/embed/g7UCIlbSUdY" frameborder="0" allowfullscreen></iframe></div></p>
-<p><strong><em>3. [Raspberry Pi] Socket Programming and GPIO </em></strong></p>
-<p>This  demon tell how to control GPIO and send the data to server.
-About socket programming, server can receive the data from multi client.</p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/i2Jig5vebBk" frameborder="0" allowfullscreen></iframe></div>
-<p><strong><em>4. [Raspberry Pi ] [Cam Module] </em></strong></p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/dSsiKKEKirw" frameborder="0" allowfullscreen></iframe></div>
-<p><strong><em>5.[Raspberry Pi] Video Codec of OpenMAX </em></strong></p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/m483eicpwlI" frameborder="0" allowfullscreen></iframe></div>
-<p><strong><em>6. [Raspberry Demo] Control DHT22 and update data to google </em></strong></p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/BnvaexbA8qU" frameborder="0" allowfullscreen></iframe></div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="ci7nhrisy00295uxkxqh1plkc" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li></ul>
 
     </footer>
   </div>
@@ -799,7 +798,7 @@ About socket programming, server can receive the data from multi client.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -808,7 +807,7 @@ About socket programming, server can receive the data from multi client.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Case/">Case</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ELF/">ELF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Finance/">Finance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GCC/">GCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GUI/">GUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Line/">Line</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/QT/">QT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/compiler/">compiler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/fping/">fping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/geek/">geek</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ls/">ls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/nmap/">nmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readelf/">readelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readlink/">readlink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/realloc/">realloc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/resume/">resume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/root/">root</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ASP/">ASP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Case/">Case</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ELF/">ELF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Finance/">Finance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GCC/">GCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GUI/">GUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Line/">Line</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/POST/">POST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/QT/">QT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/compiler/">compiler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/fping/">fping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/geek/">geek</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ls/">ls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/nmap/">nmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readelf/">readelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readlink/">readlink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/realloc/">realloc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/resume/">resume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/root/">root</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -817,7 +816,7 @@ About socket programming, server can receive the data from multi client.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/sheldon.is.a.geek/tags/Attribute-Section/" style="font-size: 10px;">Attribute Section</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 16.67px;">C</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 13.33px;">C++</a><a href="/sheldon.is.a.geek/tags/Cam-Module/" style="font-size: 10px;">Cam Module</a><a href="/sheldon.is.a.geek/tags/Case/" style="font-size: 10px;">Case</a><a href="/sheldon.is.a.geek/tags/Dynamic-Array/" style="font-size: 10px;">Dynamic Array</a><a href="/sheldon.is.a.geek/tags/Dynamic-Binding/" style="font-size: 10px;">Dynamic Binding</a><a href="/sheldon.is.a.geek/tags/Dynamical-Binding/" style="font-size: 10px;">Dynamical Binding</a><a href="/sheldon.is.a.geek/tags/ELF/" style="font-size: 10px;">ELF</a><a href="/sheldon.is.a.geek/tags/Finance/" style="font-size: 10px;">Finance</a><a href="/sheldon.is.a.geek/tags/GCC/" style="font-size: 10px;">GCC</a><a href="/sheldon.is.a.geek/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/sheldon.is.a.geek/tags/GPIO/" style="font-size: 10px;">GPIO</a><a href="/sheldon.is.a.geek/tags/GUI/" style="font-size: 10px;">GUI</a><a href="/sheldon.is.a.geek/tags/Inherit/" style="font-size: 10px;">Inherit</a><a href="/sheldon.is.a.geek/tags/Line/" style="font-size: 10px;">Line</a><a href="/sheldon.is.a.geek/tags/QT/" style="font-size: 10px;">QT</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/" style="font-size: 20px;">Raspberry Pi</a><a href="/sheldon.is.a.geek/tags/Socket/" style="font-size: 10px;">Socket</a><a href="/sheldon.is.a.geek/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a><a href="/sheldon.is.a.geek/tags/Virtual-Function/" style="font-size: 13.33px;">Virtual Function</a><a href="/sheldon.is.a.geek/tags/compiler/" style="font-size: 10px;">compiler</a><a href="/sheldon.is.a.geek/tags/fping/" style="font-size: 10px;">fping</a><a href="/sheldon.is.a.geek/tags/geek/" style="font-size: 10px;">geek</a><a href="/sheldon.is.a.geek/tags/ls/" style="font-size: 10px;">ls</a><a href="/sheldon.is.a.geek/tags/multi-thread/" style="font-size: 10px;">multi-thread</a><a href="/sheldon.is.a.geek/tags/network/" style="font-size: 13.33px;">network</a><a href="/sheldon.is.a.geek/tags/nmap/" style="font-size: 10px;">nmap</a><a href="/sheldon.is.a.geek/tags/pointer/" style="font-size: 10px;">pointer</a><a href="/sheldon.is.a.geek/tags/pthread-create/" style="font-size: 10px;">pthread_create</a><a href="/sheldon.is.a.geek/tags/pthread-join/" style="font-size: 10px;">pthread_join</a><a href="/sheldon.is.a.geek/tags/readelf/" style="font-size: 10px;">readelf</a><a href="/sheldon.is.a.geek/tags/readlink/" style="font-size: 10px;">readlink</a><a href="/sheldon.is.a.geek/tags/realloc/" style="font-size: 10px;">realloc</a><a href="/sheldon.is.a.geek/tags/resume/" style="font-size: 10px;">resume</a><a href="/sheldon.is.a.geek/tags/root/" style="font-size: 10px;">root</a><a href="/sheldon.is.a.geek/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+      <a href="/sheldon.is.a.geek/tags/ASP/" style="font-size: 10px;">ASP</a><a href="/sheldon.is.a.geek/tags/Attribute-Section/" style="font-size: 10px;">Attribute Section</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 16.67px;">C</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 13.33px;">C++</a><a href="/sheldon.is.a.geek/tags/Cam-Module/" style="font-size: 10px;">Cam Module</a><a href="/sheldon.is.a.geek/tags/Case/" style="font-size: 10px;">Case</a><a href="/sheldon.is.a.geek/tags/Dynamic-Array/" style="font-size: 10px;">Dynamic Array</a><a href="/sheldon.is.a.geek/tags/Dynamic-Binding/" style="font-size: 10px;">Dynamic Binding</a><a href="/sheldon.is.a.geek/tags/Dynamical-Binding/" style="font-size: 10px;">Dynamical Binding</a><a href="/sheldon.is.a.geek/tags/ELF/" style="font-size: 10px;">ELF</a><a href="/sheldon.is.a.geek/tags/Finance/" style="font-size: 10px;">Finance</a><a href="/sheldon.is.a.geek/tags/GCC/" style="font-size: 10px;">GCC</a><a href="/sheldon.is.a.geek/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/sheldon.is.a.geek/tags/GPIO/" style="font-size: 10px;">GPIO</a><a href="/sheldon.is.a.geek/tags/GUI/" style="font-size: 10px;">GUI</a><a href="/sheldon.is.a.geek/tags/HTTP/" style="font-size: 10px;">HTTP</a><a href="/sheldon.is.a.geek/tags/Inherit/" style="font-size: 10px;">Inherit</a><a href="/sheldon.is.a.geek/tags/Line/" style="font-size: 10px;">Line</a><a href="/sheldon.is.a.geek/tags/POST/" style="font-size: 10px;">POST</a><a href="/sheldon.is.a.geek/tags/QT/" style="font-size: 10px;">QT</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/" style="font-size: 20px;">Raspberry Pi</a><a href="/sheldon.is.a.geek/tags/Socket/" style="font-size: 10px;">Socket</a><a href="/sheldon.is.a.geek/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a><a href="/sheldon.is.a.geek/tags/Virtual-Function/" style="font-size: 13.33px;">Virtual Function</a><a href="/sheldon.is.a.geek/tags/compiler/" style="font-size: 10px;">compiler</a><a href="/sheldon.is.a.geek/tags/fping/" style="font-size: 10px;">fping</a><a href="/sheldon.is.a.geek/tags/geek/" style="font-size: 10px;">geek</a><a href="/sheldon.is.a.geek/tags/ls/" style="font-size: 10px;">ls</a><a href="/sheldon.is.a.geek/tags/multi-thread/" style="font-size: 10px;">multi-thread</a><a href="/sheldon.is.a.geek/tags/network/" style="font-size: 13.33px;">network</a><a href="/sheldon.is.a.geek/tags/nmap/" style="font-size: 10px;">nmap</a><a href="/sheldon.is.a.geek/tags/pointer/" style="font-size: 10px;">pointer</a><a href="/sheldon.is.a.geek/tags/pthread-create/" style="font-size: 10px;">pthread_create</a><a href="/sheldon.is.a.geek/tags/pthread-join/" style="font-size: 10px;">pthread_join</a><a href="/sheldon.is.a.geek/tags/readelf/" style="font-size: 10px;">readelf</a><a href="/sheldon.is.a.geek/tags/readlink/" style="font-size: 10px;">readlink</a><a href="/sheldon.is.a.geek/tags/realloc/" style="font-size: 10px;">realloc</a><a href="/sheldon.is.a.geek/tags/resume/" style="font-size: 10px;">resume</a><a href="/sheldon.is.a.geek/tags/root/" style="font-size: 10px;">root</a><a href="/sheldon.is.a.geek/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
     </div>
   </div>
 
@@ -826,7 +825,7 @@ About socket programming, server can receive the data from multi client.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -836,6 +835,10 @@ About socket programming, server can receive the data from multi client.</p>
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/">[HTTP][ASP][POST][表單] 分析網頁原始碼</a>
+          </li>
         
           <li>
             <a href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/">[Netwoek][Scan IP] nmap</a>
@@ -851,10 +854,6 @@ About socket programming, server can receive the data from multi client.</p>
         
           <li>
             <a href="/sheldon.is.a.geek/2015/03/18/C-readlink/">[C][uinstd] 簡易使用 readlink </a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/">[QT][GUI][Ubuntu] Hello World !</a>
           </li>
         
       </ul>
