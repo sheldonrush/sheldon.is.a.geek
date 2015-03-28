@@ -122,17 +122,17 @@
 <p>標籤大多都是成對的出現,所以你發現了<strong><em>form</em></strong>的開頭,就可以看到一個<strong><em>/form</em></strong>的結尾</p>
 <p>從上面的資訊可以看出一些東西, 組成這個表單標籤的元素, 其實有許多種, </p>
 <p>底下只是一個例子,</p>
-<p><strong><em>1. name=&quot;aspnetForm&quot;</em></strong></p>
-<p>這個就是這個表單的名字</p>
-<p><strong><em>2. method=&quot;post&quot;</em></strong></p>
-<p>當你按完<strong><em>查詢</em></strong>按鍵之後, 會利用post的方式將表單以及一些user自定的參數,帶給<strong><em>action這個程式</em></strong>(就是底下的)</p>
-<p>一般講到post的時後,都會提到get這個方法, 我大概只有一個概念, 似乎post會比get還要安全,XDD 這種出淺的認知.</p>
-<p>有興趣的可以看一下,底下的差異介紹.</p>
+<p><strong><em>1. name=&quot;aspnetForm&quot;</em></strong>
+這個就是這個表單的名字</p>
+<p><strong><em>2. method=&quot;post&quot;</em></strong>
+當你按完<strong><em>查詢</em></strong>按鍵之後, 會利用post的方式將表單以及一些user自定的參數,帶給<strong><em>action這個程式</em></strong>(就是底下的) 
+一般講到post的時後,都會提到get這個方法, 我大概只有一個概念, 似乎post會比get還要安全,XDD 這種出淺的認知.
+有興趣的可以看一下,底下的差異介紹.</p>
 <p><a href="http://blog.toright.com/posts/1203/%E6%B7%BA%E8%AB%87-http-method%EF%BC%9A%E8%A1%A8%E5%96%AE%E4%B8%AD%E7%9A%84-get-%E8%88%87-post-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F.html" target="_blank" rel="external">GET VS POST Method</a></p>
-<p><strong><em>3. action=&quot;/twstock/ps_historyprice/1101.htm&quot;</em></strong></p>
-<p>如同上面所說,其實1101.htm應該就是web server上某一個程式, 當我們按完<strong><em>查詢</em></strong>以後, 會將一些資料（例如, 開始日期與結束日期)</p>
-<p>送到<strong><em>action</em></strong>這裏. 去做相對應的處理. <a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">例子</a>, 其實就是將這其間內的資料從data base裏面撈出來</p>
-<p>在顯示給user看.</p>
+<p><strong><em>3. action=&quot;/twstock/ps_historyprice/1101.htm&quot;</em></strong>
+如同上面所說,其實1101.htm應該就是web server上某一個程式, 當我們按完<strong><em>查詢</em></strong>以後, 會將一些資料（例如, 開始日期與結束日期)
+送到<strong><em>action</em></strong>這裏. 去做相對應的處理. <a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">例子</a>, 其實就是將這其間內的資料從data base裏面撈出來
+在顯示給user看.</p>
 <h1 id="如何用改變URL的方式,_來獲取各個表單的資訊-">如何用改變URL的方式, 來獲取各個表單的資訊.</h1><p>在開始之前,應該有人,會有一些疑問,爲什麼網址不變,但是卻可以撈到不同的股市資料, 其實就是剛剛那個post的方式, 做到的. </p>
 <p>有人會問，要怎麼知道,獲得新的表單需要在URL上多家一些什麼什麼爾外的資訊.要怎麼知道呢.</p>
 <p>其實很直觀,你觀察一下網頁上的表單,會需要什麼資訊，這個例子是用, (開始日期與結束日期),你就直接在原始碼中找尋(開始日期與結束日期)</p>
