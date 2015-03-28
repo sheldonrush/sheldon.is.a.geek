@@ -99,7 +99,7 @@
         <p>
         <div id="toc" class="toc-article">
         <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introudction"><span class="toc-text">Introudction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表單"><span class="toc-text">表單</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introudction"><span class="toc-text">Introudction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表單"><span class="toc-text">表單</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何用改變URL的方式,_來獲取各個表單的資訊-"><span class="toc-text">如何用改變URL的方式, 來獲取各個表單的資訊.</span></a></li></ol>
         </div>
         
         <h1 id="Purpose">Purpose</h1><p>有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理</p>
@@ -136,7 +136,42 @@
 <ol>
 <li>action=&quot;/twstock/ps_historyprice/1101.htm&quot;</li>
 </ol>
-<p>如同</p>
+<p>如同上面所說,其實1101.htm應該就是web server上某一個程式, 當我們按完<strong><em>查詢</em></strong>以後, 會將一些資料（例如, 開始日期與結束日期)</p>
+<p>送到<strong><em>action</em></strong>這裏. 去做相對應的處理. <a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">例子</a>, 其實就是將這其間內的資料從data base裏面撈出來</p>
+<p>在顯示給user看.</p>
+<h1 id="如何用改變URL的方式,_來獲取各個表單的資訊-">如何用改變URL的方式, 來獲取各個表單的資訊.</h1><p>在開始之前,應該有人,會有一些疑問,爲什麼網址不變,但是卻可以撈到不同的股市資料, 其實就是剛剛那個post的方式, 做到的. </p>
+<p>有人會問，要怎麼知道,獲得新的表單需要在URL上多家一些什麼什麼爾外的資訊.要怎麼知道呢.</p>
+<p>其實很直觀,你觀察一下網頁上的表單,會需要什麼資訊，這個例子是用, (開始日期與結束日期),你就直接在原始碼中找尋(開始日期與結束日期)</p>
+<p>多們直觀對吧 kerker</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;form <span class="variable">name=</span><span class="string">"aspnetForm"</span> <span class="variable">method=</span><span class="string">"post"</span> <span class="variable">action=</span><span class="string">"/twstock/ps_historyprice/1101.htm"</span> <span class="variable">id=</span><span class="string">"aspnetForm"</span>&gt;</span><br><span class="line">...</span><br><span class="line">&lt;span <span class="variable">class=</span><span class="string">"srchyear2"</span> &gt;</span><br><span class="line">開始日期&lt;input <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$startText"</span> <span class="variable">type=</span><span class="string">"text"</span> <span class="variable">value=</span><span class="string">"2015/02/28"</span> <span class="variable">maxlength=</span><span class="string">"10"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_startText"</span> <span class="variable">style=</span><span class="string">"width:72px;"</span> /&gt;</span><br><span class="line">結束日期&lt;input <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$endText"</span> <span class="variable">type=</span><span class="string">"text"</span> <span class="variable">value=</span><span class="string">"2015/03/28"</span> <span class="variable">maxlength=</span><span class="string">"10"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_endText"</span> <span class="variable">style=</span><span class="string">"width:72px;"</span> /&gt;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"submit"</span> <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$submitBut"</span> <span class="variable">value=</span><span class="string">"查詢"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_submitBut"</span> <span class="variable">class=</span><span class="string">"butn btnga"</span> /&gt;</span><br><span class="line">&lt;span <span class="variable">style=</span><span class="string">"float:right"</span>&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>這樣就可以發現,在表單裏面，其實有一段標籤是描述（開始日期與結束日期),</p>
+<p>跟剛剛一樣，假如要知道input這個標籤屬性在幹嗎，查閱一下 <a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="external">HELP<em>HTML</em>標籤</a></p>
+<p>這邊稍爲帶一下，</p>
+<ol>
+<li>name : 代表input 的名字</li>
+<li>type : input 的屬性，text很明顯就是只文字 ker</li>
+<li>value : 這個input 是什麼值. 看起來就像是日期.</li>
+</ol>
+<p>我們有以上的粗淺認知(像我一樣),我們就可以透過key URL 的方式，來改變我們要搜尋的股市歷史資料</p>
+<p>首先， 由於我們這個是要股市歷史資料,你觀察一下,他的歷史資料的首頁,</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//www.cnyes.com/twstock/ps_historyprice.aspx</span></span><br></pre></td></tr></table></figure>
+<p>聯結進去預設的各股，是臺G電2330, 假如是要查聯發科2454的話.</p>
+<p>你只要將code=2454 帶入URL中即可.像是底下.</p>
+<p>要注意一個地方，假如我需要帶參數在URL中時，你就必須多家一個&quot;？&quot;在網址的最後面.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//www.cnyes.com/twstock/ps_historyprice.aspx?code=2330</span></span><br></pre></td></tr></table></figure>
+<p>看起來真的很容易對吧...</p>
+<p>再來就是，假如我需要知道某個區間內的歷史資料要怎麼做呢.</p>
+<p>其實很間單,就是在多加時間的參數下去,對吧. 時間參數所要用的name 其實就是網頁原始碼中的name(可以參考上一段所說)</p>
+<ol>
+<li>Name of 開始時間 : ctl00$ContentPlaceHolder1$startText</li>
+<li>Name of 結束時間 : ctl00$ContentPlaceHolder1$endText</li>
+</ol>
+<p>要注意兩個地方</p>
+<ol>
+<li>等於（=）後面,就是塞值進去，這個例子就是時間.</li>
+<li>帶入的每個參數之間都要有&quot;&amp;&quot;將每個參數做區隔. 底下例子其實，就是三個參數.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.cnyes.com/twstock/ps_historyprice.aspx?code=<span class="number">2454</span>&amp;ctl00<span class="variable">$ContentPlaceHolder1</span><span class="variable">$startText</span>=<span class="number">2014</span>/<span class="number">01</span>/<span class="number">01</span>&amp;ctl00<span class="variable">$ContentPlaceHolder1</span><span class="variable">$endText</span>=<span class="number">2014</span>/<span class="number">01</span>/<span class="number">28</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
