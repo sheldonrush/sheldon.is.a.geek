@@ -112,14 +112,8 @@
 <p><strong><em>1. 抽象話</em></strong></p>
 <p>   第一個要做的是讓mutex 變得抽象話, 實作的部分，都透過用calback的方式讓AP層來實作.
    這樣聽起來有點像是在C用struct 取代C++的class XDD... 
-   可參考 mutex_interface.h </p>
-<p>struct _Locker 
-{
-  LockerLockFunc lock;
-  LockerUnLockFunc unlock;
-  LockerDestoryLockFunc destory;
-  char lock_info[0];
-};</p>
+   可參考 mutex_interface.h 
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct _Locker </span><br><span class="line">&#123;</span><br><span class="line">  LockerLockFunc <span class="operator"><span class="keyword">lock</span>;</span></span><br><span class="line">  LockerUnLockFunc <span class="operator"><span class="keyword">unlock</span>;</span></span><br><span class="line">  LockerDestoryLockFunc destory;</span><br><span class="line">  char lock_info[0];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>   這邊定了三個function pointer, 還有一個lock_info 來定義我們這個lock的特性.
    char lock_info[0], 這個宣告其實是一個技巧, char lock_info[0]其實並沒有佔任何空間,
    假如你的私有資料長度是可變的,你就可以這樣宣告.</p>
