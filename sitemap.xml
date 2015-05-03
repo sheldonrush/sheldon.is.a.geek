@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/</loc>
+    <lastmod>2015-05-03T00:37:29.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/13/Read-Write-Lock-Mutex-exercise-to-implement-the-read-write-lock-in-the-mutex/</loc>
-    <lastmod>2015-04-12T17:29:51.000Z</lastmod>
+    <lastmod>2015-04-12T17:32:40.000Z</lastmod>
   </url>
   
   <url>
