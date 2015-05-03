@@ -8,11 +8,9 @@
   <meta name="description" content="Purpose最近好奇要怎麼實作Stack 和 Heap,看了一本書，他是用double link list來實作, 
 爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作.
 之後，會再補上stack/heap的組合變化. 
-A Piece of CodeConcept
-DList.h
-
+Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link List,和">
+基本上就是產生一個Link Lis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[C][DB][Double Link List] Exercise the Double Link List">
 <meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/index.html">
@@ -20,21 +18,17 @@ DList.h
 <meta property="og:description" content="Purpose最近好奇要怎麼實作Stack 和 Heap,看了一本書，他是用double link list來實作, 
 爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作.
 之後，會再補上stack/heap的組合變化. 
-A Piece of CodeConcept
-DList.h
-
+Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link List,和">
+基本上就是產生一個Link Lis">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[C][DB][Double Link List] Exercise the Double Link List">
 <meta name="twitter:description" content="Purpose最近好奇要怎麼實作Stack 和 Heap,看了一本書，他是用double link list來實作, 
 爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作.
 之後，會再補上stack/heap的組合變化. 
-A Piece of CodeConcept
-DList.h
-
+Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link List,和">
+基本上就是產生一個Link Lis">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
   
@@ -118,37 +112,24 @@ DList.h
         <p>
         <div id="toc" class="toc-article">
         <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A_Piece_of_Code"><span class="toc-text">A Piece of Code</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FULL_CODE"><span class="toc-text">FULL CODE</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Explain_what_I_DO"><span class="toc-text">Explain what I DO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FULL_CODE"><span class="toc-text">FULL CODE</span></a></li></ol></li></ol>
         </div>
         
         <h1 id="Purpose">Purpose</h1><p>最近好奇要怎麼實作Stack 和 Heap,看了一本書，他是用double link list來實作, </p>
 <p>爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作.</p>
 <p>之後，會再補上stack/heap的組合變化. </p>
-<h1 id="A_Piece_of_Code">A Piece of Code</h1><h2 id="Concept">Concept</h2><ol>
-<li>DList.h</li>
-</ol>
-<p>我將API 對外的function都放在這裏.
-基本上就是產生一個Link List,和Print Link List, 新增刪除Node.</p>
-<p>DList<em> DList_Create(void);
-typedef Ret (</em>DList_Print)(DList<em>);
-Ret DList_Print_all(DList</em>, DList_Print);
-Ret DList_Insert_Node_ByIndex(DList<em> HeadNode, DList</em> InsertNode, int index);
-Ret DList_Delete_Node_ByIndex(DList*, int index);</p>
+<h1 id="Explain_what_I_DO">Explain what I DO</h1><h2 id="Concept">Concept</h2><p><strong><em>1. DList.h</em></strong></p>
+<p>我將API 對外的function都放在這裏.</p>
+<p>基本上就是產生一個Link List,和Print Link List, 新增刪除Node.</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DList* DList_Create(void);</span><br><span class="line">typedef Ret <span class="comment">(*DList_Print)(DList*)</span>;</span><br><span class="line">Ret DList_Print_all(DList*, DList_Print);</span><br><span class="line">Ret DList_Insert_Node_ByIndex(DList* HeadNode, DList* InsertNode, int <span class="keyword">index</span>);</span><br><span class="line">Ret DList_Delete_Node_ByIndex(DList*, int <span class="keyword">index</span>);</span><br></pre></td></tr></table></figure>
 <p>在DList 的struct裏面, 我特意將data 存成 pointer to void.
-目的其實,就是由上層來決定Double Link List裏面的Node,資料是存什麼.
-typedef struct _DList
-{
-  struct _DList<em> DList_Pre_Ptr;
-  struct _DList</em> DList_Next_Ptr;
-  void* data;
-  int key;
-}DList;</p>
-<p>2.DList.c</p>
+目的其實,就是由上層來決定Double Link List裏面的Node,資料是存什麼.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _DList</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">struct</span> _DList* DList_Pre_Ptr;</span><br><span class="line">  <span class="keyword">struct</span> _DList* DList_Next_Ptr;</span><br><span class="line">  <span class="keyword">void</span>* data;</span><br><span class="line">  <span class="keyword">int</span> key;</span><br><span class="line">&#125;DList;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2.DList.c</em></strong></p>
 <p>大部分實作放在這裏.</p>
-<ol>
-<li>main.c</li>
-</ol>
-<p>由於我把data要存什麼type,交給上層來決定,所以必須要實作存data和display data的function. </p>
+<p><strong><em>3. main.c</em></strong></p>
+<p>由於我把data要存什麼type,交給上層來決定,
+所以必須要實作存data和display data的function.</p>
 <h2 id="FULL_CODE">FULL CODE</h2><p><strong><em>1. DList.h</em></strong>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "global_enum_macro.h"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _DList</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">struct</span> _DList* DList_Pre_Ptr;</span><br><span class="line">  <span class="keyword">struct</span> _DList* DList_Next_Ptr;</span><br><span class="line">  <span class="keyword">void</span>* data;</span><br><span class="line">  <span class="keyword">int</span> key;</span><br><span class="line">&#125;DList;</span><br><span class="line"></span><br><span class="line">DList* DList_Create(<span class="keyword">void</span>);</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">Ret</span> <span class="params">(*DList_Print)</span><span class="params">(DList*)</span></span>;</span><br><span class="line"><span class="function">Ret <span class="title">DList_Print_all</span><span class="params">(DList*, DList_Print)</span></span>;</span><br><span class="line"><span class="function">Ret <span class="title">DList_Insert_Node_ByIndex</span><span class="params">(DList* HeadNode, DList* InsertNode, <span class="keyword">int</span> index)</span></span>;</span><br><span class="line"><span class="function">Ret <span class="title">DList_Delete_Node_ByIndex</span><span class="params">(DList*, <span class="keyword">int</span> index)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p><strong><em>2. DList.c</em></strong></p>
