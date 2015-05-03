@@ -10,7 +10,7 @@
 之後，會再補上stack/heap的組合變化. 
 Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link Lis">
+基本上就是產生一個D_Link_L">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[C][DB][Double Link List] Exercise the Double Link List">
 <meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/index.html">
@@ -20,7 +20,7 @@ Explain what I DOConcept1. DList.h
 之後，會再補上stack/heap的組合變化. 
 Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link Lis">
+基本上就是產生一個D_Link_L">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[C][DB][Double Link List] Exercise the Double Link List">
 <meta name="twitter:description" content="Purpose最近好奇要怎麼實作Stack 和 Heap,看了一本書，他是用double link list來實作, 
@@ -28,7 +28,7 @@ Explain what I DOConcept1. DList.h
 之後，會再補上stack/heap的組合變化. 
 Explain what I DOConcept1. DList.h
 我將API 對外的function都放在這裏.
-基本上就是產生一個Link Lis">
+基本上就是產生一個D_Link_L">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
   
@@ -120,9 +120,9 @@ Explain what I DOConcept1. DList.h
 <p>之後，會再補上stack/heap的組合變化. </p>
 <h1 id="Explain_what_I_DO">Explain what I DO</h1><h2 id="Concept">Concept</h2><p><strong><em>1. DList.h</em></strong></p>
 <p>我將API 對外的function都放在這裏.</p>
-<p>基本上就是產生一個Link List,和Print Link List, 新增刪除Node.</p>
-<p>新增和刪除node的方式,就是參考index. index 你可以把當作DLinkList的Node個數</p>
-<p>我現在實作的Double Link LIst 最少有一個Head Node, index可以把他當作是0.</p>
+<p>基本上就是產生一個D_Link_List,和Print D_Link_List, 新增刪除Node.</p>
+<p>新增和刪除node的方式,就是參考index. index 你可以把當作D_Link_List的Node個數</p>
+<p>我現在實作的D_Link_List 最少有一個Head Node, index可以把他當作是0.</p>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DList* DList_Create(void);</span><br><span class="line">typedef Ret <span class="comment">(*DList_Print)(DList*)</span>;</span><br><span class="line">Ret DList_Print_all(DList*, DList_Print);</span><br><span class="line">Ret DList_Insert_Node_ByIndex(DList* HeadNode, DList* InsertNode, int <span class="keyword">index</span>);</span><br><span class="line">Ret DList_Delete_Node_ByIndex(DList*, int <span class="keyword">index</span>);</span><br></pre></td></tr></table></figure>
 <p>在DList 的struct裏面, 我特意將data 存成 pointer to void.
 目的其實,就是由上層來決定Double Link List裏面的Node,資料是存什麼.</p>
