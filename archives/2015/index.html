@@ -121,7 +121,7 @@
 所以必須要實作存data和display data的function.
 可以參考底下這兩個function,所以我要換Node 的data type也會非常方便.
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Ret <span class="title">MyPrint</span><span class="params">(DList* MyDList)</span></span>;</span><br><span class="line">DList* Create_Node(<span class="keyword">int</span> data);</span><br></pre></td></tr></table></figure></p>
-<p>我在DList struct 裏面多存了一個key的東西,爲了日後方變,可以search關鍵字.
+<p>我在DList struct 裏面多存了一個key的東西,爲了日後方便,可以search關鍵字.
 就可以找到你要的node,但是API還沒寫好.現在只支援Index的方式.XD</p>
 <p>在main的後面,有多補一些測試的部分.</p>
 <h2 id="FULL_CODE">FULL CODE</h2><p><strong><em>1. DList.h</em></strong>
