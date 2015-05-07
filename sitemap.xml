@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/07/Stack-Create-the-Stack-Structure-by-Double-Link-List/</loc>
+    <lastmod>2015-05-07T00:54:17.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/</loc>
     <lastmod>2015-05-06T09:45:18.000Z</lastmod>
   </url>
