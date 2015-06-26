@@ -8,7 +8,7 @@
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Crazy Keyboard">
-<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/categories/VIM/index.html">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/tags/class/index.html">
 <meta property="og:site_name" content="Crazy Keyboard">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -69,14 +69,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-VIM-How-to-Copy-Paste-in-different-VIM-terminal" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-How-to-call-C-calss-member-function-from-C" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/" class="article-date">
-  <time datetime="2015-06-13T08:43:22.000Z" itemprop="datePublished">Jun 13 2015</time>
+    <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/" class="article-date">
+  <time datetime="2015-06-26T22:18:41.000Z" itemprop="datePublished">Jun 27 2015</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a>
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C</a>
   </div>
 
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/">[VIM]How to Copy&amp;Paste in different VIM terminal</a>
+      <a class="article-title" href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ calss member function from C</a>
     </h1>
   
 
@@ -99,29 +99,41 @@
         <p>
         <div id="toc" class="toc-article">
         <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PURPOSE"><span class="toc-text">PURPOSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#How_TO_Do"><span class="toc-text">How TO Do</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Check_your_VIM_information_first"><span class="toc-text">Check your VIM information first</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install_the_VIM-Plugin_to_enable_the_feature-"><span class="toc-text">Install the VIM-Plugin to enable the feature.</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HOW_TO_DO"><span class="toc-text">HOW TO DO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#core-cpp"><span class="toc-text">core.cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wrapper-h"><span class="toc-text">wrapper.h</span></a></li></ol></li></ol>
         </div>
         
-        <h1 id="PURPOSE">PURPOSE</h1><p>Recent I want to copy&amp;past in different VIM terminals, so I spent a few time to figure out how to do that. w</p>
-<h1 id="How_TO_Do">How TO Do</h1><p>There is a simple way to do.</p>
-<h2 id="Check_your_VIM_information_first">Check your VIM information first</h2><ol>
-<li>open the shell terminal </li>
-<li>type the following command to check the vim information</li>
-</ol>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> --<span class="keyword">version</span> | <span class="keyword">grep</span> xterm_clipboard</span><br></pre></td></tr></table></figure>
-<p>If you find the below message, it tells you that the xterm_clo[board of VIM is off</p>
-<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-xterm_clipboard</span></span><br></pre></td></tr></table></figure>
-<h2 id="Install_the_VIM-Plugin_to_enable_the_feature-">Install the VIM-Plugin to enable the feature.</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">vim</span>-athena</span><br><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">vim</span>-gnome</span><br><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">vim</span>-gtk</span><br></pre></td></tr></table></figure>
+        <h1 id="Purpose">Purpose</h1><p>整個晚上都睡不着,大概是因爲今天被一個無心的朋友傷到自信心</p>
+<p>難道物理系不能寫出好的code嗎,雖然真的也是有一段時間沒有磨練自己了.</p>
+<p>爲了捍衛自己的尊嚴,還是必須要嚴守每天寫點程式的習慣.</p>
+<p>今天想到一件事情,要如何從C語言去呼叫C++的class member function.</p>
+<p>這件事情,感覺挺有趣的,所以花了點時間看看要如何實作.</p>
+<h1 id="HOW_TO_DO">HOW TO DO</h1><p>概念是這樣滴, C的code是無法直接呼叫C++ class的member,</p>
+<p>必須要透過一層wrapper 層的來變相取得class的member, 要注意的是, 這個wrapper 層也必須是C++,</p>
+<p>你會發現, 其實這個wrapper 只是利用物件的poiner 去操作, class member.</p>
+<p>底下的例子，我會定一個class, 然後再把這個class 包成一個static lib.</p>
+<p>接着就會用C code去呼叫他.</p>
+<h2 id="core-cpp">core.cpp</h2><p>如上面所說,我定義依個class並且放在core.cpp 裏面,裏面只有依個member function,</p>
+<p>唯一的功用就是將兩個數字相加後.印出來.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> MyCPP &#123;</span><br><span class="line">  <span class="keyword">public</span> : </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrintNumber</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span></span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> MyCPP :: PrintNumber(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; (num1+num2) &lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="wrapper-h">wrapper.h</h2><p>再來就是實作wrapper層的api,這層非常的有意思,先來講一下這個header file,</p>
+<p>由於c++的compiler對於symbol有Name Mangling的行爲(也就是會改變數函式名稱)</p>
+<p>所以假如我們wrapper這層的api,要同時被C以及C++使用的話,我們必須讓g++ compiler symbol不去做name mangling.</p>
+<p>要怎麼做呢？就是透過 extern &quot;C&quot; 這個關鍵字.</p>
+<p>爲了避免gcc compiler 在include wrapper.h 出現compiler error, 我們再用cplusplus去隔開.
+;
+還有一件事情要注意壓,由於是要給C code 使用,但是C一定沒有class 這種結構,所以就會將class的poiner</p>
+<p>先暫時指向void</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#ifdef __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">void</span>* api_create_class(<span class="keyword">void</span>);</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">api_destory_class</span><span class="params">(<span class="keyword">void</span>*)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">api_print_sum</span><span class="params">(<span class="keyword">void</span>*, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="preprocessor">#ifdef __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/" data-id="cibe8cbha000piqxkffh5nuob" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/" data-id="cibe8m4ps0000q0xkzmxpgsvj" class="article-share-link">Share</a>
       
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/VIM/">VIM</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/class/">class</a></li></ul>
 
     </footer>
   </div>
