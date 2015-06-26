@@ -87,7 +87,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ calss member function from C</a>
+      <a class="article-title" href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
     </h1>
   
 
@@ -112,7 +112,7 @@
 <p>你會發現, 其實這個wrapper 只是利用物件的poiner 去操作, class member.</p>
 <p>底下的例子，我會定一個class, 然後再把這個class 包成一個static lib.</p>
 <p>接着就會用C code去呼叫他.</p>
-<h2 id="core-cpp">core.cpp</h2><p>如上面所說,我定義依個class並且放在core.cpp 裏面,裏面只有依個member function,</p>
+<h2 id="core-cpp">core.cpp</h2><p>如上面所說,我定義一個class並且放在core.cpp 裏面,裏面只有一個member function,</p>
 <p>唯一的功用就是將兩個數字相加後.印出來.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> MyCPP &#123;</span><br><span class="line">  <span class="keyword">public</span> : </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrintNumber</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span></span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> MyCPP :: PrintNumber(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; (num1+num2) &lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="wrapper-h">wrapper.h</h2><p>再來就是實作wrapper層的api,這層非常的有意思,先來講一下這個header file,</p>
@@ -352,7 +352,7 @@ base class 是否需要有相同引數的function member? </p>
       <ul>
         
           <li>
-            <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ calss member function from C</a>
+            <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
           </li>
         
           <li>
