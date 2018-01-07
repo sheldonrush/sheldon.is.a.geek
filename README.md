@@ -1,1 +1,0 @@
-# sheldon.is.a.geek
