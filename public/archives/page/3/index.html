@@ -69,6 +69,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post--C-Virtual-Function-Exercisels" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" class="article-date">
+  <time datetime="2015-03-10T15:07:33.000Z" itemprop="datePublished">Mar 10 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/">[C++][Virtual Function] Exercises</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-text">Exercise</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
+<ol>
+<li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
+base class 是否需要有相同引數的function member? </p>
+<p>--&gt;  <strong><em>答案是要的</em></strong></p>
+</li>
+<li><p>extend class 要如何存取 base class 的 member data</p>
+<p>--&gt; <strong><em>將base class的member data 從private 改成protected</em></strong></p>
+</li>
+<li><p>extend class 在用 virtual 關鍵字的時候, 是否需要在function 宣告的前面加上 virtual</p>
+<p>--&gt; <strong><em>不用</em></strong></p>
+</li>
+</ol>
+<h2 id="Exercise">Exercise</h2><p>底下是間單的測試code.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.10</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class base_class </span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">      base_class(void);</span><br><span class="line">      virtual void set_value(int);</span><br><span class="line">      virtual void set_value(int, int);</span><br><span class="line">      void print_value(void);</span><br><span class="line"></span><br><span class="line">  protected : </span><br><span class="line">      int v1; </span><br><span class="line">      int v2; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">base_class :: base_class(void)</span><br><span class="line">&#123;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "base_class constructor !!" &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value1" &lt;&lt;endl;</span><br><span class="line">  v1 += a ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">void base_class :: print_value(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "v1 = " &lt;&lt; v1 &lt;&lt;endl;</span><br><span class="line">  cout &lt;&lt; "v2 = " &lt;&lt; v2 &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class extend_class : public base_class</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    extend_class(void);  </span><br><span class="line">    void set_value(int, int);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">extend_class :: extend_class(void) : base_class()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend clss constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void extend_class::set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 += a;</span><br><span class="line">  v2 += b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  base_class BC;</span><br><span class="line">  extend_class EC;</span><br><span class="line"></span><br><span class="line">  base_class* base_ptr;</span><br><span class="line"></span><br><span class="line">  // base class</span><br><span class="line">  base_ptr = &amp;BC;</span><br><span class="line">  base_ptr-&gt;</span>set_value(10);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  // extended class</span><br><span class="line">  base_ptr = &amp;EC;</span><br><span class="line">  base_ptr-&gt;set_value(5, 5);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cjc6dveke006g4rggbkrpa6va" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post--C-Virtual-Function-Inherit-My-Animal-World" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" class="article-date">
@@ -134,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjc6dp2bk006535ggkwfiusvw" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjc6dveka00664rggw1eg6gz1" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -205,7 +272,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjc6dp29i004p35ggwt1ozdhs" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjc6dvei7004q4rggifmichsc" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -271,7 +338,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjc6dp29r005135ggjhw6pfnl" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjc6dvej000524rggqtugtht0" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -335,7 +402,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjc6dp29v005435ggayijbizs" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjc6dvejb00554rggrjg55gn5" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -408,7 +475,7 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjc6dp28i004935gg59h6w0sg" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjc6dveh9004a4rgg12iku7od" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -484,7 +551,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjc6dp29e004k35gg4i6rfn0d" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjc6dvehz004l4rggepigoziv" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -552,7 +619,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjc6dp294004f35ggu5jxdu3c" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjc6dvehq004g4rggxq7udqx8" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -607,7 +674,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjc6dp29m004w35gg3dou0buj" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjc6dveis004x4rggfg4amee0" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -671,70 +738,12 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjc6dp2ag005p35gg5g6icnjx" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjc6dvejs005q4rggjafjpz3o" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--GDB-基本指令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" class="article-date">
-  <time datetime="2015-02-04T00:22:05.000Z" itemprop="datePublished">Feb 4 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/">[GDB] 基本指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        
-        </div>
-        
-        <p>GDB 是一個很好的除錯指令, 這給了一個方法, 去快速知道你的程式發生了闍麼問題. </p>
-<p>而不要一直使用<strong><em>printf</em></strong>去做debug. gdb 可以用在 server/client 的online debug 模式,</p>
-<p>或是僅僅offline 的觀察coredump. </p>
-<p>使用gdb 除錯, 你必須在編code的時候, 在gcc 的compiler option 多加<strong><em>-g</em></strong></p>
-<p>底下是我最近練習到的gdb指令.</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(gdb) r     <span class="string">\\</span> 開始執行程式</span><br><span class="line">(gdb) c     <span class="string">\\</span> 假如你現在停在breakpoint, 接着執行程式（<span class="keyword">continue</span>） </span><br><span class="line">(gdb) b <span class="keyword">function</span>  <span class="string">\\</span> 設定中斷點</span><br><span class="line">(gdb) b <span class="attribute">file</span>:line <span class="string">\\</span> 設定中斷點的另一個方法</span><br><span class="line">(gdb) layout src  <span class="string">\\</span> 將現在程式跑到的位置,  跟src code做一個mapping.</span><br><span class="line">(gdb) stack <span class="string">\\</span> 觀察現在的stack</span><br><span class="line">(gdb) info all-registers <span class="string">\\</span> 觀察現在所有的registers</span><br><span class="line">(gdb) p $r0      <span class="string">\\</span> 讀取現在的cpu $r0 registers</span><br><span class="line">(gdb) threads    <span class="string">\\</span> 觀察program 裏面, 所有的thread 運行的情況卒. (有點像ps)</span><br><span class="line">(gdb) s          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 進入<span class="keyword">function</span>的stack. </span><br><span class="line">(gdb) n          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 不進入<span class="keyword">function</span>的stack</span><br><span class="line">(gdb) <span class="keyword">return</span>     <span class="string">\\</span> 離開現在的fucntion, 返回calling</span><br><span class="line">(gdb) jump line  <span class="string">\\</span> 將PC 指向程式的line的位置</span><br><span class="line">(gdb) info locals <span class="string">\\</span> 列出現在的local變數</span><br><span class="line">(gdb) info args <span class="string">\\列出引數</span></span><br><span class="line">(gdb) bt <span class="string">\\</span> bracktrace</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" data-id="cjc6dp2at005v35ggkk00z120" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a></li></ul>
 
     </footer>
   </div>
@@ -784,7 +793,7 @@ HaHa</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2018/01/">January 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -794,6 +803,10 @@ HaHa</p>
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2018/01/08/test2-1/">test2</a>
+          </li>
         
           <li>
             <a href="/sheldon.is.a.geek/2018/01/08/test2/">test2</a>
@@ -809,10 +822,6 @@ HaHa</p>
         
           <li>
             <a href="/sheldon.is.a.geek/2015/06/21/安裝R語言/">安裝R語言</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/">[VIM]How to Copy&amp;Paste in different VIM terminal</a>
           </li>
         
       </ul>
