@@ -1,0 +1,251 @@
+title: "[Raspberry Pi] Socket Programming and GPIO"
+date: 2015-03-01 08:30:29
+categories: Raspberry Pi
+tags: 
+- Socket 
+- GPIO
+- Raspberry Pi
+toc: true
+---
+
+
+## 目的
+
+很久之前, 曾經做過 socket programming在樹梅派的應用. 
+也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
+我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD
+
+這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又想模擬mutlit-client的情況, 
+所以我在laptop又多起一個task去送訊號給server. 
+
+
+## Demo on Youtube
+
+This  demo tell how to control GPIO and send the data to server.
+About socket programming, server can receive the data from multi client.
+
+{% youtube i2Jig5vebBk %}
+
+
+## Source code.
+
+{% link 下載Download http://sheldonrush.github.io/sheldon.is.a.geek/doc/Pi_is_client_PC_is_server.tar.7z %}
+
+___1. server端___
+
+// sr_server.c
+
+```
+/*
+Function : socket code for server
+Arthur : SheldonRush Peng
+Date : 2013/7/26
+*/
+
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
+int main(int argc, char *argv[])
+{
+    int connfd = 0, n = 0, listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    struct sockaddr_in serv_addr;
+
+    char charBuff[1024];
+    char recvBuff[1024];
+    time_t ticks;
+
+    // init the data structure of serv_addr
+    memset(&serv_addr, '0', sizeof(serv_addr));
+    memset(charBuff, '\0', sizeof(charBuff));
+    memset(recvBuff, '\0', sizeof(recvBuff));
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_addr.sin_port = htons(8998);
+
+    // assign the scket port to socket
+    bind(listenfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+    listen(listenfd, 20);
+
+    while (1)
+    {
+        connfd = accept(listenfd, (struct sockaddr*)NULL, NULL);
+   
+        printf("%s %d \n", "server: connfd is", connfd);
+        ticks = time(NULL);
+        snprintf(charBuff, sizeof(charBuff), "%s\n", ctime(&ticks));
+        printf("server: %s\n", charBuff);
+        
+        while ( (n = read(connfd, recvBuff, sizeof(recvBuff)-1)) > 0)
+        {
+           recvBuff[n] = 0;
+           printf("server: read %d bytes \n", n);
+           printf("server: EOF = %d \n", EOF);
+           if ( fputs(recvBuff, stdout) == EOF)
+           {
+                printf("Error : Fputs error \n");
+           }
+        }
+
+        if (n < 0)
+        {
+            printf("Error : read errpr \n");
+        }
+       //  write(connfd, sendBuff, strlen(sendBuff));
+        close(connfd);
+        sleep(1); 
+    }
+}
+
+```
+
+___2. Clinet 端___
+
+// main.c
+
+```
+/*
+Function : Detect whether GPIO[17] is high or low
+Arthur : Sheldon RUsh Peng
+Date : 2013/7/27
+*/
+
+#include <wiringPi.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "sr_clinit.h" 
+
+
+#define False 0
+#define True 0
+#define pin 0 //GPIO[17]
+
+int main(int argc, char *argv[])
+{
+    int pin_value = False;
+    time_t current_time;
+    int count = 0;
+    
+    if (argc != 4)
+    {
+        printf("Usage : %s <ip> <port> <station id> \n", argv[0]);
+        return 1;
+    }
+  
+    if (-1 == wiringPiSetup())
+        exit(1);
+
+    // init GPIO[17] to be INPUT port 
+    pinMode(pin, INPUT);
+    
+    while (1)
+    {
+        current_time = time(NULL); 
+        pin_value = digitalRead(pin);
+        if (True == pin_value)
+        {
+            count ++;
+            printf("\n\n%s\n", ctime(&current_time));
+            printf("Work station call help [%d] time\n", count);
+            
+            if (0 != socket_clinit_main(argc,argv))
+            {
+                printf("cannot call help \n");
+                return 1;
+            }
+            sleep(5);
+        }
+    }
+}
+
+```
+
+// sr_clinit.h 
+
+```
+extern int socket_clinit_main(int argc, char *argv[]);
+
+```
+
+
+// sr_clinit.c 
+
+```
+/*
+Function : Socket code for clinit
+Arthur : SheldonRush Peng
+Date : 2013/7/26
+*/
+
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "sr_clinit.h"
+
+int socket_clinit_main(int argc, char *argv[])
+{
+    int sockfd = 0, n = 0;
+    char sendBuff[1024];
+
+    struct sockaddr_in serv_addr;
+
+    if (argc != 4)
+    {
+        printf("Usage : %s <ip> <port> <station id>\n", argv[0]);
+        return 1;
+    }
+    
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        printf("Error : cannot create a socket\n"); 
+        return 1;
+    }
+    memset(sendBuff, '\0', sizeof(sendBuff));
+    
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(atoi(argv[2]));
+
+    if (inet_pton(AF_INET, argv[1], &serv_addr.sin_addr) <= 0 )
+    {
+        printf("%s \n" , " Error : cannot convert text to ip binary");
+        return 1;
+    }
+
+    if ( connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0 )
+    {
+        printf("Error : canot connect server\n");
+    }
+
+    printf("Clinit: Send data to server, station id = %d\n", atoi(argv[3]));
+    snprintf(sendBuff,  sizeof(sendBuff), "hi Sheldon, I am station id [%d]\n", atoi(argv[3]));
+    printf("Clint: data is {%s}\n", sendBuff);
+    write(sockfd, sendBuff, strlen(sendBuff));
+
+    close(sockfd);
+/*
+    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0)
+    {
+        recvBuff[n] =0;
+        if ( fputs(recvBuff, stdout) == EOF)
+        {
+           printf("Error : Fputs error \n");
+        }
+    }
+
+   if (n < 0)
+   {
+        printf("Error : read error \n");
+        return 1;
+   }
+*/
+   return 0;
+}
+```
+
+

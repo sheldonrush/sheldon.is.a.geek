@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crazy Keyboard">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/archives/2015/page/2/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Crazy Keyboard">
+<meta name="twitter:description">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css" type="text/css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Vdieo</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-HTTP-ASP-POST-分析網頁原始碼" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" class="article-date">
+  <time datetime="2015-03-28T14:56:02.000Z" itemprop="datePublished">Mar 28 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/POST/">POST</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/">[HTTP][ASP][POST][表單] 分析網頁原始碼</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introudction"><span class="toc-text">Introudction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表單"><span class="toc-text">表單</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何用改變URL的方式,_來獲取各個表單的資訊-"><span class="toc-text">如何用改變URL的方式, 來獲取各個表單的資訊.</span></a></li></ol>
+        </div>
+        
+        <h1 id="Purpose">Purpose</h1><p>有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理</p>
+<p>他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料</p>
+<p><a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">抓取鉅亨網個股歷史行情</a></p>
+<p>老實說，我不是做web應用的，XDDD,當下的反應是 &quot;瓦阿哉&quot;. 所以爲了要保存一些顏面.</p>
+<p>花了時間看了一下. 怎麼分析html....</p>
+<h1 id="Introudction">Introudction</h1><p>他的目的是要抓取網頁中表單的資料, </p>
+<p>所以必須要知道HTTP如何處理表單的. </p>
+<p>在開始之前, 你必須要知道如何檢視html的原始碼,</p>
+<p>這部份，最容易了.</p>
+<p>先來安裝個chrome. 然後找一個有<a href="http://www.cnyes.com/twstock/ps_historyprice/1101.htm" target="_blank" rel="external">表單的網頁</a></p>
+<p>(按右鍵) -&gt; (檢視網頁原始碼)</p>
+<p>大功告成, Aha....</p>
+<h1 id="表單">表單</h1><p>html的標籤有許多種, 這裡的<a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="external">聯結</a>作者很用心誒. </p>
+<p>但是現在我們其實只是要focus 在表單上.</p>
+<p>表單標籤的keyword 其實就是 <strong><em>form</em></strong>, 所以你只需要在原始碼中查詢<strong><em>form</em></strong>的關鍵字， 你就會發現表單的位置.</p>
+<p>例如底下,</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=<span class="string">"aspnetForm"</span> method=<span class="string">"post"</span> action=<span class="string">"/twstock/ps_historyprice/1101.htm"</span> id=<span class="string">"aspnetForm"</span>&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"><span class="keyword">...</span></span><br><span class="line">&lt;input type=<span class="string">"hidden"</span> name=<span class="string">"__VIEWSTATE"</span> id=<span class="string">"__VIEWSTATE"</span></span><br><span class="line"><span class="keyword">...</span></span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>標籤大多都是成對的出現,所以你發現了<strong><em>form</em></strong>的開頭,就可以看到一個<strong><em>/form</em></strong>的結尾</p>
+<p>從上面的資訊可以看出一些東西, 組成這個表單標籤的元素, 其實有許多種, </p>
+<p>底下只是一個例子,</p>
+<p><strong><em>1. name=&quot;aspnetForm&quot;</em></strong></p>
+<p>這個就是這個表單的名字</p>
+<p><strong><em>2. method=&quot;post&quot;</em></strong></p>
+<p>當你按完<strong><em>查詢</em></strong>按鍵之後, 會利用post的方式將表單以及一些user自定的參數,帶給<strong><em>action這個程式</em></strong>, 
+一般講到post的時後,都會提到get這個方法, 我大概只有一個概念, 似乎post會比get還要安全,XDD 這種粗淺的認知.
+有興趣的可以看一下,底下的差異介紹.</p>
+<p><a href="http://blog.toright.com/posts/1203/%E6%B7%BA%E8%AB%87-http-method%EF%BC%9A%E8%A1%A8%E5%96%AE%E4%B8%AD%E7%9A%84-get-%E8%88%87-post-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F.html" target="_blank" rel="external">GET VS POST Method</a></p>
+<p><strong><em>3. action=&quot;/twstock/ps_historyprice/1101.htm&quot;</em></strong></p>
+<p>如同上面所說,其實1101.htm應該就是web server上某一個程式, 當我們按完<strong><em>查詢</em></strong>以後, 會將一些資料（例如, 開始日期與結束日期)
+送到<strong><em>action</em></strong>這裏. 去做相對應的處理. <a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="external">例子</a>, 其實就是將這其間內的資料從data base裏面撈出來
+在顯示給user看.</p>
+<h1 id="如何用改變URL的方式,_來獲取各個表單的資訊-">如何用改變URL的方式, 來獲取各個表單的資訊.</h1><p>在開始之前,應該有人,會有一些疑問,爲什麼網址不變,但是卻可以撈到不同的股市資料, 其實就是剛剛那個post的方式, 做到的. </p>
+<p>有人會問，要怎麼知道,新的表單需要在URL上多加什麼爾外的資訊. 才能獲得呢.</p>
+<p>其實很直觀,你觀察一下網頁上的表單,會需要什麼資訊，這個例子是用, (開始日期與結束日期),你就直接在原始碼中找尋(開始日期與結束日期)</p>
+<p>多們直觀對吧 kerker</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;form <span class="variable">name=</span><span class="string">"aspnetForm"</span> <span class="variable">method=</span><span class="string">"post"</span> <span class="variable">action=</span><span class="string">"/twstock/ps_historyprice/1101.htm"</span> <span class="variable">id=</span><span class="string">"aspnetForm"</span>&gt;</span><br><span class="line">...</span><br><span class="line">&lt;span <span class="variable">class=</span><span class="string">"srchyear2"</span> &gt;</span><br><span class="line">開始日期&lt;input <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$startText"</span> <span class="variable">type=</span><span class="string">"text"</span> <span class="variable">value=</span><span class="string">"2015/02/28"</span> <span class="variable">maxlength=</span><span class="string">"10"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_startText"</span> <span class="variable">style=</span><span class="string">"width:72px;"</span> /&gt;</span><br><span class="line">結束日期&lt;input <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$endText"</span> <span class="variable">type=</span><span class="string">"text"</span> <span class="variable">value=</span><span class="string">"2015/03/28"</span> <span class="variable">maxlength=</span><span class="string">"10"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_endText"</span> <span class="variable">style=</span><span class="string">"width:72px;"</span> /&gt;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"submit"</span> <span class="variable">name=</span><span class="string">"ctl00$ContentPlaceHolder1$submitBut"</span> <span class="variable">value=</span><span class="string">"查詢"</span> <span class="variable">id=</span><span class="string">"ctl00_ContentPlaceHolder1_submitBut"</span> <span class="variable">class=</span><span class="string">"butn btnga"</span> /&gt;</span><br><span class="line">&lt;span <span class="variable">style=</span><span class="string">"float:right"</span>&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>這樣就可以發現,在表單裏面，其實有一段標籤是描述（開始日期與結束日期),</p>
+<p>跟剛剛一樣，假如要知道input這個標籤屬性在幹嗎，查閱一下 <a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="external">HELP-HTML-標籤</a></p>
+<p>這邊稍爲帶一下，</p>
+<ol>
+<li>name : 代表input 的名字</li>
+<li>type : input 的屬性，text很明顯就是只文字.</li>
+<li>value : 這個input 是什麼值. 看起來就像是日期.</li>
+</ol>
+<p>有了以上的簡單的認知,我們就可以透過key URL 的方式，來改變我們要搜尋的股市歷史資料</p>
+<p>首先， 由於我們這個是要股市歷史資料,你觀察一下,他的歷史資料的首頁,</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//www.cnyes.com/twstock/ps_historyprice.aspx</span></span><br></pre></td></tr></table></figure>
+<p>聯結進去預設的各股，是臺G電2330, 假如是要查聯發科2454的話.</p>
+<p>你只要將code=2454 帶入URL中即可.像是底下.</p>
+<p>要注意一個地方，假如我需要帶參數在URL中時，你就必須多加一個&quot;？&quot;在網址的最後面. 然後緊接着參數code</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//www.cnyes.com/twstock/ps_historyprice.aspx?code=2454</span></span><br></pre></td></tr></table></figure>
+<p>看起來真的很容易對吧...</p>
+<p>再來就是，假如我需要知道某個區間內的歷史資料要怎麼做呢.</p>
+<p>其實很間單,就是在多加時間的參數下去,對吧. 時間參數所要用的name 其實就是網頁原始碼中的name(可以參考上一段所說)</p>
+<ol>
+<li>Name of 開始時間 : ctl00$ContentPlaceHolder1$startText</li>
+<li>Name of 結束時間 : ctl00$ContentPlaceHolder1$endText</li>
+</ol>
+<p>要注意兩個地方</p>
+<ol>
+<li>等於（=）後面,就是塞值進去，這個例子就是時間.</li>
+<li>帶入的每個參數之間都要有&quot;&amp;&quot;將每個參數做區隔. 底下例子其實，就是三個參數.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.cnyes.com/twstock/ps_historyprice.aspx?code=<span class="number">2454</span>&amp;ctl00<span class="variable">$ContentPlaceHolder1</span><span class="variable">$startText</span>=<span class="number">2014</span>/<span class="number">01</span>/<span class="number">01</span>&amp;ctl00<span class="variable">$ContentPlaceHolder1</span><span class="variable">$endText</span>=<span class="number">2014</span>/<span class="number">01</span>/<span class="number">28</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" data-id="cibe8cbid002biqxksdy8k7m5" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ASP/">ASP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/POST/">POST</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Netwoek-Scan-IP-nmap" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" class="article-date">
+  <time datetime="2015-03-24T15:58:26.000Z" itemprop="datePublished">Mar 24 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/">[Netwoek][Scan IP] nmap</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        
+        </div>
+        
+        <p>之前發現了 fping 可以掃描網域IP, 今天又發現了一個更強大的工具 nmap ...</p>
+<p>XDD, 還不是很會用, 先記錄一下, 之後再找時間來介紹. </p>
+<p>假如你想要掃整個子網域, 可以用底下的指令</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.0.<span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://www.gtwang.org/2014/10/nmap-command-examples-tutorials.html" target="_blank" rel="external">參考</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" data-id="cibe8cbi0001viqxkcgdwc6z7" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/fping/">fping</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/nmap/">nmap</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" class="article-date">
+  <time datetime="2015-03-23T13:22:47.000Z" itemprop="datePublished">Mar 23 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/">[C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Compiler"><span class="toc-text">Compiler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_1"><span class="toc-text">Sample Code 1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_2"><span class="toc-text">Sample Code 2</span></a></li></ol>
+        </div>
+        
+        <h1 id="Purpose">Purpose</h1><p>今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作.</p>
+<p>multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch,</p>
+<p>整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成</p>
+<p>每個thread access 到其他人thread要用的資料, 底下有兩個sample code, 第一個sample code,</p>
+<p>就出現這樣的錯誤.</p>
+<h1 id="Compiler">Compiler</h1><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc <span class="keyword">main</span>.c -lpthread -o <span class="keyword">main</span></span><br></pre></td></tr></table></figure>
+<p>由於pthread是在libpthread.so的lib裏面, 所以我們在compiler 的時候, 必須將pthread lib include 進去. </p>
+<p>.c 檔裏面, 也記得要include pthread.h.</p>
+<h1 id="Sample_Code_1">Sample Code 1</h1><p>你可以從底下的結果看出一個奇特的現象,</p>
+<p>我產生了10個thread, 但是印出thread id 的時候， thread id =5, 卻印了4次. </p>
+<p>這代表, 我create thread 的時侯, 帶下去的thread id (i), 被其他thread access到了. 造成了這個問題, </p>
+<p>修這個bug的最簡單方法, 可以參考Sample Code 2.</p>
+<p>關於 pthread_join 的使用, 也很單純. </p>
+<p>他就wait 那裡,等待他要wait 的pthread id 被終止, 假如沒有終止的話, 那就GG了, 系統就會hang在那裏. </p>
+<p><strong><em>main.c</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;pthread.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> THREAD_NUM 10</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SR_DBG(fmt,arg...) printf("[%s][%d] "fmt, __FUNCTION__,__LINE__, ##arg)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* thread_routine(<span class="keyword">void</span>* argv)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> my_id = *((<span class="keyword">int</span>*)argv);</span><br><span class="line">  SR_DBG(<span class="string">"hello, i'm new thread, my name is id[%d] \r\n"</span>,my_id);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">create_multi_thread_test</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;i))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, create thread FAILLL!!! \r\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Wait for termination of thread id [%d] \r\n"</span>, i);</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, Mother thread cannot wait for thread id [%d]\r\n"</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  SR_DBG(<span class="string">"This is multi-thread test code \r\n"</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (-<span class="number">1</span> == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"the multi thread test is FAILLLLL!!! \r\n"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result1</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v1.png">
+<h1 id="Sample_Code_2">Sample Code 2</h1><p>這個smaple code, 就是針對上面去做一些改良, 多用一個 array 來存要帶進去thread_routine 裏面的引數</p>
+<p>避免被其他thread access 倒.但是這一定不是最佳的方法... </p>
+<p><strong><em>main_v2.c</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;pthread.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> THREAD_NUM 10</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SR_DBG(fmt,arg...) printf("[%s][%d] "fmt, __FUNCTION__,__LINE__, ##arg)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* thread_routine(<span class="keyword">void</span>* argv)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> my_id = *((<span class="keyword">int</span>*)argv);</span><br><span class="line">  SR_DBG(<span class="string">"hello, i'm new thread, my name is id[%d] \r\n"</span>,my_id);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">create_multi_thread_test</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line">  <span class="keyword">int</span> thread_i[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thread_i[i] = i;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;thread_i[i]))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, create thread FAILLL!!! \r\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Wait for termination of thread id [%d] \r\n"</span>, i);</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"OMG, Mother thread cannot wait for thread id [%d]\r\n"</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  SR_DBG(<span class="string">"This is multi-thread test code \r\n"</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (-<span class="number">1</span> == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"the multi thread test is FAILLLLL!!! \r\n"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result2</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v2.png">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="cibe8cbis0033iqxkyhdfag7c" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" class="article-date">
+  <time datetime="2015-03-21T07:28:52.000Z" itemprop="datePublished">Mar 21 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/">[C][Dynamic Array] Exercise to operate the dyanmic array </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結論"><span class="toc-text">結論</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行...</p>
+<p>哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算</p>
+<p>靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西, </p>
+<p>我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dynamic array 這個我還是第一次各聽到</p>
+<p>（是不是很虛， 沒辦法, 小弟不是資工的...走一步算一步吧!!） </p>
+<p>今天就花了時間, 學習了一下要如何操作 dynamic array... </p>
+<h2 id="結論">結論</h2><p>先來下個結論, 一開始我以爲dynamic array 是指array 可以動態的改變, 將底下的array, 大小改變...</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> static_array[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<p>但是我做了實驗, 發現是不行的(有錯的話, 請糾正我吧！！) </p>
+<p>基本上就是透過 malloc 要一塊heap 的記憶體,然後再用 realloc 的方式, 去放大縮小你的heap空間.</p>
+<p>底下的sample 主要做了底下這些事情. 一行一行做註解， 會殺了我...所以我列出concept, 讓入門人有個概念</p>
+<ol>
+<li>我用一個structure --&gt;  DArray, 來當作動態的array. 主要就是操作裏面的data</li>
+<li>這個sample code有讓array長大的api, 以及讓array所小的api, 可以參考.h 檔去追</li>
+<li>DArray 裏面有兩個siz,
+   int array_size;           --&gt; data array 的大小
+   int allocated_array_size; --&gt; 我們用 malloc 實際跟系統要的memory size</li>
+<li>爲什麼要分兩個size呢, 原因是因爲跟記憶體有關, 你應該不會希望, 當我們要新增刪除一個member 就要
+call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynamic array 的好處之一...</li>
+</ol>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>main.c</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******************************</span><br><span class="line"> *  Purpose : Exercise to operate the dynamic array</span><br><span class="line"> *  Arthur  : Sheldon Peng</span><br><span class="line"> *  Date    : 2015/3/21 </span><br><span class="line"> * */</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "main.h"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SR_DBG(fmt, vargs...) printf("[%s][%d]" fmt, __FUNCTION__, __LINE__, ##vargs)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> CHECK_NULL(PTR)  <span class="keyword">if</span>(!PTR)    \</span></span><br><span class="line">                          &#123;<span class="built_in">printf</span>(<span class="string">"ERROR!! the pointer is NULL \r\n"</span>);&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> RET <span class="title">DArray_shrink</span><span class="params">(DArray* thiz, <span class="keyword">int</span> shrink_size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  <span class="keyword">void</span>* shrink_data = realloc((<span class="keyword">void</span>*)thiz-&gt;data, shrink_size*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ( NULL!=shrink_data)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (<span class="keyword">char</span>*)shrink_data; </span><br><span class="line">    thiz-&gt;allocated_array_size = shrink_size; </span><br><span class="line">    SR_DBG(<span class="string">" SHRINK size to %d \r\n"</span>, shrink_size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"FAIL to realloc array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> RET_SUCCESS;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_delete</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">" ERROR to delete the dynamic array member beacuse the index is not belong into dynamic array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// remove the member from the dynamic array</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> (i=index;i&lt;(thiz-&gt;array_size-<span class="number">1</span>);i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i+<span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size-<span class="number">1</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Shrink the dynamic array if the pool size is enough to use .</span></span><br><span class="line">  <span class="keyword">int</span> shrink_size = thiz-&gt;array_size + (thiz-&gt;array_size&gt;&gt;<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (shrink_size &lt; thiz-&gt;allocated_array_size)</span><br><span class="line">  &#123;</span><br><span class="line">     <span class="keyword">if</span> ( RET_FAIL == DArray_shrink(thiz, shrink_size) )</span><br><span class="line">     &#123;</span><br><span class="line">       SR_DBG(<span class="string">"FAILLL to shrink the dynamic array \r\n"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> RET <span class="title">DArray_enlarge</span><span class="params">(DArray* thiz, <span class="keyword">int</span> enlarge_size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  <span class="keyword">void</span>* enlarge_data = realloc((<span class="keyword">void</span>*)thiz-&gt;data, enlarge_size*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( NULL!=enlarge_data )</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (<span class="keyword">char</span>*)enlarge_data;</span><br><span class="line">    thiz-&gt;allocated_array_size = enlarge_size;</span><br><span class="line">    SR_DBG(<span class="string">" ENLARGE size to %d \r\n"</span>, enlarge_size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"FAIL to realloc array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> RET_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_insert</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index, <span class="keyword">char</span> insert_data)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Your index is wrong, because the index is not wihin the array \r\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (thiz-&gt;allocated_array_size &lt; thiz-&gt;array_size+<span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(<span class="string">"Because the space is not enough, so we need to enlarge the space for dynamic array \r\n"</span>);</span><br><span class="line">    <span class="keyword">int</span> enlarge_size = (thiz-&gt;array_size&gt;&gt;<span class="number">1</span>) + thiz-&gt;array_size;</span><br><span class="line">    <span class="keyword">if</span> (RET_FAIL == DArray_enlarge(thiz, enlarge_size ))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(<span class="string">"FAILLL to enlarge the space of dynamic array \r\n"</span>);</span><br><span class="line">      <span class="keyword">return</span> RET_FAIL;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> ( i=thiz-&gt;array_size; i&gt;index; i--)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i-<span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  thiz-&gt;data[index] = insert_data;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display_DArray</span><span class="params">(DArray* DArray_ptr)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> size = DArray_ptr-&gt;array_size;</span><br><span class="line"></span><br><span class="line">  SR_DBG(<span class="string">"My Dynamic Array is : \r\n"</span>);</span><br><span class="line">  SR_DBG(<span class="string">"size is %d \r\n"</span>, size);</span><br><span class="line">  SR_DBG(<span class="string">"allocated size is %d \r\n"</span>, DArray_ptr-&gt;allocated_array_size);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i=<span class="number">0</span>; i&lt;size; i++)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%d, "</span>, DArray_ptr-&gt;data[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\r\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="comment">// Init my dynamic array</span></span><br><span class="line">  DArray myDArray;</span><br><span class="line">  myDArray.array_size = MINIMUN_ARRAY_SIZE;</span><br><span class="line">  myDArray.allocated_array_size = MINIMUN_ARRAY_SIZE+ (MINIMUN_ARRAY_SIZE&gt;&gt;<span class="number">1</span>); </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//char InitArray[myDArray.array_size];</span></span><br><span class="line">  myDArray.data = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*myDArray.array_size);</span><br><span class="line">  <span class="built_in">memset</span>((<span class="keyword">void</span>*)myDArray.data, <span class="number">0x0</span>, (myDArray.array_size)*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Display all dynamic array members. </span></span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// test</span></span><br><span class="line">  SR_DBG(<span class="string">"======== TEST for ENLARGing D_ARRAY \r\n"</span>);</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, <span class="number">0</span>, i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, <span class="number">5</span>, i);</span><br><span class="line">  &#125;</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">  SR_DBG(<span class="string">"======== TEST for SHRINking D_ARRAY \r\n"</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">1</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">5</span>);</span><br><span class="line">  DArray_delete(&amp;myDArray, <span class="number">6</span>);</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>main.h</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MINIMUN_ARRAY_SIZE 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  RET_SUCCESS,</span><br><span class="line">  RET_FAIL,</span><br><span class="line">&#125;RET;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _DArray</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> array_size;</span><br><span class="line">  <span class="keyword">int</span> allocated_array_size;</span><br><span class="line">  <span class="keyword">char</span>* data;</span><br><span class="line">&#125;DArray;</span><br><span class="line"></span><br><span class="line"><span class="function">RET <span class="title">DArray_insert</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index, <span class="keyword">char</span> insert_data)</span></span>;</span><br><span class="line"><span class="function">RET <span class="title">DArray_delete</span><span class="params">(DArray* thiz, <span class="keyword">int</span> index)</span></span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cibe8cbiz003diqxk8gpq8h4h" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/realloc/">realloc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C-readlink" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/18/C-readlink/" class="article-date">
+  <time datetime="2015-03-17T16:56:50.000Z" itemprop="datePublished">Mar 18 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C</a>►<a class="article-category-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/18/C-readlink/">[C][uinstd] 簡易使用 readlink </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>最近遇到一個問題, 假如我希望我的程式能夠知道某個symbolic link 的指向. </p>
+<p>但是我又不希望用 fork+exec or system 的方式, 去產生另一個process 來執行&quot;ls -l&quot;</p>
+<p>直接單純的使用 <strong><em>uinstd.h</em></strong> 裏面的readlink來得到link的指向.</p>
+<p>看起來fork+exec 的比較有趣困難 XDD, 過幾天再寫一下心得...哈</p>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>1. 產生一個symbolic link</em></strong></p>
+<p>什麼是symbolic link呢？熟稱soft link, 有點像windows 底下的聯結, google一下巴...</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ ln <span class="operator">-s</span> ~/python link_<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>我產生了一個link 稱作link_test, 這個link指向 ~/python</p>
+<p><strong><em>2. example code</em></strong></p>
+<p><strong><em>main.c</em></strong></p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Purpose : this is an sample code to use the api of readlink</span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015/3/18</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;string.h&gt;</span></span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  char link_path[] = <span class="string">"/home/sheldon/programming/c_language/readlink/link_test"</span>;</span><br><span class="line">  char target_path[256];</span><br><span class="line">  memset(target_path, 0, sizeof(target_path));</span><br><span class="line"></span><br><span class="line">  if ( -1 == readlink(link_path, target_path, sizeof(target_path)))</span><br><span class="line">  &#123;</span><br><span class="line">    printf(<span class="string">"Fail to read link path !!\r\n"</span>);</span><br><span class="line">  &#125;▫</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(<span class="string">"link path is %s \r\n"</span>, target_path);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="cibe8cbih002kiqxkafrv30tm" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ls/">ls</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/readlink/">readlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--QT-GUI-Hello-World" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" class="article-date">
+  <time datetime="2015-03-15T08:38:42.000Z" itemprop="datePublished">Mar 15 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/QT/">QT</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/">[QT][GUI][Ubuntu] Hello World !</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How_to_compile_QT_program_by_command_line"><span class="toc-text">How to compile QT program by command line</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>最近在學習用QT這個third party 來寫GUI界面.</p>
+<p>之前有用過 QT creator 這個IDE， 用拖曳的方式產生GUI 的component</p>
+<p>用起來挺順手的. 但是整個project 怎麼生出來的, .pro 檔市幹嗎用的, qmke 和make有什麼差異</p>
+<p>完全不清楚在做什麼. 所以今天花了一點時間, 查了要如何透過command line的方式</p>
+<p>一步一步的靠近. <a href="http://www.wikihow.com/Create-Your-First-Qt-Program-on-Ubuntu-Linux" target="_blank" rel="external">我參考這篇</a></p>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>qt_demo.cpp</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QApplication&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QLabel&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;QWidget&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">  <span class="function">QLabel <span class="title">hello</span><span class="params">(&lt;center&gt;This is my first QT hello world!!&lt;/center&gt;)</span></span>;</span><br><span class="line">  hello.setWindowTitle(<span class="string">"My First Qt Program"</span>);</span><br><span class="line">  hello.resize(<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line">  hello.show();</span><br><span class="line">  <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="How_to_compile_QT_program_by_command_line">How to compile QT program by command line</h2><p><strong><em>1. copy qt_demo.cpp to your directory.</em></strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp qt_demo<span class="class">.cpp</span> [your directory]</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. generate the .pro file for QT project setting</em></strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake -<span class="keyword">project</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>3. 將你程式需要的QT module, 放到 .pro file (前一步, 產生出來的)</em></strong></p>
+<p>底下是將 core gui widgets 這三個加入要用的module list 裡面. 
+當 compiler 要做compile/link 的時候, 才會找得到.</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">####</span><br><span class="line"># Automatically generated by qmake (3.0) ?? 3? 15 16:33:14 2015</span><br><span class="line">###</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">TEMPLATE = app</span><br><span class="line">TARGET = qt_tutorial</span><br><span class="line">INCLUDEPATH += .</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">QT += core gui</span><br><span class="line">QT += widgets</span><br><span class="line"></span><br><span class="line"><span class="comment"># Input</span></span><br><span class="line">SOURCES += qt_demo.cpp</span><br></pre></td></tr></table></figure>
+<p><strong><em>4.利用qmake 指令, 將make 產生出來</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake</span><br></pre></td></tr></table></figure>
+<p>你會發現, 你現在這個folder 底下, 會產生一個make 檔</p>
+<p><strong><em>5. Compile</em></strong></p>
+<p>就直接下 make 囉!!!
+就會產生一個執行檔.</p>
+<p><strong><em>6. 成果</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./qt_tutorial</span><br></pre></td></tr></table></figure>
+<p>這樣就產生了hello world 了.., 假如要省事的話, </p>
+<p>還是用qt creator 吧... kerker</p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/qt_tutoral.png">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="cibe8cbl80050iqxkjxqiscwc" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GUI/">GUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/QT/">QT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/compiler/">compiler</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--C-ELF-Attribute-Section" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" class="article-date">
+  <time datetime="2015-03-12T16:58:10.000Z" itemprop="datePublished">Mar 13 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/">[C][ELF] Attribute Section</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-text">Background</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快接近重點了XDD"><span class="toc-text">快接近重點了XDD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#來驗證看看囉!!"><span class="toc-text">來驗證看看囉!!</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>這幾天看到有人的code, 在資料或是function前面多加 attribute 的關鍵字</p>
+<p>所以很好奇， 這東東是幹什麼用的. 花了一點時間讀了相關的<a href="http://enginechang.logdown.com/posts/248172-linker-loader-library" target="_blank" rel="external">blog</a>, 自己消化了一下, 寫了測試的code,  來驗證一下. </p>
+<p>自定section 的目的,  應該是要提高cache 的使用效率. 這樣的話, 但是相對的</p>
+<p>你要code size會變大,  畢竟你多了section header 的資料. </p>
+<h2 id="Background">Background</h2><p>在開始前可能要先明白什麼叫做section, 什麼是objuct code, 什麼ELF檔, </p>
+<p>objuct code 就是我們.c 檔compiler 過後的檔案， 假如在透過linker 的話, </p>
+<p>就會將所有的.o檔, reloate 成elf. </p>
+<p>一個.o 檔其實就可以把他拆解成許多的section. 相同特性的資料, 就會擺成相同的secion上面. </p>
+<p>那我們是否可以自定自己的section 呢, 答案是可以的, 讃阿～～</p>
+<p>就是透過attribute 來告知compiler, 我要自定自己的section.</p>
+<h2 id="快接近重點了XDD">快接近重點了XDD</h2><p>首先我寫了一個程式, 兩個file, 每個file, 任一個function.</p>
+<p>其實只是去印 global array 的值,  只是我將 int_array 放到我自定的section當中, </p>
+<p>我取名成 .sheldon.data </p>
+<p><strong><em>main.c</em></strong></p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// date : 2015/03/12</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;string.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define array_size 5</span></span><br><span class="line">__attribute__((section(<span class="string">".sheldon.data"</span>))) int int_array[array_size] = &#123;0,1,2,3,4&#125;;</span><br><span class="line"></span><br><span class="line">char test_bss[1024];</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  int size = array_size;</span><br><span class="line">  int_array[size-1] = 5;</span><br><span class="line"></span><br><span class="line">  memset(test_bss, 'a', sizeof(test_bss));</span><br><span class="line"></span><br><span class="line">  printf(<span class="string">"Hello, this is attribute section test \r\n"</span>);</span><br><span class="line">  extern void printf_array(int<span class="keyword">*</span>,int);</span><br><span class="line">  printf_array(int_array, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>printf_array.c</em></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array</span><span class="params">(<span class="keyword">int</span>* ptr, <span class="keyword">int</span> size)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"[%s] \r\n"</span>, __FUNCTION__); </span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;size; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d, "</span>, ptr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\n done \n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>常用指令</em></strong></p>
+<ol>
+<li>readelf -s   : 讀這個elf/object 的symbol </li>
+<li>readelf -S   : 讀這個elf/object 的Section</li>
+<li>readelf -a   : 讀所有的資訊</li>
+</ol>
+<h2 id="來驗證看看囉!!">來驗證看看囉!!</h2><p>先將兩個 .c 檔個別的compiler</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc -c print_array<span class="class">.c</span>              <span class="comment">// 產生 print_array.o (object)</span></span><br><span class="line">gcc -c main<span class="class">.c</span>                     <span class="comment">// 產生 main.o (object)</span></span><br><span class="line">gcc main<span class="class">.o</span> print_array<span class="class">.o</span> -o main  <span class="comment">// 產生 main   (elf)</span></span><br></pre></td></tr></table></figure>
+<p>透過下 readelf -S 來觀察自定的section. </p>
+<p>是不是多了 .sheldon.data XDD
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/readelf_S.png"></p>
+<p>其實還有非常多東西可以看, 像是還沒link前的symble 有什麼不一樣.</p>
+<p>某些default 的section各別代表什麼意義. 要如何找出， 你這個elf 有哪些dependency 的lib...</p>
+<p>非常非常多,  我也搞的物煞煞. 哈, 所以就走一步算一步.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="cibe8cbgo0000iqxkh6h73t41" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ELF/">ELF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/readelf/">readelf</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--C-Virtual-Function-Exercisels" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" class="article-date">
+  <time datetime="2015-03-10T15:07:33.000Z" itemprop="datePublished">Mar 10 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/">[C++][Virtual Function] Exercises</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-text">Exercise</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
+<ol>
+<li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
+base class 是否需要有相同引數的function member? </p>
+<p>--&gt;  <strong><em>答案是要的</em></strong></p>
+</li>
+<li><p>extend class 要如何存取 base class 的 member data</p>
+<p>--&gt; <strong><em>將base class的member data 從private 改成protected</em></strong></p>
+</li>
+<li><p>extend class 在用 virtual 關鍵字的時候, 是否需要在function 宣告的前面加上 virtual</p>
+<p>--&gt; <strong><em>不用</em></strong></p>
+</li>
+</ol>
+<h2 id="Exercise">Exercise</h2><p>底下是間單的測試code.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.10</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class base_class </span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">      base_class(void);</span><br><span class="line">      virtual void set_value(int);</span><br><span class="line">      virtual void set_value(int, int);</span><br><span class="line">      void print_value(void);</span><br><span class="line"></span><br><span class="line">  protected : </span><br><span class="line">      int v1; </span><br><span class="line">      int v2; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">base_class :: base_class(void)</span><br><span class="line">&#123;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "base_class constructor !!" &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value1" &lt;&lt;endl;</span><br><span class="line">  v1 += a ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">void base_class :: print_value(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "v1 = " &lt;&lt; v1 &lt;&lt;endl;</span><br><span class="line">  cout &lt;&lt; "v2 = " &lt;&lt; v2 &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class extend_class : public base_class</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    extend_class(void);  </span><br><span class="line">    void set_value(int, int);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">extend_class :: extend_class(void) : base_class()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend clss constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void extend_class::set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 += a;</span><br><span class="line">  v2 += b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  base_class BC;</span><br><span class="line">  extend_class EC;</span><br><span class="line"></span><br><span class="line">  base_class* base_ptr;</span><br><span class="line"></span><br><span class="line">  // base class</span><br><span class="line">  base_ptr = &amp;BC;</span><br><span class="line">  base_ptr-&gt;</span>set_value(10);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  // extended class</span><br><span class="line">  base_ptr = &amp;EC;</span><br><span class="line">  base_ptr-&gt;set_value(5, 5);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cibe8cbm20067iqxkfqzh1liy" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--C-Virtual-Function-Inherit-My-Animal-World" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" class="article-date">
+  <time datetime="2015-03-09T17:22:34.000Z" itemprop="datePublished">Mar 10 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/">[C++][Virtual Function/Inherit] My Animal World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#練習"><span class="toc-text">練習</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型. 
+我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純, 
+可以來記錄你養寵物的體重. 以及每天都喂他飼料的話, 
+他們的體重會變成幾公斤. </p>
+<h2 id="練習">練習</h2><p><strong><em>1. main.h</em></strong></p>
+<p>我在main.h 裏面放了base class 以及 extended class. </p>
+<p>分別帶表了動物和貓以及鼠鼠的屬性.</p>
+<p>要注意底下的一些重點. </p>
+<ol>
+<li>overload 結構子</li>
+<li>virutal function的用法. </li>
+<li>我把實作都放到.c 黨裏面了</li>
+</ol>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define MAX_ANIMAL_NUMBER 2</span></span><br><span class="line">enum &#123;</span><br><span class="line">  BIG_CAT,</span><br><span class="line">  SMALL_NAUGHTY,</span><br><span class="line">  MAX_ANIMAL = MAX_ANIMAL_NUMBER,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Animal();</span><br><span class="line">    Animal(double,double);</span><br><span class="line">    void feed(int);</span><br><span class="line">    double get_weight(void);</span><br><span class="line">    double get_increase_per_day(void);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line"></span><br><span class="line">  private :</span><br><span class="line">    double weight;</span><br><span class="line">    double increase_per_day;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Cat: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Cat(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Mouse: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Mouse(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2.1 main.c</em></strong></p>
+<p>2.1 的部分, 我放了class 成員的實作, 很間單的體重以及增重的vlaue.</p>
+<p>這裡很妙的是假如你 base和extended 有相同的member function (show_name)的話, </p>
+<p>你又想使用extended class 的member function (show_name), 你可以在member function 加上virtual</p>
+<p>假如你只想用base class的member function, 就把virtual 去除掉吧.</p>
+<p>底下這個範例是留下virtual, 畢竟我想要每個動物東有自己的名字XDDD</p>
+<p>我這邊還多定義了一個 pointer array 是放所有的動物的pointer. </p>
+<p>這樣比較好操作. 要注意, 宣告array的member , 我是用 base class的poiner (重要)</p>
+<p>這樣就非常方便了. 我就可以利用base class pointer 來操作所有extend class. 讃拉！！</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line"><span class="comment">#include "main.h"</span></span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">Animal<span class="keyword">*</span> animal_list[MAX_ANIMAL_NUMBER];</span><br><span class="line"></span><br><span class="line">Animal::Animal()</span><br><span class="line">&#123;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "This is First Animal constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal::Animal(double weight_value, double increase_per_day_value)</span><br><span class="line">&#123;</span><br><span class="line">  weight = weight_value;</span><br><span class="line">  increase_per_day = increase_per_day_value ; </span><br><span class="line">  cout &lt;&lt; "This is Second Animal constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::feed(int food)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i=0;i&lt;food;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    weight += increase_per_day;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_weight(void)</span><br><span class="line">&#123;</span><br><span class="line">  return weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_increase_per_day(void)</span><br><span class="line">&#123;</span><br><span class="line">  return increase_per_day;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, I don't have name, please give me a name ." &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat::Cat(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "This is Cat's constructor" &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Cat::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, My name is Lazy Cat ." &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mouse::Mouse(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "This is Mouse's constructor ." &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Mouse::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, My name is Sweet mouse ." &lt;&lt;endl;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>2.2 main.c (main function)</em></strong></p>
+<p>這是程式主題. 一開始會先init cat/mouse, 然後就進去while loop</p>
+<p>等待主人詢問是否要餵食你的可愛動物 XDDD . </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> type;</span><br><span class="line">  <span class="keyword">int</span> food_value;</span><br><span class="line"></span><br><span class="line">  Animal* animal_ptr;</span><br><span class="line">  <span class="function">Cat <span class="title">cat</span><span class="params">(7,0.05)</span></span>;</span><br><span class="line">  <span class="function">Mouse <span class="title">mouse</span><span class="params">(0.05,0.001)</span></span>;</span><br><span class="line">  animal_list[BIG_CAT] = &amp;cat; </span><br><span class="line">  animal_list[SMALL_NAUGHTY] = &amp;mouse;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" Welcom to my animal house "</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">do</span>  </span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;<span class="string">" please chose the animal you want to feed "</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;<span class="string">" [0] for cat, [1] for mouse, [2] check the weight of all cute animals !!"</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; type ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">       animal_ptr = &amp;cat;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">" 喵喵 !!!"</span> &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> <span class="params">(type == 1)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">       animal_ptr = &amp;mouse;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"唧唧 !!!"</span> &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> <span class="params">(type == 2)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"======體重表======="</span>&lt;&lt;endl;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt; MAX_ANIMAL_NUMBER; i++)</span><br><span class="line">      &#123;</span><br><span class="line">        animal_ptr = animal_list[i];</span><br><span class="line">        animal_ptr-&gt;show_name();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"我的重量是 "</span> &lt;&lt; animal_ptr-&gt;get_weight()&lt;&lt;<span class="string">"(kg)"</span> &lt;&lt;endl;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"==================="</span>&lt;&lt;endl;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">" wow, qq, We don't have your animal !!"</span> &lt;&lt;endl;</span><br><span class="line">       <span class="keyword">continue</span>; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" How many days you want to feed ?? "</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; food_value; </span><br><span class="line">    animal_ptr-&gt;feed(food_value);</span><br><span class="line"></span><br><span class="line">  &#125;<span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cibe8cblx005wiqxktmpga9r7" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--Raspberry-Pi-Socket-Programming-and-GPIO" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" class="article-date">
+  <time datetime="2015-03-01T00:30:29.000Z" itemprop="datePublished">Mar 1 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/">[Raspberry Pi] Socket Programming and GPIO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo_on_Youtube"><span class="toc-text">Demo on Youtube</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Source_code-"><span class="toc-text">Source code.</span></a></li></ol>
+        </div>
+        
+        <h2 id="目的">目的</h2><p>很久之前, 曾經做過 socket programming在樹梅派的應用. 
+也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
+我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD</p>
+<p>這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又想模擬mutlit-client的情況, 
+所以我在laptop又多起一個task去送訊號給server. </p>
+<h2 id="Demo_on_Youtube">Demo on Youtube</h2><p>This  demo tell how to control GPIO and send the data to server.
+About socket programming, server can receive the data from multi client.</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/i2Jig5vebBk" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="Source_code-">Source code.</h2><a href="http://sheldonrush.github.io/sheldon.is.a.geek/doc/Pi_is_client_PC_is_server.tar.7z" target="_blank" rel="external">下載Download</a>
+<p><strong><em>1. server端</em></strong></p>
+<p>// sr_server.c</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : socket code for server</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> connfd = <span class="number">0</span>, n = <span class="number">0</span>, listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> charBuff[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">char</span> recvBuff[<span class="number">1024</span>];</span><br><span class="line">    time_t ticks;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init the data structure of serv_addr</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;serv_addr, <span class="string">'0'</span>, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line">    <span class="built_in">memset</span>(charBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(charBuff));</span><br><span class="line">    <span class="built_in">memset</span>(recvBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(recvBuff));</span><br><span class="line"></span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    serv_addr.sin_port = htons(<span class="number">8998</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// assign the scket port to socket</span></span><br><span class="line">    bind(listenfd, (<span class="keyword">struct</span> sockaddr*)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line"></span><br><span class="line">    listen(listenfd, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        connfd = accept(listenfd, (<span class="keyword">struct</span> sockaddr*)NULL, NULL);</span><br><span class="line">   </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s %d \n"</span>, <span class="string">"server: connfd is"</span>, connfd);</span><br><span class="line">        ticks = time(NULL);</span><br><span class="line">        <span class="built_in">snprintf</span>(charBuff, <span class="keyword">sizeof</span>(charBuff), <span class="string">"%s\n"</span>, ctime(&amp;ticks));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"server: %s\n"</span>, charBuff);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> ( (n = read(connfd, recvBuff, <span class="keyword">sizeof</span>(recvBuff)-<span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">           recvBuff[n] = <span class="number">0</span>;</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: read %d bytes \n"</span>, n);</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: EOF = %d \n"</span>, EOF);</span><br><span class="line">           <span class="keyword">if</span> ( <span class="built_in">fputs</span>(recvBuff, stdout) == EOF)</span><br><span class="line">           &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Error : Fputs error \n"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Error : read errpr \n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//  write(connfd, sendBuff, strlen(sendBuff));</span></span><br><span class="line">        close(connfd);</span><br><span class="line">        sleep(<span class="number">1</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. Clinet 端</em></strong></p>
+<p>// main.c</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Detect whether GPIO[17] is high or low</span><br><span class="line">Arthur : Sheldon RUsh Peng</span><br><span class="line">Date : 2013/7/27</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;wiringPi.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h" </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> False 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> True 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> pin 0 <span class="comment">//GPIO[17]</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pin_value = False;</span><br><span class="line">    time_t current_time;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt; \n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (-<span class="number">1</span> == wiringPiSetup())</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init GPIO[17] to be INPUT port </span></span><br><span class="line">    pinMode(pin, INPUT);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        current_time = time(NULL); </span><br><span class="line">        pin_value = digitalRead(pin);</span><br><span class="line">        <span class="keyword">if</span> (True == pin_value)</span><br><span class="line">        &#123;</span><br><span class="line">            count ++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\n\n%s\n"</span>, ctime(&amp;current_time));</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Work station call help [%d] time\n"</span>, count);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (<span class="number">0</span> != socket_clinit_main(argc,argv))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"cannot call help \n"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sleep(<span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.h </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>;</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.c </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Socket code for clinit</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = <span class="number">0</span>, n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> sendBuff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : cannot create a socket\n"</span>); </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(sendBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(sendBuff));</span><br><span class="line">    </span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;serv_addr.sin_addr) &lt;= <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s \n"</span> , <span class="string">" Error : cannot convert text to ip binary"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( connect(sockfd, (<span class="keyword">struct</span> sockaddr *)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr)) &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : canot connect server\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clinit: Send data to server, station id = %d\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">snprintf</span>(sendBuff,  <span class="keyword">sizeof</span>(sendBuff), <span class="string">"hi Sheldon, I am station id [%d]\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clint: data is &#123;%s&#125;\n"</span>, sendBuff);</span><br><span class="line">    write(sockfd, sendBuff, <span class="built_in">strlen</span>(sendBuff));</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line"><span class="comment">/*</span><br><span class="line">    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        recvBuff[n] =0;</span><br><span class="line">        if ( fputs(recvBuff, stdout) == EOF)</span><br><span class="line">        &#123;</span><br><span class="line">           printf("Error : Fputs error \n");</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   if (n &lt; 0)</span><br><span class="line">   &#123;</span><br><span class="line">        printf("Error : read error \n");</span><br><span class="line">        return 1;</span><br><span class="line">   &#125;</span><br><span class="line">*/</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cibe8cbkv004giqxkr1xh6ftl" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/sheldon.is.a.geek/archives/2015/">&laquo; Prev</a><a class="page-number" href="/sheldon.is.a.geek/archives/2015/">1</a><span class="page-number current">2</span><a class="page-number" href="/sheldon.is.a.geek/archives/2015/page/3/">3</a><a class="page-number" href="/sheldon.is.a.geek/archives/2015/page/4/">4</a><a class="extend next" rel="next" href="/sheldon.is.a.geek/archives/2015/page/3/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ASP/">ASP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Attribute-Section/">Attribute Section</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/CTag/">CTag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Case/">Case</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Cscope/">Cscope</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/DB/">DB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Double-Link-List/">Double Link List</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ELF/">ELF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Finance/">Finance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GCC/">GCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/GUI/">GUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Interface/">Interface</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Line/">Line</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Mutex/">Mutex</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/POST/">POST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Pthread/">Pthread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/QT/">QT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/R/">R</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Read-Write-Lock/">Read/Write Lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Stock/">Stock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/VIM/">VIM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/atoi/">atoi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/class/">class</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/compiler/">compiler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/data-structure/">data structure</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/double-link-list/">double link list</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/fping/">fping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/geek/">geek</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/itoa/">itoa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ls/">ls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/nmap/">nmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/queue/">queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readelf/">readelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/readlink/">readlink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/realloc/">realloc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/resume/">resume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/root/">root</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/stack/">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/sheldon.is.a.geek/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/sheldon.is.a.geek/tags/ASP/" style="font-size: 10px;">ASP</a><a href="/sheldon.is.a.geek/tags/Attribute-Section/" style="font-size: 10px;">Attribute Section</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 20px;">C</a><a href="/sheldon.is.a.geek/tags/C/" style="font-size: 15px;">C++</a><a href="/sheldon.is.a.geek/tags/CTag/" style="font-size: 10px;">CTag</a><a href="/sheldon.is.a.geek/tags/Cam-Module/" style="font-size: 10px;">Cam Module</a><a href="/sheldon.is.a.geek/tags/Case/" style="font-size: 10px;">Case</a><a href="/sheldon.is.a.geek/tags/Cscope/" style="font-size: 10px;">Cscope</a><a href="/sheldon.is.a.geek/tags/DB/" style="font-size: 10px;">DB</a><a href="/sheldon.is.a.geek/tags/Double-Link-List/" style="font-size: 10px;">Double Link List</a><a href="/sheldon.is.a.geek/tags/Dynamic-Array/" style="font-size: 10px;">Dynamic Array</a><a href="/sheldon.is.a.geek/tags/Dynamic-Binding/" style="font-size: 10px;">Dynamic Binding</a><a href="/sheldon.is.a.geek/tags/Dynamical-Binding/" style="font-size: 10px;">Dynamical Binding</a><a href="/sheldon.is.a.geek/tags/ELF/" style="font-size: 10px;">ELF</a><a href="/sheldon.is.a.geek/tags/Finance/" style="font-size: 10px;">Finance</a><a href="/sheldon.is.a.geek/tags/GCC/" style="font-size: 10px;">GCC</a><a href="/sheldon.is.a.geek/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/sheldon.is.a.geek/tags/GPIO/" style="font-size: 10px;">GPIO</a><a href="/sheldon.is.a.geek/tags/GUI/" style="font-size: 10px;">GUI</a><a href="/sheldon.is.a.geek/tags/HTTP/" style="font-size: 10px;">HTTP</a><a href="/sheldon.is.a.geek/tags/Inherit/" style="font-size: 10px;">Inherit</a><a href="/sheldon.is.a.geek/tags/Interface/" style="font-size: 10px;">Interface</a><a href="/sheldon.is.a.geek/tags/Line/" style="font-size: 10px;">Line</a><a href="/sheldon.is.a.geek/tags/Mutex/" style="font-size: 12.5px;">Mutex</a><a href="/sheldon.is.a.geek/tags/POST/" style="font-size: 10px;">POST</a><a href="/sheldon.is.a.geek/tags/Pthread/" style="font-size: 10px;">Pthread</a><a href="/sheldon.is.a.geek/tags/QT/" style="font-size: 10px;">QT</a><a href="/sheldon.is.a.geek/tags/R/" style="font-size: 10px;">R</a><a href="/sheldon.is.a.geek/tags/Raspberry-Pi/" style="font-size: 17.5px;">Raspberry Pi</a><a href="/sheldon.is.a.geek/tags/Read-Write-Lock/" style="font-size: 10px;">Read/Write Lock</a><a href="/sheldon.is.a.geek/tags/Socket/" style="font-size: 10px;">Socket</a><a href="/sheldon.is.a.geek/tags/Stock/" style="font-size: 10px;">Stock</a><a href="/sheldon.is.a.geek/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a><a href="/sheldon.is.a.geek/tags/VIM/" style="font-size: 10px;">VIM</a><a href="/sheldon.is.a.geek/tags/Virtual-Function/" style="font-size: 12.5px;">Virtual Function</a><a href="/sheldon.is.a.geek/tags/atoi/" style="font-size: 10px;">atoi</a><a href="/sheldon.is.a.geek/tags/c/" style="font-size: 10px;">c</a><a href="/sheldon.is.a.geek/tags/class/" style="font-size: 10px;">class</a><a href="/sheldon.is.a.geek/tags/compiler/" style="font-size: 10px;">compiler</a><a href="/sheldon.is.a.geek/tags/data-structure/" style="font-size: 12.5px;">data structure</a><a href="/sheldon.is.a.geek/tags/double-link-list/" style="font-size: 12.5px;">double link list</a><a href="/sheldon.is.a.geek/tags/fping/" style="font-size: 10px;">fping</a><a href="/sheldon.is.a.geek/tags/geek/" style="font-size: 10px;">geek</a><a href="/sheldon.is.a.geek/tags/itoa/" style="font-size: 10px;">itoa</a><a href="/sheldon.is.a.geek/tags/ls/" style="font-size: 10px;">ls</a><a href="/sheldon.is.a.geek/tags/multi-thread/" style="font-size: 10px;">multi-thread</a><a href="/sheldon.is.a.geek/tags/network/" style="font-size: 12.5px;">network</a><a href="/sheldon.is.a.geek/tags/nmap/" style="font-size: 10px;">nmap</a><a href="/sheldon.is.a.geek/tags/pointer/" style="font-size: 10px;">pointer</a><a href="/sheldon.is.a.geek/tags/pthread-create/" style="font-size: 10px;">pthread_create</a><a href="/sheldon.is.a.geek/tags/pthread-join/" style="font-size: 10px;">pthread_join</a><a href="/sheldon.is.a.geek/tags/queue/" style="font-size: 10px;">queue</a><a href="/sheldon.is.a.geek/tags/readelf/" style="font-size: 10px;">readelf</a><a href="/sheldon.is.a.geek/tags/readlink/" style="font-size: 10px;">readlink</a><a href="/sheldon.is.a.geek/tags/realloc/" style="font-size: 10px;">realloc</a><a href="/sheldon.is.a.geek/tags/resume/" style="font-size: 10px;">resume</a><a href="/sheldon.is.a.geek/tags/root/" style="font-size: 10px;">root</a><a href="/sheldon.is.a.geek/tags/stack/" style="font-size: 10px;">stack</a><a href="/sheldon.is.a.geek/tags/ubuntu/" style="font-size: 10px;">ubuntu</a><a href="/sheldon.is.a.geek/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/21/安裝R語言/">安裝R語言</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/">[VIM]How to Copy&amp;Paste in different VIM terminal</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/28/AtoI-ItoA-Sample-Code/">[AtoI/ItoA] Sample Code</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/07/Stack-Create-the-Stack-Structure-by-Double-Link-List/">[Stack] Create the Stack Structure by Double Link List</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Vdieo</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

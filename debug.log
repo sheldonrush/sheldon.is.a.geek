@@ -1,0 +1,13 @@
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Hexo version: \u001b[35m3.0.0\u001b[39m","time":"2015-03-16T15:41:19.575Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Working directory: \u001b[35m~/git_hub/blog/\u001b[39m","time":"2015-03-16T15:41:19.579Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Config loaded: \u001b[35m~/git_hub/blog/_config.yml\u001b[39m","time":"2015-03-16T15:41:19.726Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-archive\u001b[39m","time":"2015-03-16T15:41:19.740Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-category\u001b[39m","time":"2015-03-16T15:41:19.745Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-index\u001b[39m","time":"2015-03-16T15:41:19.750Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-tag\u001b[39m","time":"2015-03-16T15:41:19.754Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-ejs\u001b[39m","time":"2015-03-16T15:41:19.782Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-stylus\u001b[39m","time":"2015-03-16T15:41:19.914Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-marked\u001b[39m","time":"2015-03-16T15:41:19.971Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-server\u001b[39m","time":"2015-03-16T15:41:20.101Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":50,"msg":"Deployer not found: \u001b[35mgithub\u001b[39m","time":"2015-03-16T15:41:20.103Z","v":0}
+{"name":"hexo","hostname":"sheldon-K42Jr","pid":6167,"level":20,"msg":"Database saved","time":"2015-03-16T15:41:20.108Z","v":0}
