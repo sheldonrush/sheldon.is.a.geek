@@ -2,17 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2018/01/08/test2-1/</loc>
-    <lastmod>2018-01-08T15:49:52.220Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2018/01/08/test2/</loc>
-    <lastmod>2018-01-08T15:44:55.072Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/</loc>
     <lastmod>2018-01-08T15:44:26.950Z</lastmod>
   </url>
   
@@ -23,11 +13,6 @@
   
   <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/21/%E5%AE%89%E8%A3%9DR%E8%AA%9E%E8%A8%80/</loc>
-    <lastmod>2018-01-08T15:44:26.950Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2018/01/08/test/</loc>
     <lastmod>2018-01-08T15:44:26.950Z</lastmod>
   </url>
   
@@ -87,7 +72,7 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/%E7%90%86%E8%B2%A1-%E5%9F%BA%E6%9C%AC%E9%9D%A2%E5%90%8D%E8%A9%9E/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/</loc>
     <lastmod>2018-01-08T15:44:26.950Z</lastmod>
   </url>
   
@@ -97,7 +82,7 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/%E7%90%86%E8%B2%A1-%E5%9F%BA%E6%9C%AC%E9%9D%A2%E5%90%8D%E8%A9%9E/</loc>
     <lastmod>2018-01-08T15:44:26.950Z</lastmod>
   </url>
   

@@ -69,187 +69,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post--GDB-基本指令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" class="article-date">
-  <time datetime="2015-02-04T00:22:05.000Z" itemprop="datePublished">Feb 4 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/">[GDB] 基本指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        
-        </div>
-        
-        <p>GDB 是一個很好的除錯指令, 這給了一個方法, 去快速知道你的程式發生了闍麼問題. </p>
-<p>而不要一直使用<strong><em>printf</em></strong>去做debug. gdb 可以用在 server/client 的online debug 模式,</p>
-<p>或是僅僅offline 的觀察coredump. </p>
-<p>使用gdb 除錯, 你必須在編code的時候, 在gcc 的compiler option 多加<strong><em>-g</em></strong></p>
-<p>底下是我最近練習到的gdb指令.</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(gdb) r     <span class="string">\\</span> 開始執行程式</span><br><span class="line">(gdb) c     <span class="string">\\</span> 假如你現在停在breakpoint, 接着執行程式（<span class="keyword">continue</span>） </span><br><span class="line">(gdb) b <span class="keyword">function</span>  <span class="string">\\</span> 設定中斷點</span><br><span class="line">(gdb) b <span class="attribute">file</span>:line <span class="string">\\</span> 設定中斷點的另一個方法</span><br><span class="line">(gdb) layout src  <span class="string">\\</span> 將現在程式跑到的位置,  跟src code做一個mapping.</span><br><span class="line">(gdb) stack <span class="string">\\</span> 觀察現在的stack</span><br><span class="line">(gdb) info all-registers <span class="string">\\</span> 觀察現在所有的registers</span><br><span class="line">(gdb) p $r0      <span class="string">\\</span> 讀取現在的cpu $r0 registers</span><br><span class="line">(gdb) threads    <span class="string">\\</span> 觀察program 裏面, 所有的thread 運行的情況卒. (有點像ps)</span><br><span class="line">(gdb) s          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 進入<span class="keyword">function</span>的stack. </span><br><span class="line">(gdb) n          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 不進入<span class="keyword">function</span>的stack</span><br><span class="line">(gdb) <span class="keyword">return</span>     <span class="string">\\</span> 離開現在的fucntion, 返回calling</span><br><span class="line">(gdb) jump line  <span class="string">\\</span> 將PC 指向程式的line的位置</span><br><span class="line">(gdb) info locals <span class="string">\\</span> 列出現在的local變數</span><br><span class="line">(gdb) info args <span class="string">\\列出引數</span></span><br><span class="line">(gdb) bt <span class="string">\\</span> bracktrace</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" data-id="cjc6dvejw005w4rggvayfa8h1" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--Pointer-Simple-concept" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" class="article-date">
-  <time datetime="2015-01-29T15:10:14.000Z" itemprop="datePublished">Jan 29 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#(&*ptr)_等於_(*&ptr)_??"><span class="toc-text">(&*ptr) 等於 (*&ptr) ??</span></a></li></ol>
-        </div>
-        
-        <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
-<p>因式分解 </p>
-<p><strong><em>&amp;*ptr</em></strong></p>
-<ol>
-<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
-<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
-</ol>
-<p><strong><em>*&amp;ptr</em></strong></p>
-<ol>
-<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
-<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
-</ol>
-<p>因此
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="cjc6dvejm005k4rgg3z208qe4" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--GCC-MACRO-LOG" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" class="article-date">
-  <time datetime="2015-01-29T00:21:34.000Z" itemprop="datePublished">Jan 29 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/">[GCC][MACRO-LOG]</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        
-        </div>
-        
-        <p>以前一直是用printf來debug, 每次都寫差不多格式的log,
-所以去查了一下, 在巨集裏面要如何把default foramt 添加上去,
-是時後要學點GDB了.... XD.</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine <span class="function"><span class="title">DBG</span><span class="params">(fmt, vars...)</span></span> <span class="function"><span class="title">printf</span><span class="params">(<span class="string">"[%s][%d] "</span>fmt, __FUNCTION__, __LINE__, ##vars)</span></span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" data-id="cjc6dvek100614rggi782jn6z" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GCC/">GCC</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-理財-基本面名詞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/" class="article-date">
@@ -299,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/" data-id="cjc6dvebx000b4rggc6tquy0b" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/" data-id="cjc6dywbu000b9oggz0jdoswt" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -380,7 +199,7 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/14/My-First-Post/" data-id="cjc6dveef00274rgg3kchjudy" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/14/My-First-Post/" data-id="cjc6dyweh00249oggf6b3bahb" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/14/My-First-Post/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -435,7 +254,7 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2018/01/">January 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -447,23 +266,23 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
       <ul>
         
           <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test2-1/">test2</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test2/">test2</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test/">test</a>
-          </li>
-        
-          <li>
             <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
           </li>
         
           <li>
             <a href="/sheldon.is.a.geek/2015/06/21/安裝R語言/">安裝R語言</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/">[VIM]How to Copy&amp;Paste in different VIM terminal</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/28/AtoI-ItoA-Sample-Code/">[AtoI/ItoA] Sample Code</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/07/Stack-Create-the-Stack-Structure-by-Double-Link-List/">[Stack] Create the Stack Structure by Double Link List</a>
           </li>
         
       </ul>

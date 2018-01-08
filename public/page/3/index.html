@@ -69,224 +69,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post--C-Virtual-Function-Exercisels" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" class="article-date">
-  <time datetime="2015-03-10T15:07:33.000Z" itemprop="datePublished">Mar 10 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/">[C++][Virtual Function] Exercises</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-text">Exercise</span></a></li></ol>
-        </div>
-        
-        <h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
-<ol>
-<li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
-base class 是否需要有相同引數的function member? </p>
-<p>--&gt;  <strong><em>答案是要的</em></strong></p>
-</li>
-<li><p>extend class 要如何存取 base class 的 member data</p>
-<p>--&gt; <strong><em>將base class的member data 從private 改成protected</em></strong></p>
-</li>
-<li><p>extend class 在用 virtual 關鍵字的時候, 是否需要在function 宣告的前面加上 virtual</p>
-<p>--&gt; <strong><em>不用</em></strong></p>
-</li>
-</ol>
-<h2 id="Exercise">Exercise</h2><p>底下是間單的測試code.</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.10</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class base_class </span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">      base_class(void);</span><br><span class="line">      virtual void set_value(int);</span><br><span class="line">      virtual void set_value(int, int);</span><br><span class="line">      void print_value(void);</span><br><span class="line"></span><br><span class="line">  protected : </span><br><span class="line">      int v1; </span><br><span class="line">      int v2; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">base_class :: base_class(void)</span><br><span class="line">&#123;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "base_class constructor !!" &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value1" &lt;&lt;endl;</span><br><span class="line">  v1 += a ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "base class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">void base_class :: print_value(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "v1 = " &lt;&lt; v1 &lt;&lt;endl;</span><br><span class="line">  cout &lt;&lt; "v2 = " &lt;&lt; v2 &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class extend_class : public base_class</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    extend_class(void);  </span><br><span class="line">    void set_value(int, int);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">extend_class :: extend_class(void) : base_class()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend clss constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void extend_class::set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "extend class to set_value" &lt;&lt;endl;</span><br><span class="line">  v1 += a;</span><br><span class="line">  v2 += b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  base_class BC;</span><br><span class="line">  extend_class EC;</span><br><span class="line"></span><br><span class="line">  base_class* base_ptr;</span><br><span class="line"></span><br><span class="line">  // base class</span><br><span class="line">  base_ptr = &amp;BC;</span><br><span class="line">  base_ptr-&gt;</span>set_value(10);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  // extended class</span><br><span class="line">  base_ptr = &amp;EC;</span><br><span class="line">  base_ptr-&gt;set_value(5, 5);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cjc6dveke006g4rggbkrpa6va" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--C-Virtual-Function-Inherit-My-Animal-World" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" class="article-date">
-  <time datetime="2015-03-09T17:22:34.000Z" itemprop="datePublished">Mar 10 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/">[C++][Virtual Function/Inherit] My Animal World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#練習"><span class="toc-text">練習</span></a></li></ol>
-        </div>
-        
-        <h2 id="目的">目的</h2><p>最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型. 
-我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純, 
-可以來記錄你養寵物的體重. 以及每天都喂他飼料的話, 
-他們的體重會變成幾公斤. </p>
-<h2 id="練習">練習</h2><p><strong><em>1. main.h</em></strong></p>
-<p>我在main.h 裏面放了base class 以及 extended class. </p>
-<p>分別帶表了動物和貓以及鼠鼠的屬性.</p>
-<p>要注意底下的一些重點. </p>
-<ol>
-<li>overload 結構子</li>
-<li>virutal function的用法. </li>
-<li>我把實作都放到.c 黨裏面了</li>
-</ol>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define MAX_ANIMAL_NUMBER 2</span></span><br><span class="line">enum &#123;</span><br><span class="line">  BIG_CAT,</span><br><span class="line">  SMALL_NAUGHTY,</span><br><span class="line">  MAX_ANIMAL = MAX_ANIMAL_NUMBER,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Animal();</span><br><span class="line">    Animal(double,double);</span><br><span class="line">    void feed(int);</span><br><span class="line">    double get_weight(void);</span><br><span class="line">    double get_increase_per_day(void);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line"></span><br><span class="line">  private :</span><br><span class="line">    double weight;</span><br><span class="line">    double increase_per_day;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Cat: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Cat(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Mouse: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Mouse(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong><em>2.1 main.c</em></strong></p>
-<p>2.1 的部分, 我放了class 成員的實作, 很間單的體重以及增重的vlaue.</p>
-<p>這裡很妙的是假如你 base和extended 有相同的member function (show_name)的話, </p>
-<p>你又想使用extended class 的member function (show_name), 你可以在member function 加上virtual</p>
-<p>假如你只想用base class的member function, 就把virtual 去除掉吧.</p>
-<p>底下這個範例是留下virtual, 畢竟我想要每個動物東有自己的名字XDDD</p>
-<p>我這邊還多定義了一個 pointer array 是放所有的動物的pointer. </p>
-<p>這樣比較好操作. 要注意, 宣告array的member , 我是用 base class的poiner (重要)</p>
-<p>這樣就非常方便了. 我就可以利用base class pointer 來操作所有extend class. 讃拉！！</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line"><span class="comment">#include "main.h"</span></span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">Animal<span class="keyword">*</span> animal_list[MAX_ANIMAL_NUMBER];</span><br><span class="line"></span><br><span class="line">Animal::Animal()</span><br><span class="line">&#123;</span><br><span class="line">  cout <span class="variable">&lt;&lt; "This is First Animal constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal::Animal(double weight_value, double increase_per_day_value)</span><br><span class="line">&#123;</span><br><span class="line">  weight = weight_value;</span><br><span class="line">  increase_per_day = increase_per_day_value ; </span><br><span class="line">  cout &lt;&lt; "This is Second Animal constructor" &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::feed(int food)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i=0;i&lt;food;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    weight += increase_per_day;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_weight(void)</span><br><span class="line">&#123;</span><br><span class="line">  return weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_increase_per_day(void)</span><br><span class="line">&#123;</span><br><span class="line">  return increase_per_day;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, I don't have name, please give me a name ." &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat::Cat(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "This is Cat's constructor" &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Cat::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, My name is Lazy Cat ." &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mouse::Mouse(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "This is Mouse's constructor ." &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Mouse::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; "Hello, My name is Sweet mouse ." &lt;&lt;endl;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><strong><em>2.2 main.c (main function)</em></strong></p>
-<p>這是程式主題. 一開始會先init cat/mouse, 然後就進去while loop</p>
-<p>等待主人詢問是否要餵食你的可愛動物 XDDD . </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> type;</span><br><span class="line">  <span class="keyword">int</span> food_value;</span><br><span class="line"></span><br><span class="line">  Animal* animal_ptr;</span><br><span class="line">  <span class="function">Cat <span class="title">cat</span><span class="params">(7,0.05)</span></span>;</span><br><span class="line">  <span class="function">Mouse <span class="title">mouse</span><span class="params">(0.05,0.001)</span></span>;</span><br><span class="line">  animal_list[BIG_CAT] = &amp;cat; </span><br><span class="line">  animal_list[SMALL_NAUGHTY] = &amp;mouse;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" Welcom to my animal house "</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">do</span>  </span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;<span class="string">" please chose the animal you want to feed "</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;<span class="string">" [0] for cat, [1] for mouse, [2] check the weight of all cute animals !!"</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; type ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">       animal_ptr = &amp;cat;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">" 喵喵 !!!"</span> &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> <span class="params">(type == 1)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">       animal_ptr = &amp;mouse;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"唧唧 !!!"</span> &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">else</span> <span class="title">if</span> <span class="params">(type == 2)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"======體重表======="</span>&lt;&lt;endl;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt; MAX_ANIMAL_NUMBER; i++)</span><br><span class="line">      &#123;</span><br><span class="line">        animal_ptr = animal_list[i];</span><br><span class="line">        animal_ptr-&gt;show_name();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"我的重量是 "</span> &lt;&lt; animal_ptr-&gt;get_weight()&lt;&lt;<span class="string">"(kg)"</span> &lt;&lt;endl;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"==================="</span>&lt;&lt;endl;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">" wow, qq, We don't have your animal !!"</span> &lt;&lt;endl;</span><br><span class="line">       <span class="keyword">continue</span>; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" How many days you want to feed ?? "</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; food_value; </span><br><span class="line">    animal_ptr-&gt;feed(food_value);</span><br><span class="line"></span><br><span class="line">  &#125;<span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjc6dveka00664rggw1eg6gz1" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--Raspberry-Pi-Socket-Programming-and-GPIO" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" class="article-date">
-  <time datetime="2015-03-01T00:30:29.000Z" itemprop="datePublished">Mar 1 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/">[Raspberry Pi] Socket Programming and GPIO</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo_on_Youtube"><span class="toc-text">Demo on Youtube</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Source_code-"><span class="toc-text">Source code.</span></a></li></ol>
-        </div>
-        
-        <h2 id="目的">目的</h2><p>很久之前, 曾經做過 socket programming在樹梅派的應用. 
-也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
-我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD</p>
-<p>這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又想模擬mutlit-client的情況, 
-所以我在laptop又多起一個task去送訊號給server. </p>
-<h2 id="Demo_on_Youtube">Demo on Youtube</h2><p>This  demo tell how to control GPIO and send the data to server.
-About socket programming, server can receive the data from multi client.</p>
-<div class="video-container"><iframe src="//www.youtube.com/embed/i2Jig5vebBk" frameborder="0" allowfullscreen></iframe></div>
-<h2 id="Source_code-">Source code.</h2><a href="http://sheldonrush.github.io/sheldon.is.a.geek/doc/Pi_is_client_PC_is_server.tar.7z" target="_blank" rel="external">下載Download</a>
-<p><strong><em>1. server端</em></strong></p>
-<p>// sr_server.c</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : socket code for server</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> connfd = <span class="number">0</span>, n = <span class="number">0</span>, listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> charBuff[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">char</span> recvBuff[<span class="number">1024</span>];</span><br><span class="line">    time_t ticks;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init the data structure of serv_addr</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;serv_addr, <span class="string">'0'</span>, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line">    <span class="built_in">memset</span>(charBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(charBuff));</span><br><span class="line">    <span class="built_in">memset</span>(recvBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(recvBuff));</span><br><span class="line"></span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    serv_addr.sin_port = htons(<span class="number">8998</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// assign the scket port to socket</span></span><br><span class="line">    bind(listenfd, (<span class="keyword">struct</span> sockaddr*)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr));</span><br><span class="line"></span><br><span class="line">    listen(listenfd, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        connfd = accept(listenfd, (<span class="keyword">struct</span> sockaddr*)NULL, NULL);</span><br><span class="line">   </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s %d \n"</span>, <span class="string">"server: connfd is"</span>, connfd);</span><br><span class="line">        ticks = time(NULL);</span><br><span class="line">        <span class="built_in">snprintf</span>(charBuff, <span class="keyword">sizeof</span>(charBuff), <span class="string">"%s\n"</span>, ctime(&amp;ticks));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"server: %s\n"</span>, charBuff);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> ( (n = read(connfd, recvBuff, <span class="keyword">sizeof</span>(recvBuff)-<span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">           recvBuff[n] = <span class="number">0</span>;</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: read %d bytes \n"</span>, n);</span><br><span class="line">           <span class="built_in">printf</span>(<span class="string">"server: EOF = %d \n"</span>, EOF);</span><br><span class="line">           <span class="keyword">if</span> ( <span class="built_in">fputs</span>(recvBuff, stdout) == EOF)</span><br><span class="line">           &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Error : Fputs error \n"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Error : read errpr \n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//  write(connfd, sendBuff, strlen(sendBuff));</span></span><br><span class="line">        close(connfd);</span><br><span class="line">        sleep(<span class="number">1</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>2. Clinet 端</em></strong></p>
-<p>// main.c</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Detect whether GPIO[17] is high or low</span><br><span class="line">Arthur : Sheldon RUsh Peng</span><br><span class="line">Date : 2013/7/27</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;wiringPi.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;time.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h" </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> False 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> True 0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> pin 0 <span class="comment">//GPIO[17]</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pin_value = False;</span><br><span class="line">    time_t current_time;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt; \n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (-<span class="number">1</span> == wiringPiSetup())</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// init GPIO[17] to be INPUT port </span></span><br><span class="line">    pinMode(pin, INPUT);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        current_time = time(NULL); </span><br><span class="line">        pin_value = digitalRead(pin);</span><br><span class="line">        <span class="keyword">if</span> (True == pin_value)</span><br><span class="line">        &#123;</span><br><span class="line">            count ++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\n\n%s\n"</span>, ctime(&amp;current_time));</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Work station call help [%d] time\n"</span>, count);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (<span class="number">0</span> != socket_clinit_main(argc,argv))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"cannot call help \n"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sleep(<span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>// sr_clinit.h </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>;</span><br></pre></td></tr></table></figure>
-<p>// sr_clinit.c </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">Function : Socket code for clinit</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sys/socket.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;netinet/in.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> "sr_clinit.h"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket_clinit_main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = <span class="number">0</span>, n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> sendBuff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">struct</span> sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : cannot create a socket\n"</span>); </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(sendBuff, <span class="string">'\0'</span>, <span class="keyword">sizeof</span>(sendBuff));</span><br><span class="line">    </span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;serv_addr.sin_addr) &lt;= <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s \n"</span> , <span class="string">" Error : cannot convert text to ip binary"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( connect(sockfd, (<span class="keyword">struct</span> sockaddr *)&amp;serv_addr, <span class="keyword">sizeof</span>(serv_addr)) &lt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Error : canot connect server\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clinit: Send data to server, station id = %d\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">snprintf</span>(sendBuff,  <span class="keyword">sizeof</span>(sendBuff), <span class="string">"hi Sheldon, I am station id [%d]\n"</span>, atoi(argv[<span class="number">3</span>]));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Clint: data is &#123;%s&#125;\n"</span>, sendBuff);</span><br><span class="line">    write(sockfd, sendBuff, <span class="built_in">strlen</span>(sendBuff));</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line"><span class="comment">/*</span><br><span class="line">    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        recvBuff[n] =0;</span><br><span class="line">        if ( fputs(recvBuff, stdout) == EOF)</span><br><span class="line">        &#123;</span><br><span class="line">           printf("Error : Fputs error \n");</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   if (n &lt; 0)</span><br><span class="line">   &#123;</span><br><span class="line">        printf("Error : read error \n");</span><br><span class="line">        return 1;</span><br><span class="line">   &#125;</span><br><span class="line">*/</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjc6dvei7004q4rggifmichsc" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post--Raspberry-Pi-Demod-Video" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="article-date">
@@ -338,7 +120,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjc6dvej000524rggqtugtht0" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjc6dywk6004z9oggn0dskvha" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -402,7 +184,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjc6dvejb00554rggrjg55gn5" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjc6dywk800529oggqccrjbqo" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -475,7 +257,7 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjc6dveh9004a4rgg12iku7od" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjc6dywij00479oggyzbxu4jx" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -551,7 +333,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjc6dvehz004l4rggepigoziv" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjc6dywja004i9ogguu91uwj4" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -619,7 +401,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjc6dvehq004g4rggxq7udqx8" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjc6dywj3004d9oggq5ogi8q8" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -674,7 +456,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjc6dveis004x4rggfg4amee0" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjc6dywk2004u9oggurzmbuuf" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -738,12 +520,193 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjc6dvejs005q4rggjafjpz3o" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjc6dywkt005n9oggwwvp0oli" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ubuntu/">ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--GDB-基本指令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" class="article-date">
+  <time datetime="2015-02-04T00:22:05.000Z" itemprop="datePublished">Feb 4 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/">[GDB] 基本指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        
+        </div>
+        
+        <p>GDB 是一個很好的除錯指令, 這給了一個方法, 去快速知道你的程式發生了闍麼問題. </p>
+<p>而不要一直使用<strong><em>printf</em></strong>去做debug. gdb 可以用在 server/client 的online debug 模式,</p>
+<p>或是僅僅offline 的觀察coredump. </p>
+<p>使用gdb 除錯, 你必須在編code的時候, 在gcc 的compiler option 多加<strong><em>-g</em></strong></p>
+<p>底下是我最近練習到的gdb指令.</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(gdb) r     <span class="string">\\</span> 開始執行程式</span><br><span class="line">(gdb) c     <span class="string">\\</span> 假如你現在停在breakpoint, 接着執行程式（<span class="keyword">continue</span>） </span><br><span class="line">(gdb) b <span class="keyword">function</span>  <span class="string">\\</span> 設定中斷點</span><br><span class="line">(gdb) b <span class="attribute">file</span>:line <span class="string">\\</span> 設定中斷點的另一個方法</span><br><span class="line">(gdb) layout src  <span class="string">\\</span> 將現在程式跑到的位置,  跟src code做一個mapping.</span><br><span class="line">(gdb) stack <span class="string">\\</span> 觀察現在的stack</span><br><span class="line">(gdb) info all-registers <span class="string">\\</span> 觀察現在所有的registers</span><br><span class="line">(gdb) p $r0      <span class="string">\\</span> 讀取現在的cpu $r0 registers</span><br><span class="line">(gdb) threads    <span class="string">\\</span> 觀察program 裏面, 所有的thread 運行的情況卒. (有點像ps)</span><br><span class="line">(gdb) s          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 進入<span class="keyword">function</span>的stack. </span><br><span class="line">(gdb) n          <span class="string">\\</span> 單步執行, 遇到<span class="keyword">function</span>的時候, 不進入<span class="keyword">function</span>的stack</span><br><span class="line">(gdb) <span class="keyword">return</span>     <span class="string">\\</span> 離開現在的fucntion, 返回calling</span><br><span class="line">(gdb) jump line  <span class="string">\\</span> 將PC 指向程式的line的位置</span><br><span class="line">(gdb) info locals <span class="string">\\</span> 列出現在的local變數</span><br><span class="line">(gdb) info args <span class="string">\\列出引數</span></span><br><span class="line">(gdb) bt <span class="string">\\</span> bracktrace</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" data-id="cjc6dywkw005t9oggluyw99h0" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GDB/">GDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--Pointer-Simple-concept" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" class="article-date">
+  <time datetime="2015-01-29T15:10:14.000Z" itemprop="datePublished">Jan 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/">[Pointer] Simple concept</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#(&*ptr)_等於_(*&ptr)_??"><span class="toc-text">(&*ptr) 等於 (*&ptr) ??</span></a></li></ol>
+        </div>
+        
+        <h1 id="(&amp;*ptr)_等於_(*&amp;ptr)_??">(&amp;*ptr) 等於 (*&amp;ptr) ??</h1><p>最近看到有人在問這個問題, 所以就簡單分析一下這個概念. </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>, *<span class="preprocessor">ptr</span> = &amp;a<span class="comment">;</span></span><br><span class="line">&amp;*<span class="preprocessor">ptr</span> 等於 &amp;(*<span class="preprocessor">ptr</span>) ??</span><br><span class="line">// 假如 a 所在的位置是<span class="number">0x7fffffffd9e4</span></span><br><span class="line">// 假如 <span class="preprocessor">ptr</span> 的位置是<span class="number">0x7fffffffd9e8</span></span><br></pre></td></tr></table></figure>
+<p>因式分解 </p>
+<p><strong><em>&amp;*ptr</em></strong></p>
+<ol>
+<li>*ptr  -&gt;  這個指的是pointer ptr 所指向位置的值, 也就是10.</li>
+<li>&amp;(*ptr) = &amp;(a) -&gt; 也就是a的位置 0x7fffffffd9e4</li>
+</ol>
+<p><strong><em>*&amp;ptr</em></strong></p>
+<ol>
+<li>&amp;ptr -&gt; pointer ptr 的位置0x7fffffffd9e8</li>
+<li><em>&amp;ptr = </em>(&amp;ptr) = *(0x7fffffffd9e8) = (將這個位置的值取出來) = &amp;a = 0x7fffffffd9e4</li>
+</ol>
+<p>因此
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="keyword">*</span>ptr 等於 <span class="keyword">*</span>&amp;ptr</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="cjc6dywkk005h9oggcnboiqxb" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pointer/">pointer</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--GCC-MACRO-LOG" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" class="article-date">
+  <time datetime="2015-01-29T00:21:34.000Z" itemprop="datePublished">Jan 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/">[GCC][MACRO-LOG]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        
+        </div>
+        
+        <p>以前一直是用printf來debug, 每次都寫差不多格式的log,
+所以去查了一下, 在巨集裏面要如何把default foramt 添加上去,
+是時後要學點GDB了.... XD.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hexcolor">#def</span>ine <span class="function"><span class="title">DBG</span><span class="params">(fmt, vars...)</span></span> <span class="function"><span class="title">printf</span><span class="params">(<span class="string">"[%s][%d] "</span>fmt, __FUNCTION__, __LINE__, ##vars)</span></span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" data-id="cjc6dywl6005y9ogg3yiamayx" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GCC/">GCC</a></li></ul>
 
     </footer>
   </div>
@@ -793,7 +756,7 @@ HaHa</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2018/01/">January 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -805,23 +768,23 @@ HaHa</p>
       <ul>
         
           <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test2-1/">test2</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test2/">test2</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2018/01/08/test/">test</a>
-          </li>
-        
-          <li>
             <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
           </li>
         
           <li>
             <a href="/sheldon.is.a.geek/2015/06/21/安裝R語言/">安裝R語言</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/13/VIM-How-to-Copy-Paste-in-different-VIM-terminal/">[VIM]How to Copy&amp;Paste in different VIM terminal</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/28/AtoI-ItoA-Sample-Code/">[AtoI/ItoA] Sample Code</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/05/07/Stack-Create-the-Stack-Structure-by-Double-Link-List/">[Stack] Create the Stack Structure by Double Link List</a>
           </li>
         
       </ul>
