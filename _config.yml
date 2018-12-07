@@ -107,6 +107,6 @@ feed:
   path: atom.xml
   limit: 20
 
-plugins:
-- hexo-generator-feed
+#plugins:
+#- hexo-generator-feed
 
