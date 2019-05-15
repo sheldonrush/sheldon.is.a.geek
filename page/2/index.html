@@ -67,64 +67,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-VIM-Backup-the-setting-of-VIM" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/05/05/VIM-Backup-the-setting-of-VIM/" class="article-date">
-  <time datetime="2015-05-05T00:53:27.000Z" itemprop="datePublished">May 5 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/vim/">vim</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/05/05/VIM-Backup-the-setting-of-VIM/">[VIM] Backup the setting of VIM</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#-vimrc"><span class="toc-text">.vimrc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-vimrc-local"><span class="toc-text">.vimrc.local</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sr"><span class="toc-text">sr</span></a></li></ol></li></ol>
-        </div>
-        
-        </p><h1 id="Purpose">Purpose</h1><p>最近感覺電腦快往生了,所以現在未雨愁繆，先將</p>
-<p>自己常用的vim setting作一下備份，順便將ctag和cscope</p>
-<p>常用的script作一下記錄，假如有人有興趣也可以拿去發揚光大.</p>
-<h2 id="-vimrc">.vimrc</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line">&quot; set up pathogen, https://github.com/tpope/vim-pathogen</span><br><span class="line">filetype on &quot; without this vim emits a zero exit status, later, because of :ft off</span><br><span class="line">filetype off</span><br><span class="line">call pathogen#infect()</span><br><span class="line">filetype plugin indent on</span><br><span class="line">&quot; don&apos;t bother with vi compatibility</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">&quot; enable syntax highlighting</span><br><span class="line">syntax enable</span><br><span class="line"></span><br><span class="line">&quot; auto come back the last file location</span><br><span class="line"> if has(&quot;autocmd&quot;)</span><br><span class="line">     autocmd BufRead *.txt set tw=78</span><br><span class="line">         autocmd BufReadPost *</span><br><span class="line">             \ if line(&quot;&apos;\&quot;&quot;) &gt; 0 &amp;&amp; line (&quot;&apos;\&quot;&quot;) &lt;= line(&quot;$&quot;) |</span><br><span class="line">    \   exe &quot;normal g&apos;\&quot;&quot; |</span><br><span class="line">    \ endif</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let g:session_autosave = &apos;yes&apos;</span><br><span class="line"></span><br><span class="line">set autoindent</span><br><span class="line">set autoread                                                 &quot; reload files when changed on disk, i.e. via `git checkout`</span><br><span class="line">set backspace=2                                              &quot; Fix broken backspace in some setups</span><br><span class="line">set backupcopy=yes                                           &quot; see :help crontab</span><br><span class="line">set clipboard=unnamed                                        &quot; yank and paste with the system clipboard</span><br><span class="line">set directory-=.                                             &quot; don&apos;t store swapfiles in the current directory</span><br><span class="line">set encoding=utf-8</span><br><span class="line">set expandtab                                                &quot; expand tabs to spaces</span><br><span class="line">set ignorecase                                               &quot; case-insensitive search</span><br><span class="line">set incsearch                                                &quot; search as you type</span><br><span class="line">set laststatus=2                                             &quot; always show statusline</span><br><span class="line">set list                                                     &quot; show trailing whitespace</span><br><span class="line">set listchars=tab:▸\ ,trail:▫</span><br><span class="line">set number                                                   &quot; show line numbers</span><br><span class="line">set ruler                                                    &quot; show where you are</span><br><span class="line">set scrolloff=3                                              &quot; show context above/below cursorline</span><br><span class="line">set shiftwidth=2                                             &quot; normal mode indentation commands use 2 spaces</span><br><span class="line">set showcmd</span><br><span class="line">set smartcase                                                &quot; case-sensitive search if any caps</span><br><span class="line">set softtabstop=2                                            &quot; insert mode tab and backspace use 2 spaces</span><br><span class="line">set tabstop=8                                                &quot; actual tabs occupy 8 characters</span><br><span class="line">set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc</span><br><span class="line">set wildmenu                                                 &quot; show a navigable menu for tab completion</span><br><span class="line">set wildmode=longest,list,full</span><br><span class="line"></span><br><span class="line">set modifiable</span><br><span class="line">set write</span><br><span class="line">set hlsearch</span><br><span class="line">set ic</span><br><span class="line">set clipboard=unnamedplus</span><br><span class="line">&quot; Enable basic mouse behavior such as resizing buffers.</span><br><span class="line">set mouse=a</span><br><span class="line">if exists(&apos;$TMUX&apos;)  &quot; Support resizing in tmux</span><br><span class="line">  set ttymouse=xterm2</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">&quot; keyboard shortcuts</span><br><span class="line">let mapleader = &apos;,&apos;</span><br><span class="line">map &lt;C-h&gt; &lt;C-w&gt;h</span><br><span class="line">map &lt;C-j&gt; &lt;C-w&gt;j</span><br><span class="line">map &lt;C-k&gt; &lt;C-w&gt;k</span><br><span class="line">map &lt;C-l&gt; &lt;C-w&gt;l</span><br><span class="line">map &lt;leader&gt;l :Align</span><br><span class="line">nmap &lt;leader&gt;a :Ack </span><br><span class="line">nmap &lt;leader&gt;b :CtrlPBuffer&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;d :NERDTreeToggle&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;f :NERDTreeFind&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;t :CtrlP&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;s :cs find c &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;e :cs find t &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;T :CtrlPClearCache&lt;CR&gt;:CtrlP&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;] :TagbarToggle&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;&lt;space&gt; :call whitespace#strip_trailing()&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;g :GitGutterToggle&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;c &lt;Plug&gt;Kwbd</span><br><span class="line">map &lt;silent&gt; &lt;leader&gt;V :source ~/.vimrc&lt;CR&gt;:filetype detect&lt;CR&gt;:exe &quot;:echo &apos;vimrc reloaded&apos;&quot;&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">&quot; NERDTree seeting</span><br><span class="line">let NERDTreeShowHidden=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot;将:cs find</span><br><span class="line">&quot;c等Cscope查找命令映射为&lt;C-_&gt;c等快捷键（按法是先按Ctrl+Shift+-,然后很快再按下c）</span><br><span class="line">&quot;nmap &lt;C-_&gt;s :cs find s &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;g :cs find g &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;d :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;c :cs find c &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;t :cs find t &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;e :cs find e &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;f :cs find f &lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;nmap &lt;C-_&gt;i :cs find i &lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;&lt;CR&gt;:copen&lt;CR&gt;&lt;CR&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot; plugin settings</span><br><span class="line">let g:ctrlp_match_window = &apos;order:ttb,max:20&apos;</span><br><span class="line">let g:NERDSpaceDelims=1</span><br><span class="line">let g:gitgutter_enabled = 0</span><br><span class="line"></span><br><span class="line">&quot; Use The Silver Searcher https://github.com/ggreer/the_silver_searcher</span><br><span class="line">if executable(&apos;ag&apos;)</span><br><span class="line">  let g:ackprg = &apos;ag --nogroup --column&apos;</span><br><span class="line"></span><br><span class="line">  &quot; Use Ag over Grep</span><br><span class="line">  set grepprg=ag\ --nogroup\ --nocolor</span><br><span class="line"></span><br><span class="line">  &quot; Use ag in CtrlP for listing files. Lightning fast and respects .gitignore</span><br><span class="line">  let g:ctrlp_user_command = &apos;ag %s -l --nocolor -g &quot;&quot;&apos;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">&quot; fdoc is yaml</span><br><span class="line">autocmd BufRead,BufNewFile *.fdoc set filetype=yaml</span><br><span class="line">&quot; md is markdown</span><br><span class="line">autocmd BufRead,BufNewFile *.md set filetype=markdown</span><br><span class="line">&quot; extra rails.vim help</span><br><span class="line">autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb</span><br><span class="line">autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb</span><br><span class="line">autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature</span><br><span class="line">autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb</span><br><span class="line">autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb</span><br><span class="line">autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb</span><br><span class="line">&quot; automatically rebalance windows on vim resize</span><br><span class="line">autocmd VimResized * :wincmd =</span><br><span class="line"></span><br><span class="line">&quot; Fix Cursor in TMUX</span><br><span class="line">if exists(&apos;$TMUX&apos;)</span><br><span class="line">  let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\&quot;</span><br><span class="line">  let &amp;t_EI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\&quot;</span><br><span class="line">else</span><br><span class="line">  let &amp;t_SI = &quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;</span><br><span class="line">  let &amp;t_EI = &quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">&quot; Go crazy!</span><br><span class="line">if filereadable(expand(&quot;~/.vimrc.local&quot;))</span><br><span class="line">  &quot; In your .vimrc.local, you might like:</span><br><span class="line">  &quot;</span><br><span class="line">  &quot; set autowrite</span><br><span class="line">  &quot; set nocursorline</span><br><span class="line">  &quot; set nowritebackup</span><br><span class="line">  &quot; set whichwrap+=&lt;,&gt;,h,l,[,] &quot; Wrap arrow keys between lines</span><br><span class="line">  &quot;</span><br><span class="line">  &quot; autocmd! bufwritepost .vimrc source ~/.vimrc</span><br><span class="line">  &quot; noremap! jj &lt;ESC&gt;</span><br><span class="line">  source ~/.vimrc.local</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
-<h2 id="-vimrc-local">.vimrc.local</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&quot;set nocursorline &quot; don&apos;t highlight current line</span><br><span class="line">set cursorline</span><br><span class="line"></span><br><span class="line">&quot; keyboard shortcuts</span><br><span class="line">inoremap jj &lt;ESC&gt;</span><br><span class="line"></span><br><span class="line">&quot; gui settings</span><br><span class="line">if (&amp;t_Co == 256 || has(&apos;gui_running&apos;))</span><br><span class="line">  if ($TERM_PROGRAM == &apos;iTerm.app&apos;)</span><br><span class="line">    colorscheme solarized</span><br><span class="line">  else</span><br><span class="line">    colorscheme desert</span><br><span class="line">  endif</span><br><span class="line">endif</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">&quot; Cscope settings</span><br><span class="line">if has(&quot;cscope&quot;)</span><br><span class="line">  let i = 1</span><br><span class="line">  let path_depth = 20</span><br><span class="line">    while i &lt; path_depth</span><br><span class="line">      if filereadable(&quot;cscope.out&quot;)</span><br><span class="line">        let db = getcwd() . &quot;/cscope.out&quot;</span><br><span class="line">        echo db</span><br><span class="line">        let $CSCOPE_DB = db</span><br><span class="line">        cs add $CSCOPE_DB</span><br><span class="line">        let i = 20</span><br><span class="line">      else</span><br><span class="line">        cd ..</span><br><span class="line">      let i += 1</span><br><span class="line">      endif</span><br><span class="line">    endwhile</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
-<h2 id="sr">sr</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">FILE_LIST=file_list</span><br><span class="line">temp_str=NULL</span><br><span class="line"></span><br><span class="line">for i in &quot;$@&quot;</span><br><span class="line">do</span><br><span class="line">  if [ -n &quot;$i&quot; ]; then</span><br><span class="line">    temp_str=$i</span><br><span class="line">    if [ &quot;$1&quot; = &quot;$i&quot; ]; then</span><br><span class="line">      echo &quot;First Source code directory :&quot; &quot;$1&quot;</span><br><span class="line">      find $i -name &quot;*.h&quot; -o -name &quot;*.c&quot; -o -name &quot;*.cpp&quot; -o -name &quot;*.mk&quot; -o -name &quot;*config&quot; -o -name &quot;Makefile&quot; -o -name &quot;*.inl&quot; -o -name &quot;*.py&quot; &gt; ./$FILE_LIST</span><br><span class="line">    else</span><br><span class="line">      echo &quot;the other source code directory :&quot; &quot;$i&quot;</span><br><span class="line">      find $i -name &quot;*.h&quot; -o -name &quot;*.c&quot; -o -name &quot;*.cpp&quot; -o -name &quot;*.mk&quot; -o -name &quot;*config&quot; -o -name &quot;Makefile&quot; -o -name &quot;*.inl&quot; -o -name &quot;*.py&quot; &gt;&gt; ./$FILE_LIST</span><br><span class="line">    fi</span><br><span class="line">  else</span><br><span class="line">    echo &quot;please keyin the project path&quot;</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">if [ &quot;$#&quot; -ne 0 ]; then</span><br><span class="line">  echo &quot;create the cscope tag and ctags&quot;</span><br><span class="line">  cscope -bkq -i ./$FILE_LIST</span><br><span class="line">  ctags -R -L ./$FILE_LIST</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/VIM-Backup-the-setting-of-VIM/" data-id="cjvp058q80024acggoj6jpqxs" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/VIM-Backup-the-setting-of-VIM/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/CTag/">CTag</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Cscope/">Cscope</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/vim/">vim</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-Queue-Create-the-Queue-structure-by-the-Double-Link-List" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/" class="article-date">
@@ -189,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/" data-id="cjvp058py001uacgg2c9wow7d" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/" data-id="cjvp0dbmr001ue1ggphv3289o" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -271,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/" data-id="cjvp058p00013acggonhnhgfq" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/" data-id="cjvp0dblq0013e1ggxk5v0so8" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -352,7 +294,7 @@ basic_mutex_class.c,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/13/Read-Write-Lock-Mutex-exercise-to-implement-the-read-write-lock-in-the-mutex/" data-id="cjvp058q2001xacggq50ub4ap" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/13/Read-Write-Lock-Mutex-exercise-to-implement-the-read-write-lock-in-the-mutex/" data-id="cjvp0dbmv001xe1gglped1pyn" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/13/Read-Write-Lock-Mutex-exercise-to-implement-the-read-write-lock-in-the-mutex/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -450,7 +392,7 @@ basic_mutex_class.c,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/" data-id="cjvp058pa001aacggl02cu310" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/" data-id="cjvp0dbly001ae1ggfh9j14zx" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -566,7 +508,7 @@ basic_mutex_class.c,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" data-id="cjvp058pg001hacggnantebhd" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" data-id="cjvp0dbm6001he1gghtn86h34" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -623,7 +565,7 @@ basic_mutex_class.c,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" data-id="cjvp058pq001qacgg7at5q80u" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" data-id="cjvp0dbmj001qe1ggni10jx2o" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -699,7 +641,7 @@ basic_mutex_class.c,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="cjvp058p70018acgg7tlodx8v" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="cjvp0dblv0018e1ggbrsuhfi5" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -775,7 +717,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cjvp058p30014acggggd81u3l" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cjvp0dbls0014e1ggtu1uw2e0" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -838,12 +780,90 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="cjvp058pe001facgg94xv8vsq" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="cjvp0dbm2001fe1ggo4c4witx" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ls/">ls</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/readlink/">readlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post--QT-GUI-Hello-World" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" class="article-date">
+  <time datetime="2015-03-15T08:38:42.000Z" itemprop="datePublished">Mar 15 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/QT/">QT</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/">[QT][GUI][Ubuntu] Hello World !</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How_to_compile_QT_program_by_command_line"><span class="toc-text">How to compile QT program by command line</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>最近在學習用QT這個third party 來寫GUI界面.</p>
+<p>之前有用過 QT creator 這個IDE， 用拖曳的方式產生GUI 的component</p>
+<p>用起來挺順手的. 但是整個project 怎麼生出來的, .pro 檔市幹嗎用的, qmke 和make有什麼差異</p>
+<p>完全不清楚在做什麼. 所以今天花了一點時間, 查了要如何透過command line的方式</p>
+<p>一步一步的靠近. <a href="http://www.wikihow.com/Create-Your-First-Qt-Program-on-Ubuntu-Linux" target="_blank" rel="noopener">我參考這篇</a></p>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>qt_demo.cpp</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;QApplication&gt;</span><br><span class="line">#include &lt;QLabel&gt;</span><br><span class="line">#include &lt;QWidget&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv)</span><br><span class="line">&#123;</span><br><span class="line">  QApplication app(argc, argv);</span><br><span class="line">  QLabel hello(&lt;center&gt;This is my first QT hello world!!&lt;/center&gt;);</span><br><span class="line">  hello.setWindowTitle(&quot;My First Qt Program&quot;);</span><br><span class="line">  hello.resize(400,400);</span><br><span class="line">  hello.show();</span><br><span class="line">  return app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="How_to_compile_QT_program_by_command_line">How to compile QT program by command line</h2><p><strong><em>1. copy qt_demo.cpp to your directory.</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp qt_demo.cpp [your directory]</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. generate the .pro file for QT project setting</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake -project</span><br></pre></td></tr></table></figure>
+<p><strong><em>3. 將你程式需要的QT module, 放到 .pro file (前一步, 產生出來的)</em></strong></p>
+<p>底下是將 core gui widgets 這三個加入要用的module list 裡面. 
+當 compiler 要做compile/link 的時候, 才會找得到.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">######################################################################</span><br><span class="line"># Automatically generated by qmake (3.0) ?? 3? 15 16:33:14 2015</span><br><span class="line">######################################################################</span><br><span class="line"></span><br><span class="line">TEMPLATE = app</span><br><span class="line">TARGET = qt_tutorial</span><br><span class="line">INCLUDEPATH += .</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">QT += core gui</span><br><span class="line">QT += widgets</span><br><span class="line"></span><br><span class="line"># Input</span><br><span class="line">SOURCES += qt_demo.cpp</span><br></pre></td></tr></table></figure>
+<p><strong><em>4.利用qmake 指令, 將make 產生出來</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmake</span><br></pre></td></tr></table></figure>
+<p>你會發現, 你現在這個folder 底下, 會產生一個make 檔</p>
+<p><strong><em>5. Compile</em></strong></p>
+<p>就直接下 make 囉!!!
+就會產生一個執行檔.</p>
+<p><strong><em>6. 成果</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./qt_tutorial</span><br></pre></td></tr></table></figure>
+<p>這樣就產生了hello world 了.., 假如要省事的話, </p>
+<p>還是用qt creator 吧... kerker</p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/qt_tutoral.png">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="cjvp0dbkq000ee1ggt7pcygo7" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GUI/">GUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/QT/">QT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/compiler/">compiler</a></li></ul>
 
     </footer>
   </div>
@@ -869,15 +889,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       <ul>
         
           <li>
-            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
-          </li>
-        
-          <li>
             <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
           </li>
         
           <li>
@@ -886,6 +898,14 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
         
           <li>
             <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2015/06/27/How-to-call-C-calss-member-function-from-C/">How to call C++ class member function from C</a>
           </li>
         
       </ul>
@@ -906,7 +926,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
