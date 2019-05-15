@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[C][DB][Double Link List] Exercise the Double Link List | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Purpose最近好奇要怎麼實作Stack 和 queue,看了一本書，他是用double link list來實作,  爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作. 之後，會再補上stack/heap的組合變化.  Explain what I DOConcept1. DList.h 我將API 對外的function都放在這裏. 基本上就是產生一個D_Link_">
+<meta name="keywords" content="C,DB,Double Link List">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C][DB][Double Link List] Exercise the Double Link List">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="Purpose最近好奇要怎麼實作Stack 和 queue,看了一本書，他是用double link list來實作,  爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作. 之後，會再補上stack/heap的組合變化.  Explain what I DOConcept1. DList.h 我將API 對外的function都放在這裏. 基本上就是產生一個D_Link_">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[C][DB][Double Link List] Exercise the Double Link List">
+<meta name="twitter:description" content="Purpose最近好奇要怎麼實作Stack 和 queue,看了一本書，他是用double link list來實作,  爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作. 之後，會再補上stack/heap的組合變化.  Explain what I DOConcept1. DList.h 我將API 對外的function都放在這裏. 基本上就是產生一個D_Link_">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-DB-Double-Link-List-Exercise-the-Double-Link-List" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/" class="article-date">
+  <time datetime="2015-05-02T13:20:04.000Z" itemprop="datePublished">May 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [C][DB][Double Link List] Exercise the Double Link List
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Explain_what_I_DO"><span class="toc-text">Explain what I DO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FULL_CODE"><span class="toc-text">FULL CODE</span></a></li></ol></li></ol>
+        </div>
+        
+        </p><h1 id="Purpose">Purpose</h1><p>最近好奇要怎麼實作Stack 和 queue,看了一本書，他是用double link list來實作, </p>
+<p>爲了要自我鍛鍊一下,所以自己寫了一個double link list的實作.</p>
+<p>之後，會再補上stack/heap的組合變化. </p>
+<h1 id="Explain_what_I_DO">Explain what I DO</h1><h2 id="Concept">Concept</h2><p><strong><em>1. DList.h</em></strong></p>
+<p>我將API 對外的function都放在這裏.</p>
+<p>基本上就是產生一個D_Link_List,和Print D_Link_List, 新增刪除Node.</p>
+<p>新增和刪除node的方式,就是參考index. index 你可以把當作D_Link_List的Node個數</p>
+<p>我現在實作的D_Link_List 最少有一個Head Node, index可以把他當作是0.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DList* DList_Create(void);</span><br><span class="line">typedef Ret (*DList_Print)(DList*);</span><br><span class="line">Ret DList_Print_all(DList*, DList_Print);</span><br><span class="line">Ret DList_Insert_Node_ByIndex(DList* HeadNode, DList* InsertNode, int index);</span><br><span class="line">Ret DList_Delete_Node_ByIndex(DList*, int index);</span><br></pre></td></tr></table></figure>
+<p>在DList 的struct裏面, 我特意將data 存成 pointer to void.
+目的其實,就是由上層來決定Double Link List裏面的Node,資料是存什麼.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _DList</span><br><span class="line">&#123;</span><br><span class="line">  struct _DList* DList_Pre_Ptr;</span><br><span class="line">  struct _DList* DList_Next_Ptr;</span><br><span class="line">  void* data;</span><br><span class="line">  int key;</span><br><span class="line">&#125;DList;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2.DList.c</em></strong></p>
+<p>大部分實作放在這裏.</p>
+<p><strong><em>3. main.c</em></strong></p>
+<p>由於我把data要存什麼type,交給上層來決定,
+所以必須要實作存data和display data的function.
+可以參考底下這兩個function,所以我要換Node 的data type也會非常方便.
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ret MyPrint(DList* MyDList);</span><br><span class="line">DList* Create_Node(int data);</span><br></pre></td></tr></table></figure></p>
+<p>我在DList struct 裏面多存了一個key的東西,爲了日後方便,可以search關鍵字.
+就可以找到你要的node,但是API還沒寫好.現在只支援Index的方式.XD</p>
+<p>在main的後面,有多補一些測試的部分.</p>
+<h2 id="FULL_CODE">FULL CODE</h2><p><strong><em>1. DList.h</em></strong>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include &quot;global_enum_macro.h&quot;</span><br><span class="line"></span><br><span class="line">typedef struct _DList</span><br><span class="line">&#123;</span><br><span class="line">  struct _DList* DList_Pre_Ptr;</span><br><span class="line">  struct _DList* DList_Next_Ptr;</span><br><span class="line">  void* data;</span><br><span class="line">  int key;</span><br><span class="line">&#125;DList;</span><br><span class="line"></span><br><span class="line">DList* DList_Create(void);</span><br><span class="line">typedef Ret (*DList_Print)(DList*);</span><br><span class="line">Ret DList_Print_all(DList*, DList_Print);</span><br><span class="line">Ret DList_Insert_Node_ByIndex(DList* HeadNode, DList* InsertNode, int index);</span><br><span class="line">Ret DList_Delete_Node_ByIndex(DList*, int index);</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>2. DList.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;DList.h&quot;</span><br><span class="line">#include &quot;stdlib.h&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">DList* DList_Create(void)</span><br><span class="line">&#123;</span><br><span class="line">  // Create the Head Node for Double Link List</span><br><span class="line">  DList* HeadNode = (DList*)malloc(sizeof(DList));</span><br><span class="line">  </span><br><span class="line">  check_pointer_return_value(HeadNode,NULL);</span><br><span class="line"></span><br><span class="line">  HeadNode-&gt;DList_Pre_Ptr = NULL;</span><br><span class="line">  HeadNode-&gt;DList_Next_Ptr = NULL;</span><br><span class="line">  </span><br><span class="line">  return HeadNode;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ret DList_Print_all(DList* HeadNode, DList_Print Print)</span><br><span class="line">&#123;</span><br><span class="line">  check_pointer_return_value(HeadNode, Ret_Fail);</span><br><span class="line">  check_pointer_return_value(Print, Ret_Fail);</span><br><span class="line"></span><br><span class="line">  // Check the Double Link List is only Head Node ? </span><br><span class="line">  if (HeadNode-&gt;DList_Next_Ptr == NULL &amp;&amp; HeadNode-&gt;DList_Pre_Ptr == NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;The Double Link List Is EMPTY \n&quot;);</span><br><span class="line">    check_pointer_return_value(NULL, Ret_Fail);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  DList* DList_Ptr = HeadNode;</span><br><span class="line"></span><br><span class="line">  while (DList_Ptr-&gt;DList_Next_Ptr != NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    // if the node is HEAD, we skip that node</span><br><span class="line">    if (DList_Ptr-&gt;DList_Pre_Ptr != NULL)</span><br><span class="line">    &#123;</span><br><span class="line">      Print(DList_Ptr);</span><br><span class="line">    &#125;</span><br><span class="line">      DList_Ptr = DList_Ptr-&gt;DList_Next_Ptr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Print the Tail Node&apos;s data</span><br><span class="line">  Print(DList_Ptr);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">Ret DList_Insert_Node_ByIndex(DList* HeadNode, DList* InsertNode, int index)</span><br><span class="line">&#123;</span><br><span class="line">  check_pointer_return_value(HeadNode, Ret_Fail);</span><br><span class="line">  check_pointer_return_value(InsertNode, Ret_Fail);</span><br><span class="line"></span><br><span class="line">  // check the Double Link List is EMPTY ??</span><br><span class="line">  if (HeadNode-&gt;DList_Pre_Ptr == NULL &amp;&amp; HeadNode-&gt;DList_Next_Ptr == NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    HeadNode-&gt;DList_Next_Ptr = InsertNode;</span><br><span class="line">    InsertNode-&gt;DList_Next_Ptr = NULL;</span><br><span class="line">    InsertNode-&gt;DList_Pre_Ptr = HeadNode;</span><br><span class="line">    printf(&quot;Because the Double Link List is EMPTY, so I force the index to be 1 \n&quot;);</span><br><span class="line">    return Ret_Success;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  int cnt=0;</span><br><span class="line">  DList* Temp_Ptr = HeadNode;</span><br><span class="line"></span><br><span class="line">  do</span><br><span class="line">  &#123;</span><br><span class="line">    cnt ++;</span><br><span class="line">    Temp_Ptr = Temp_Ptr-&gt;DList_Next_Ptr;</span><br><span class="line">    if (cnt == index)</span><br><span class="line">    &#123;</span><br><span class="line">      InsertNode-&gt;DList_Pre_Ptr = Temp_Ptr-&gt;DList_Pre_Ptr;</span><br><span class="line">      InsertNode-&gt;DList_Pre_Ptr-&gt;DList_Next_Ptr = InsertNode;</span><br><span class="line">      Temp_Ptr-&gt;DList_Pre_Ptr = InsertNode;</span><br><span class="line">      InsertNode-&gt;DList_Next_Ptr = Temp_Ptr;</span><br><span class="line">      return Ret_Success;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">  &#125; while ( Temp_Ptr-&gt;DList_Next_Ptr != NULL);</span><br><span class="line"></span><br><span class="line">  // If the index is large than the length of Double link list, just add the NODE into the tail of Double Link List.</span><br><span class="line"></span><br><span class="line">  printf(&quot;Because the index is large than the length of Double Link List, just insert the NODE into the tail of Double LInke List \n&quot;);</span><br><span class="line">  Temp_Ptr-&gt;DList_Next_Ptr = InsertNode;</span><br><span class="line">  InsertNode-&gt;DList_Next_Ptr = NULL;</span><br><span class="line">  return Ret_Success;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ret DList_Delete_Node_ByIndex(DList* HeadNode, int index)</span><br><span class="line">&#123;</span><br><span class="line">  check_pointer_return_value(HeadNode, Ret_Fail);</span><br><span class="line"></span><br><span class="line">  // Check the Double Link List is only Head Node ?</span><br><span class="line">  if (HeadNode-&gt;DList_Next_Ptr == NULL &amp;&amp; HeadNode-&gt;DList_Pre_Ptr == NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;The Double Link List Is EMPTY \n&quot;);</span><br><span class="line">    check_pointer_return_value(NULL, Ret_Fail);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  int cnt=0;</span><br><span class="line">  DList* Temp_Ptr = HeadNode;</span><br><span class="line">  while (Temp_Ptr-&gt;DList_Next_Ptr != NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    if (cnt == index)</span><br><span class="line">    &#123;</span><br><span class="line">      Temp_Ptr-&gt;DList_Pre_Ptr-&gt;DList_Next_Ptr = Temp_Ptr-&gt;DList_Next_Ptr;</span><br><span class="line">      Temp_Ptr-&gt;DList_Next_Ptr-&gt;DList_Pre_Ptr = Temp_Ptr-&gt;DList_Pre_Ptr;</span><br><span class="line">      printf(&quot;Free the Node of Indx[%d] \n&quot;, index);</span><br><span class="line">      free(Temp_Ptr-&gt;data);</span><br><span class="line">      free(Temp_Ptr);</span><br><span class="line">      return Ret_Success;</span><br><span class="line">    &#125;</span><br><span class="line">    cnt ++;</span><br><span class="line">    Temp_Ptr = Temp_Ptr-&gt;DList_Next_Ptr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Because the index is large than the length of Double Link List &amp;&amp; the Node which you want to delete is TAIL Node. </span><br><span class="line"></span><br><span class="line">  printf(&quot;Free the TAIL NODE \n&quot;);</span><br><span class="line">  Temp_Ptr-&gt;DList_Pre_Ptr-&gt;DList_Next_Ptr = NULL;</span><br><span class="line">  free(Temp_Ptr-&gt;data);</span><br><span class="line">  free(Temp_Ptr);</span><br><span class="line">  return Ret_Success;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>3.main.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &quot;DList.h&quot;</span><br><span class="line"></span><br><span class="line">Ret MyPrint(DList* MyDList)</span><br><span class="line">&#123;</span><br><span class="line">  check_pointer_return_value(MyDList, Ret_Fail);</span><br><span class="line">  // This place tell how to print the DLinkList&apos;s data type</span><br><span class="line">  printf(&quot;MyDList-&gt;key=%d, *(int*)(MyDList-&gt;data)=%d \r\n&quot;, MyDList-&gt;key, *(int*)(MyDList-&gt;data));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DList* Create_Node(int data)</span><br><span class="line">&#123;</span><br><span class="line">  DList* myNode = (DList*)malloc(sizeof(DList));</span><br><span class="line">  myNode-&gt;data = (int*)malloc(sizeof(int));</span><br><span class="line">  *(int*)(myNode-&gt;data) = data; </span><br><span class="line">  return myNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  DList* HeadNode = DList_Create();</span><br><span class="line"></span><br><span class="line">  // Create Node &amp;&amp; Insert to the Double Link List</span><br><span class="line">  DList_Insert_Node_ByIndex(HeadNode,Create_Node(10),1);</span><br><span class="line">  DList_Insert_Node_ByIndex(HeadNode,Create_Node(20),1);</span><br><span class="line">  DList_Insert_Node_ByIndex(HeadNode,Create_Node(30),1);</span><br><span class="line">  DList_Insert_Node_ByIndex(HeadNode,Create_Node(40),3);</span><br><span class="line">  DList_Insert_Node_ByIndex(HeadNode,Create_Node(50),1);</span><br><span class="line"></span><br><span class="line">  // Delete the Node</span><br><span class="line">  DList_Delete_Node_ByIndex(HeadNode, 2);</span><br><span class="line">  DList_Delete_Node_ByIndex(HeadNode, 5);</span><br><span class="line">  DList_Delete_Node_ByIndex(HeadNode, 1);</span><br><span class="line"></span><br><span class="line">  // Print all the Nodes of Double Link List</span><br><span class="line">  DList_Print_all(HeadNode, MyPrint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>4.global_enum_macro.h</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">// Define GLobal Enum</span><br><span class="line">typedef enum _Ret</span><br><span class="line">&#123;</span><br><span class="line">  Ret_Success,</span><br><span class="line">  Ret_Fail,</span><br><span class="line">  Ret_None,</span><br><span class="line">&#125;Ret;</span><br><span class="line"></span><br><span class="line">// Define Global Macro</span><br><span class="line">#define SR_DBG(fmt,args ...) printf(&quot;[Sheldon debug][%s][%d] &quot;fmt,__FUNCTION__,__LINE__,##args)</span><br><span class="line">#define SR_ERR(fmt,args ...) printf(&quot;ERROR !!! [%s][%d ] &quot;fmt, __FUNCTION__,__LINE__,##args)</span><br><span class="line">#define check_pointer_return_value(ptr,value) if(ptr==NULL) \</span><br><span class="line">                                                  &#123; printf(&quot;ERROR!!! #ptr is NULL, return #value \r\n&quot;); \</span><br><span class="line">                                                  return value;&#125; \</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/" data-id="cjvp058p00013acggonhnhgfq" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/DB/">DB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Double-Link-List/">Double Link List</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/05/05/Queue-Create-the-Queue-structure-by-the-Double-Link-List/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Queue] Create the Queue structure by the Double Link List
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/04/13/Read-Write-Lock-Mutex-exercise-to-implement-the-read-write-lock-in-the-mutex/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Read/Write Lock][Mutex] exercise to implement the read/write lock in the mutex</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

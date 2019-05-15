@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[C++][Virtual Function] Exercises | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目的最近在練習基本的clss的用法, 突然想到一些問題.   我們利用關鍵字virtual 來使用extend 的function member 的時候, base class 是否需要有相同引數的function member?  --&amp;gt;  答案是要的  extend class 要如何存取 base class 的 member data --&amp;gt; 將base class的membe">
+<meta name="keywords" content="C++,Virtual Function,Dynamic Binding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C++][Virtual Function] Exercises">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="目的最近在練習基本的clss的用法, 突然想到一些問題.   我們利用關鍵字virtual 來使用extend 的function member 的時候, base class 是否需要有相同引數的function member?  --&amp;gt;  答案是要的  extend class 要如何存取 base class 的 member data --&amp;gt; 將base class的membe">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[C++][Virtual Function] Exercises">
+<meta name="twitter:description" content="目的最近在練習基本的clss的用法, 突然想到一些問題.   我們利用關鍵字virtual 來使用extend 的function member 的時候, base class 是否需要有相同引數的function member?  --&amp;gt;  答案是要的  extend class 要如何存取 base class 的 member data --&amp;gt; 將base class的membe">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post--C-Virtual-Function-Exercisels" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" class="article-date">
+  <time datetime="2015-03-10T15:07:33.000Z" itemprop="datePublished">Mar 10 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [C++][Virtual Function] Exercises
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exercise"><span class="toc-text">Exercise</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>最近在練習基本的clss的用法, 突然想到一些問題. </p>
+<ol>
+<li><p>我們利用關鍵字virtual 來使用extend 的function member 的時候,
+base class 是否需要有相同引數的function member? </p>
+<p>--&gt;  <strong><em>答案是要的</em></strong></p>
+</li>
+<li><p>extend class 要如何存取 base class 的 member data</p>
+<p>--&gt; <strong><em>將base class的member data 從private 改成protected</em></strong></p>
+</li>
+<li><p>extend class 在用 virtual 關鍵字的時候, 是否需要在function 宣告的前面加上 virtual</p>
+<p>--&gt; <strong><em>不用</em></strong></p>
+</li>
+</ol>
+<h2 id="Exercise">Exercise</h2><p>底下是間單的測試code.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">//***********************************</span><br><span class="line">//**********************************</span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.10</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//*********************************</span><br><span class="line">//**********************************</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class base_class </span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">      base_class(void);</span><br><span class="line">      virtual void set_value(int);</span><br><span class="line">      virtual void set_value(int, int);</span><br><span class="line">      void print_value(void);</span><br><span class="line"></span><br><span class="line">  protected : </span><br><span class="line">      int v1; </span><br><span class="line">      int v2; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">base_class :: base_class(void)</span><br><span class="line">&#123;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">  cout &lt;&lt; &quot;base_class constructor !!&quot; &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;base class to set_value1&quot; &lt;&lt;endl;</span><br><span class="line">  v1 += a ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void base_class :: set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;base class to set_value&quot; &lt;&lt;endl;</span><br><span class="line">  v1 = 0;</span><br><span class="line">  v2 = 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">void base_class :: print_value(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;v1 = &quot; &lt;&lt; v1 &lt;&lt;endl;</span><br><span class="line">  cout &lt;&lt; &quot;v2 = &quot; &lt;&lt; v2 &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class extend_class : public base_class</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    extend_class(void);  </span><br><span class="line">    void set_value(int, int);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">extend_class :: extend_class(void) : base_class()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;extend clss constructor&quot; &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void extend_class::set_value(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;extend class to set_value&quot; &lt;&lt;endl;</span><br><span class="line">  v1 += a;</span><br><span class="line">  v2 += b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  base_class BC;</span><br><span class="line">  extend_class EC;</span><br><span class="line"></span><br><span class="line">  base_class* base_ptr;</span><br><span class="line"></span><br><span class="line">  // base class</span><br><span class="line">  base_ptr = &amp;BC;</span><br><span class="line">  base_ptr-&gt;set_value(10);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  // extended class</span><br><span class="line">  base_ptr = &amp;EC;</span><br><span class="line">  base_ptr-&gt;set_value(5, 5);</span><br><span class="line">  base_ptr-&gt;print_value();</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cjvp058n70001acgg3w4hs12w" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Binding/">Dynamic Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [C][ELF] Attribute Section
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[C++][Virtual Function/Inherit] My Animal World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

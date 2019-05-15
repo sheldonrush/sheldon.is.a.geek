@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Purpose今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作. multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch, 整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成 每個thread access 到其">
+<meta name="keywords" content="C,pthread_create,pthread_join,multi-thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="Purpose今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作. multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch, 整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成 每個thread access 到其">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v1.png">
+<meta property="og:image" content="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v2.png">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread">
+<meta name="twitter:description" content="Purpose今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作. multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch, 整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成 每個thread access 到其">
+<meta name="twitter:image" content="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" class="article-date">
+  <time datetime="2015-03-23T13:22:47.000Z" itemprop="datePublished">Mar 23 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Compiler"><span class="toc-text">Compiler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_1"><span class="toc-text">Sample Code 1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_2"><span class="toc-text">Sample Code 2</span></a></li></ol>
+        </div>
+        
+        </p><h1 id="Purpose">Purpose</h1><p>今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作.</p>
+<p>multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch,</p>
+<p>整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成</p>
+<p>每個thread access 到其他人thread要用的資料, 底下有兩個sample code, 第一個sample code,</p>
+<p>就出現這樣的錯誤.</p>
+<h1 id="Compiler">Compiler</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.c -lpthread -o main</span><br></pre></td></tr></table></figure>
+<p>由於pthread是在libpthread.so的lib裏面, 所以我們在compiler 的時候, 必須將pthread lib include 進去. </p>
+<p>.c 檔裏面, 也記得要include pthread.h.</p>
+<h1 id="Sample_Code_1">Sample Code 1</h1><p>你可以從底下的結果看出一個奇特的現象,</p>
+<p>我產生了10個thread, 但是印出thread id 的時候， thread id =5, 卻印了4次. </p>
+<p>這代表, 我create thread 的時侯, 帶下去的thread id (i), 被其他thread access到了. 造成了這個問題, </p>
+<p>修這個bug的最簡單方法, 可以參考Sample Code 2.</p>
+<p>關於 pthread_join 的使用, 也很單純. </p>
+<p>他就wait 那裡,等待他要wait 的pthread id 被終止, 假如沒有終止的話, 那就GG了, 系統就會hang在那裏. </p>
+<p><strong><em>main.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">#define THREAD_NUM 10</span><br><span class="line">#define SR_DBG(fmt,arg...) printf(&quot;[%s][%d] &quot;fmt, __FUNCTION__,__LINE__, ##arg)</span><br><span class="line"></span><br><span class="line">void* thread_routine(void* argv)</span><br><span class="line">&#123;</span><br><span class="line">  int my_id = *((int*)argv);</span><br><span class="line">  SR_DBG(&quot;hello, i&apos;m new thread, my name is id[%d] \r\n&quot;,my_id);</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int create_multi_thread_test(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    if (0 != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;i))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, create thread FAILLL!!! \r\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Wait for termination of thread id [%d] \r\n&quot;, i);</span><br><span class="line">    if (0 != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, Mother thread cannot wait for thread id [%d]\r\n&quot;, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  SR_DBG(&quot;This is multi-thread test code \r\n&quot;);</span><br><span class="line">  </span><br><span class="line">  if (-1 == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;the multi thread test is FAILLLLL!!! \r\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result1</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v1.png">
+<h1 id="Sample_Code_2">Sample Code 2</h1><p>這個smaple code, 就是針對上面去做一些改良, 多用一個 array 來存要帶進去thread_routine 裏面的引數</p>
+<p>避免被其他thread access 倒.但是這一定不是最佳的方法... </p>
+<p><strong><em>main_v2.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">#define THREAD_NUM 10</span><br><span class="line">#define SR_DBG(fmt,arg...) printf(&quot;[%s][%d] &quot;fmt, __FUNCTION__,__LINE__, ##arg)</span><br><span class="line"></span><br><span class="line">void* thread_routine(void* argv)</span><br><span class="line">&#123;</span><br><span class="line">  int my_id = *((int*)argv);</span><br><span class="line">  SR_DBG(&quot;hello, i&apos;m new thread, my name is id[%d] \r\n&quot;,my_id);</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int create_multi_thread_test(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line">  int thread_i[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thread_i[i] = i;</span><br><span class="line">    if (0 != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;thread_i[i]))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, create thread FAILLL!!! \r\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Wait for termination of thread id [%d] \r\n&quot;, i);</span><br><span class="line">    if (0 != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, Mother thread cannot wait for thread id [%d]\r\n&quot;, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  SR_DBG(&quot;This is multi-thread test code \r\n&quot;);</span><br><span class="line">  </span><br><span class="line">  if (-1 == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;the multi thread test is FAILLLLL!!! \r\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result2</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v2.png">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="cjvp058p70018acgg7tlodx8v" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Netwoek][Scan IP] nmap
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[C][Dynamic Array] Exercise to operate the dyanmic array </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

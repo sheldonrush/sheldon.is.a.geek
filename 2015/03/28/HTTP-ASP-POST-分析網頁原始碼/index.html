@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[HTTP][ASP][POST][表單] 分析網頁原始碼 | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Purpose有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理 他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料 抓取鉅亨網個股歷史行情 老實說，我不是做web應用的，XDDD,當下的反應是 &amp;quot;瓦阿哉&amp;quot;. 所以爲了要保存一些顏面. 花了時間看了一下. 怎麼分析html.... Introudction他的目的是要抓取網頁中">
+<meta name="keywords" content="POST,HTTP,ASP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[HTTP][ASP][POST][表單] 分析網頁原始碼">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="Purpose有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理 他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料 抓取鉅亨網個股歷史行情 老實說，我不是做web應用的，XDDD,當下的反應是 &amp;quot;瓦阿哉&amp;quot;. 所以爲了要保存一些顏面. 花了時間看了一下. 怎麼分析html.... Introudction他的目的是要抓取網頁中">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[HTTP][ASP][POST][表單] 分析網頁原始碼">
+<meta name="twitter:description" content="Purpose有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理 他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料 抓取鉅亨網個股歷史行情 老實說，我不是做web應用的，XDDD,當下的反應是 &amp;quot;瓦阿哉&amp;quot;. 所以爲了要保存一些顏面. 花了時間看了一下. 怎麼分析html.... Introudction他的目的是要抓取網頁中">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-HTTP-ASP-POST-分析網頁原始碼" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" class="article-date">
+  <time datetime="2015-03-28T14:56:02.000Z" itemprop="datePublished">Mar 28 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/POST/">POST</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [HTTP][ASP][POST][表單] 分析網頁原始碼
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introudction"><span class="toc-text">Introudction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表單"><span class="toc-text">表單</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何用改變URL的方式,_來獲取各個表單的資訊-"><span class="toc-text">如何用改變URL的方式, 來獲取各個表單的資訊.</span></a></li></ol>
+        </div>
+        
+        </p><h1 id="Purpose">Purpose</h1><p>有一個好朋友，最近在研究如何自動的把股市資料抓下來, 以利後續的分析處理</p>
+<p>他問了我一個問題， 要怎麼了解底下文章, 爲什麼這樣的URL就可以抓取想要個資料</p>
+<p><a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="noopener">抓取鉅亨網個股歷史行情</a></p>
+<p>老實說，我不是做web應用的，XDDD,當下的反應是 &quot;瓦阿哉&quot;. 所以爲了要保存一些顏面.</p>
+<p>花了時間看了一下. 怎麼分析html....</p>
+<h1 id="Introudction">Introudction</h1><p>他的目的是要抓取網頁中表單的資料, </p>
+<p>所以必須要知道HTTP如何處理表單的. </p>
+<p>在開始之前, 你必須要知道如何檢視html的原始碼,</p>
+<p>這部份，最容易了.</p>
+<p>先來安裝個chrome. 然後找一個有<a href="http://www.cnyes.com/twstock/ps_historyprice/1101.htm" target="_blank" rel="noopener">表單的網頁</a></p>
+<p>(按右鍵) -&gt; (檢視網頁原始碼)</p>
+<p>大功告成, Aha....</p>
+<h1 id="表單">表單</h1><p>html的標籤有許多種, 這裡的<a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="noopener">聯結</a>作者很用心誒. </p>
+<p>但是現在我們其實只是要focus 在表單上.</p>
+<p>表單標籤的keyword 其實就是 <strong><em>form</em></strong>, 所以你只需要在原始碼中查詢<strong><em>form</em></strong>的關鍵字， 你就會發現表單的位置.</p>
+<p>例如底下,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;aspnetForm&quot; method=&quot;post&quot; action=&quot;/twstock/ps_historyprice/1101.htm&quot; id=&quot;aspnetForm&quot;&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">...</span><br><span class="line">&lt;input type=&quot;hidden&quot; name=&quot;__VIEWSTATE&quot; id=&quot;__VIEWSTATE&quot;</span><br><span class="line">...</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>標籤大多都是成對的出現,所以你發現了<strong><em>form</em></strong>的開頭,就可以看到一個<strong><em>/form</em></strong>的結尾</p>
+<p>從上面的資訊可以看出一些東西, 組成這個表單標籤的元素, 其實有許多種, </p>
+<p>底下只是一個例子,</p>
+<p><strong><em>1. name=&quot;aspnetForm&quot;</em></strong></p>
+<p>這個就是這個表單的名字</p>
+<p><strong><em>2. method=&quot;post&quot;</em></strong></p>
+<p>當你按完<strong><em>查詢</em></strong>按鍵之後, 會利用post的方式將表單以及一些user自定的參數,帶給<strong><em>action這個程式</em></strong>, 
+一般講到post的時後,都會提到get這個方法, 我大概只有一個概念, 似乎post會比get還要安全,XDD 這種粗淺的認知.
+有興趣的可以看一下,底下的差異介紹.</p>
+<p><a href="http://blog.toright.com/posts/1203/%E6%B7%BA%E8%AB%87-http-method%EF%BC%9A%E8%A1%A8%E5%96%AE%E4%B8%AD%E7%9A%84-get-%E8%88%87-post-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F.html" target="_blank" rel="noopener">GET VS POST Method</a></p>
+<p><strong><em>3. action=&quot;/twstock/ps_historyprice/1101.htm&quot;</em></strong></p>
+<p>如同上面所說,其實1101.htm應該就是web server上某一個程式, 當我們按完<strong><em>查詢</em></strong>以後, 會將一些資料（例如, 開始日期與結束日期)
+送到<strong><em>action</em></strong>這裏. 去做相對應的處理. <a href="http://ric1565.blogspot.tw/2013/12/web.html" target="_blank" rel="noopener">例子</a>, 其實就是將這其間內的資料從data base裏面撈出來
+在顯示給user看.</p>
+<h1 id="如何用改變URL的方式,_來獲取各個表單的資訊-">如何用改變URL的方式, 來獲取各個表單的資訊.</h1><p>在開始之前,應該有人,會有一些疑問,爲什麼網址不變,但是卻可以撈到不同的股市資料, 其實就是剛剛那個post的方式, 做到的. </p>
+<p>有人會問，要怎麼知道,新的表單需要在URL上多加什麼爾外的資訊. 才能獲得呢.</p>
+<p>其實很直觀,你觀察一下網頁上的表單,會需要什麼資訊，這個例子是用, (開始日期與結束日期),你就直接在原始碼中找尋(開始日期與結束日期)</p>
+<p>多們直觀對吧 kerker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;aspnetForm&quot; method=&quot;post&quot; action=&quot;/twstock/ps_historyprice/1101.htm&quot; id=&quot;aspnetForm&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;span class=&quot;srchyear2&quot; &gt;</span><br><span class="line">開始日期&lt;input name=&quot;ctl00$ContentPlaceHolder1$startText&quot; type=&quot;text&quot; value=&quot;2015/02/28&quot; maxlength=&quot;10&quot; id=&quot;ctl00_ContentPlaceHolder1_startText&quot; style=&quot;width:72px;&quot; /&gt;</span><br><span class="line">結束日期&lt;input name=&quot;ctl00$ContentPlaceHolder1$endText&quot; type=&quot;text&quot; value=&quot;2015/03/28&quot; maxlength=&quot;10&quot; id=&quot;ctl00_ContentPlaceHolder1_endText&quot; style=&quot;width:72px;&quot; /&gt;</span><br><span class="line">&lt;input type=&quot;submit&quot; name=&quot;ctl00$ContentPlaceHolder1$submitBut&quot; value=&quot;查詢&quot; id=&quot;ctl00_ContentPlaceHolder1_submitBut&quot; class=&quot;butn btnga&quot; /&gt;</span><br><span class="line">&lt;span style=&quot;float:right&quot;&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>這樣就可以發現,在表單裏面，其實有一段標籤是描述（開始日期與結束日期),</p>
+<p>跟剛剛一樣，假如要知道input這個標籤屬性在幹嗎，查閱一下 <a href="http://w3school.com.cn/tags/tag_script.asp" target="_blank" rel="noopener">HELP-HTML-標籤</a></p>
+<p>這邊稍爲帶一下，</p>
+<ol>
+<li>name : 代表input 的名字</li>
+<li>type : input 的屬性，text很明顯就是只文字.</li>
+<li>value : 這個input 是什麼值. 看起來就像是日期.</li>
+</ol>
+<p>有了以上的簡單的認知,我們就可以透過key URL 的方式，來改變我們要搜尋的股市歷史資料</p>
+<p>首先， 由於我們這個是要股市歷史資料,你觀察一下,他的歷史資料的首頁,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.cnyes.com/twstock/ps_historyprice.aspx</span><br></pre></td></tr></table></figure>
+<p>聯結進去預設的各股，是臺G電2330, 假如是要查聯發科2454的話.</p>
+<p>你只要將code=2454 帶入URL中即可.像是底下.</p>
+<p>要注意一個地方，假如我需要帶參數在URL中時，你就必須多加一個&quot;？&quot;在網址的最後面. 然後緊接着參數code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.cnyes.com/twstock/ps_historyprice.aspx?code=2454</span><br></pre></td></tr></table></figure>
+<p>看起來真的很容易對吧...</p>
+<p>再來就是，假如我需要知道某個區間內的歷史資料要怎麼做呢.</p>
+<p>其實很間單,就是在多加時間的參數下去,對吧. 時間參數所要用的name 其實就是網頁原始碼中的name(可以參考上一段所說)</p>
+<ol>
+<li>Name of 開始時間 : ctl00$ContentPlaceHolder1$startText</li>
+<li>Name of 結束時間 : ctl00$ContentPlaceHolder1$endText</li>
+</ol>
+<p>要注意兩個地方</p>
+<ol>
+<li>等於（=）後面,就是塞值進去，這個例子就是時間.</li>
+<li>帶入的每個參數之間都要有&quot;&amp;&quot;將每個參數做區隔. 底下例子其實，就是三個參數.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.cnyes.com/twstock/ps_historyprice.aspx?code=2454&amp;ctl00$ContentPlaceHolder1$startText=2014/01/01&amp;ctl00$ContentPlaceHolder1$endText=2014/01/28</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/" data-id="cjvp058pg001hacggnantebhd" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/ASP/">ASP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/POST/">POST</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [C][Mutex][Pthread][Interface] A sample code for pthread_mutex interface
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Netwoek][Scan IP] nmap</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/28/HTTP-ASP-POST-分析網頁原始碼/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

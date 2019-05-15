@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[C][Dynamic Array] Exercise to operate the dyanmic array  | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目的很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行... 哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算 靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西,  我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dyn">
+<meta name="keywords" content="C,Dynamic Array,realloc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C][Dynamic Array] Exercise to operate the dyanmic array ">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="目的很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行... 哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算 靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西,  我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dyn">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[C][Dynamic Array] Exercise to operate the dyanmic array ">
+<meta name="twitter:description" content="目的很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行... 哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算 靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西,  我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dyn">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" class="article-date">
+  <time datetime="2015-03-21T07:28:52.000Z" itemprop="datePublished">Mar 21 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [C][Dynamic Array] Exercise to operate the dyanmic array 
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結論"><span class="toc-text">結論</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample_Code"><span class="toc-text">Sample Code</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>很久之前買了一本書, 有關於系統程式師的養成計劃, 但是一直沒有很他認真的實行...</p>
+<p>哈, 最近又開始了新生活運動, 打算每個禮拜花一點時間upgrade一下技能, 已經打算</p>
+<p>靠着寫程式過我下半生了, HA....今天看到了一個有趣的議題, 資料結構裏面有 雙向鏈結以及dynamic array 這種東西, </p>
+<p>我沒學過自料結構,但是雙向鏈結在interview的時候, 常會被問, 但是 dynamic array 這個我還是第一次各聽到</p>
+<p>（是不是很虛， 沒辦法, 小弟不是資工的...走一步算一步吧!!） </p>
+<p>今天就花了時間, 學習了一下要如何操作 dynamic array... </p>
+<h2 id="結論">結論</h2><p>先來下個結論, 一開始我以爲dynamic array 是指array 可以動態的改變, 將底下的array, 大小改變...</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int static_array[10];</span><br></pre></td></tr></table></figure>
+<p>但是我做了實驗, 發現是不行的(有錯的話, 請糾正我吧！！) </p>
+<p>基本上就是透過 malloc 要一塊heap 的記憶體,然後再用 realloc 的方式, 去放大縮小你的heap空間.</p>
+<p>底下的sample 主要做了底下這些事情. 一行一行做註解， 會殺了我...所以我列出concept, 讓入門人有個概念</p>
+<ol>
+<li>我用一個structure --&gt;  DArray, 來當作動態的array. 主要就是操作裏面的data</li>
+<li>這個sample code有讓array長大的api, 以及讓array所小的api, 可以參考.h 檔去追</li>
+<li>DArray 裏面有兩個siz,
+   int array_size;           --&gt; data array 的大小
+   int allocated_array_size; --&gt; 我們用 malloc 實際跟系統要的memory size</li>
+<li>爲什麼要分兩個size呢, 原因是因爲跟記憶體有關, 你應該不會希望, 當我們要新增刪除一個member 就要
+call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynamic array 的好處之一...</li>
+</ol>
+<h2 id="Sample_Code">Sample Code</h2><p><strong><em>main.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">/*******************************</span><br><span class="line"> *  Purpose : Exercise to operate the dynamic array</span><br><span class="line"> *  Arthur  : Sheldon Peng</span><br><span class="line"> *  Date    : 2015/3/21 </span><br><span class="line"> * */</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &quot;main.h&quot;</span><br><span class="line"></span><br><span class="line">#define SR_DBG(fmt, vargs...) printf(&quot;[%s][%d]&quot; fmt, __FUNCTION__, __LINE__, ##vargs)</span><br><span class="line"></span><br><span class="line">#define CHECK_NULL(PTR)  if(!PTR)    \</span><br><span class="line">                          &#123;printf(&quot;ERROR!! the pointer is NULL \r\n&quot;);&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">static RET DArray_shrink(DArray* thiz, int shrink_size)</span><br><span class="line">&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  void* shrink_data = realloc((void*)thiz-&gt;data, shrink_size*sizeof(char));</span><br><span class="line">  </span><br><span class="line">  if ( NULL!=shrink_data)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (char*)shrink_data; </span><br><span class="line">    thiz-&gt;allocated_array_size = shrink_size; </span><br><span class="line">    SR_DBG(&quot; SHRINK size to %d \r\n&quot;, shrink_size);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;FAIL to realloc array \r\n&quot;);</span><br><span class="line">    return RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return RET_SUCCESS;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RET DArray_delete(DArray* thiz, int index)</span><br><span class="line">&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  </span><br><span class="line">  if (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot; ERROR to delete the dynamic array member beacuse the index is not belong into dynamic array \r\n&quot;);</span><br><span class="line">    return RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // remove the member from the dynamic array</span><br><span class="line">  int i;</span><br><span class="line">  for (i=index;i&lt;(thiz-&gt;array_size-1);i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i+1];</span><br><span class="line">  &#125;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size-1;</span><br><span class="line">  </span><br><span class="line">  // Shrink the dynamic array if the pool size is enough to use .</span><br><span class="line">  int shrink_size = thiz-&gt;array_size + (thiz-&gt;array_size&gt;&gt;1);</span><br><span class="line"></span><br><span class="line">  if (shrink_size &lt; thiz-&gt;allocated_array_size)</span><br><span class="line">  &#123;</span><br><span class="line">     if ( RET_FAIL == DArray_shrink(thiz, shrink_size) )</span><br><span class="line">     &#123;</span><br><span class="line">       SR_DBG(&quot;FAILLL to shrink the dynamic array \r\n&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static RET DArray_enlarge(DArray* thiz, int enlarge_size)</span><br><span class="line">&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line">  void* enlarge_data = realloc((void*)thiz-&gt;data, enlarge_size*sizeof(char));</span><br><span class="line"></span><br><span class="line">  if ( NULL!=enlarge_data )</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data = (char*)enlarge_data;</span><br><span class="line">    thiz-&gt;allocated_array_size = enlarge_size;</span><br><span class="line">    SR_DBG(&quot; ENLARGE size to %d \r\n&quot;, enlarge_size);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;FAIL to realloc array \r\n&quot;);</span><br><span class="line">    return RET_FAIL; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return RET_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RET DArray_insert(DArray* thiz, int index, char insert_data)</span><br><span class="line">&#123;</span><br><span class="line">  CHECK_NULL(thiz);</span><br><span class="line"></span><br><span class="line">  if (index &gt; thiz-&gt;array_size)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Your index is wrong, because the index is not wihin the array \r\n&quot;);</span><br><span class="line">    return RET_FAIL;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (thiz-&gt;allocated_array_size &lt; thiz-&gt;array_size+1)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Because the space is not enough, so we need to enlarge the space for dynamic array \r\n&quot;);</span><br><span class="line">    int enlarge_size = (thiz-&gt;array_size&gt;&gt;1) + thiz-&gt;array_size;</span><br><span class="line">    if (RET_FAIL == DArray_enlarge(thiz, enlarge_size ))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;FAILLL to enlarge the space of dynamic array \r\n&quot;);</span><br><span class="line">      return RET_FAIL;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  int i;</span><br><span class="line">  for ( i=thiz-&gt;array_size; i&gt;index; i--)</span><br><span class="line">  &#123;</span><br><span class="line">    thiz-&gt;data[i] = thiz-&gt;data[i-1];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  thiz-&gt;data[index] = insert_data;</span><br><span class="line">  thiz-&gt;array_size = thiz-&gt;array_size+1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Display_DArray(DArray* DArray_ptr)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line">  int size = DArray_ptr-&gt;array_size;</span><br><span class="line"></span><br><span class="line">  SR_DBG(&quot;My Dynamic Array is : \r\n&quot;);</span><br><span class="line">  SR_DBG(&quot;size is %d \r\n&quot;, size);</span><br><span class="line">  SR_DBG(&quot;allocated size is %d \r\n&quot;, DArray_ptr-&gt;allocated_array_size);</span><br><span class="line"></span><br><span class="line">  for ( i=0; i&lt;size; i++)</span><br><span class="line">  &#123;</span><br><span class="line">      printf(&quot;%d, &quot;, DArray_ptr-&gt;data[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\r\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  // Init my dynamic array</span><br><span class="line">  DArray myDArray;</span><br><span class="line">  myDArray.array_size = MINIMUN_ARRAY_SIZE;</span><br><span class="line">  myDArray.allocated_array_size = MINIMUN_ARRAY_SIZE+ (MINIMUN_ARRAY_SIZE&gt;&gt;1); </span><br><span class="line">  </span><br><span class="line">  //char InitArray[myDArray.array_size];</span><br><span class="line">  myDArray.data = (char*)malloc(sizeof(char)*myDArray.array_size);</span><br><span class="line">  memset((void*)myDArray.data, 0x0, (myDArray.array_size)*sizeof(char));</span><br><span class="line"></span><br><span class="line">  // Display all dynamic array members. </span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line"></span><br><span class="line">  // test</span><br><span class="line">  SR_DBG(&quot;======== TEST for ENLARGing D_ARRAY \r\n&quot;);</span><br><span class="line">  int i;</span><br><span class="line">  for (i=0;i&lt;10;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, 0, i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (i=0;i&lt;10;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    DArray_insert(&amp;myDArray, 5, i);</span><br><span class="line">  &#125;</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">  SR_DBG(&quot;======== TEST for SHRINking D_ARRAY \r\n&quot;);</span><br><span class="line">  DArray_delete(&amp;myDArray, 1);</span><br><span class="line">  DArray_delete(&amp;myDArray, 1);</span><br><span class="line">  DArray_delete(&amp;myDArray, 1);</span><br><span class="line">  DArray_delete(&amp;myDArray, 1);</span><br><span class="line">  DArray_delete(&amp;myDArray, 5);</span><br><span class="line">  DArray_delete(&amp;myDArray, 6);</span><br><span class="line">  Display_DArray(&amp;myDArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>main.h</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define MINIMUN_ARRAY_SIZE 1</span><br><span class="line"></span><br><span class="line">typedef enum</span><br><span class="line">&#123;</span><br><span class="line">  RET_SUCCESS,</span><br><span class="line">  RET_FAIL,</span><br><span class="line">&#125;RET;</span><br><span class="line"></span><br><span class="line">typedef struct _DArray</span><br><span class="line">&#123;</span><br><span class="line">  int array_size;</span><br><span class="line">  int allocated_array_size;</span><br><span class="line">  char* data;</span><br><span class="line">&#125;DArray;</span><br><span class="line"></span><br><span class="line">RET DArray_insert(DArray* thiz, int index, char insert_data);</span><br><span class="line">RET DArray_delete(DArray* thiz, int index);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cjvp058p30014acggggd81u3l" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamic-Array/">Dynamic Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/realloc/">realloc</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/18/C-readlink/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[C][uinstd] 簡易使用 readlink </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

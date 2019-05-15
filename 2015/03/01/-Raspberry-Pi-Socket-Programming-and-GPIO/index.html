@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[Raspberry Pi] Socket Programming and GPIO | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目的很久之前, 曾經做過 socket programming在樹梅派的應用.  也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code. 我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD 這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又">
+<meta name="keywords" content="Raspberry Pi,Socket,GPIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Raspberry Pi] Socket Programming and GPIO">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="目的很久之前, 曾經做過 socket programming在樹梅派的應用.  也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code. 我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD 這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Raspberry Pi] Socket Programming and GPIO">
+<meta name="twitter:description" content="目的很久之前, 曾經做過 socket programming在樹梅派的應用.  也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code. 我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD 這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post--Raspberry-Pi-Socket-Programming-and-GPIO" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" class="article-date">
+  <time datetime="2015-03-01T00:30:29.000Z" itemprop="datePublished">Mar 1 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Raspberry Pi] Socket Programming and GPIO
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo_on_Youtube"><span class="toc-text">Demo on Youtube</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Source_code-"><span class="toc-text">Source code.</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>很久之前, 曾經做過 socket programming在樹梅派的應用. 
+也做了個demo影片留在youtube上, 當初只是好玩做做,沒想到有人需要source code.
+我找了一下, 所以就放上來了,有興趣的可以看一下囉，沒意外的話,應該也是一個拼裝車XDDD</p>
+<p>這個Demo 影片, 是讓樹梅派當client, 讓laptop 當server 收訊號. 因爲我只有一個樹梅派, 但是我又想模擬mutlit-client的情況, 
+所以我在laptop又多起一個task去送訊號給server. </p>
+<h2 id="Demo_on_Youtube">Demo on Youtube</h2><p>This  demo tell how to control GPIO and send the data to server.
+About socket programming, server can receive the data from multi client.</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/i2Jig5vebBk" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="Source_code-">Source code.</h2><a href="http://sheldonrush.github.io/sheldon.is.a.geek/doc/Pi_is_client_PC_is_server.tar.7z">下載Download</a>
+<p><strong><em>1. server端</em></strong></p>
+<p>// sr_server.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">Function : socket code for server</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int connfd = 0, n = 0, listenfd = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">    struct sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    char charBuff[1024];</span><br><span class="line">    char recvBuff[1024];</span><br><span class="line">    time_t ticks;</span><br><span class="line"></span><br><span class="line">    // init the data structure of serv_addr</span><br><span class="line">    memset(&amp;serv_addr, &apos;0&apos;, sizeof(serv_addr));</span><br><span class="line">    memset(charBuff, &apos;\0&apos;, sizeof(charBuff));</span><br><span class="line">    memset(recvBuff, &apos;\0&apos;, sizeof(recvBuff));</span><br><span class="line"></span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    serv_addr.sin_port = htons(8998);</span><br><span class="line"></span><br><span class="line">    // assign the scket port to socket</span><br><span class="line">    bind(listenfd, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</span><br><span class="line"></span><br><span class="line">    listen(listenfd, 20);</span><br><span class="line"></span><br><span class="line">    while (1)</span><br><span class="line">    &#123;</span><br><span class="line">        connfd = accept(listenfd, (struct sockaddr*)NULL, NULL);</span><br><span class="line">   </span><br><span class="line">        printf(&quot;%s %d \n&quot;, &quot;server: connfd is&quot;, connfd);</span><br><span class="line">        ticks = time(NULL);</span><br><span class="line">        snprintf(charBuff, sizeof(charBuff), &quot;%s\n&quot;, ctime(&amp;ticks));</span><br><span class="line">        printf(&quot;server: %s\n&quot;, charBuff);</span><br><span class="line">        </span><br><span class="line">        while ( (n = read(connfd, recvBuff, sizeof(recvBuff)-1)) &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">           recvBuff[n] = 0;</span><br><span class="line">           printf(&quot;server: read %d bytes \n&quot;, n);</span><br><span class="line">           printf(&quot;server: EOF = %d \n&quot;, EOF);</span><br><span class="line">           if ( fputs(recvBuff, stdout) == EOF)</span><br><span class="line">           &#123;</span><br><span class="line">                printf(&quot;Error : Fputs error \n&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (n &lt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            printf(&quot;Error : read errpr \n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">       //  write(connfd, sendBuff, strlen(sendBuff));</span><br><span class="line">        close(connfd);</span><br><span class="line">        sleep(1); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2. Clinet 端</em></strong></p>
+<p>// main.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">Function : Detect whether GPIO[17] is high or low</span><br><span class="line">Arthur : Sheldon RUsh Peng</span><br><span class="line">Date : 2013/7/27</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#include &lt;wiringPi.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line">#include &quot;sr_clinit.h&quot; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define False 0</span><br><span class="line">#define True 0</span><br><span class="line">#define pin 0 //GPIO[17]</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int pin_value = False;</span><br><span class="line">    time_t current_time;</span><br><span class="line">    int count = 0;</span><br><span class="line">    </span><br><span class="line">    if (argc != 4)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt; \n&quot;, argv[0]);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    if (-1 == wiringPiSetup())</span><br><span class="line">        exit(1);</span><br><span class="line"></span><br><span class="line">    // init GPIO[17] to be INPUT port </span><br><span class="line">    pinMode(pin, INPUT);</span><br><span class="line">    </span><br><span class="line">    while (1)</span><br><span class="line">    &#123;</span><br><span class="line">        current_time = time(NULL); </span><br><span class="line">        pin_value = digitalRead(pin);</span><br><span class="line">        if (True == pin_value)</span><br><span class="line">        &#123;</span><br><span class="line">            count ++;</span><br><span class="line">            printf(&quot;\n\n%s\n&quot;, ctime(&amp;current_time));</span><br><span class="line">            printf(&quot;Work station call help [%d] time\n&quot;, count);</span><br><span class="line">            </span><br><span class="line">            if (0 != socket_clinit_main(argc,argv))</span><br><span class="line">            &#123;</span><br><span class="line">                printf(&quot;cannot call help \n&quot;);</span><br><span class="line">                return 1;</span><br><span class="line">            &#125;</span><br><span class="line">            sleep(5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.h </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extern int socket_clinit_main(int argc, char *argv[]);</span><br></pre></td></tr></table></figure>
+<p>// sr_clinit.c </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">Function : Socket code for clinit</span><br><span class="line">Arthur : SheldonRush Peng</span><br><span class="line">Date : 2013/7/26</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &quot;sr_clinit.h&quot;</span><br><span class="line"></span><br><span class="line">int socket_clinit_main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int sockfd = 0, n = 0;</span><br><span class="line">    char sendBuff[1024];</span><br><span class="line"></span><br><span class="line">    struct sockaddr_in serv_addr;</span><br><span class="line"></span><br><span class="line">    if (argc != 4)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;Usage : %s &lt;ip&gt; &lt;port&gt; &lt;station id&gt;\n&quot;, argv[0]);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;Error : cannot create a socket\n&quot;); </span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    memset(sendBuff, &apos;\0&apos;, sizeof(sendBuff));</span><br><span class="line">    </span><br><span class="line">    serv_addr.sin_family = AF_INET;</span><br><span class="line">    serv_addr.sin_port = htons(atoi(argv[2]));</span><br><span class="line"></span><br><span class="line">    if (inet_pton(AF_INET, argv[1], &amp;serv_addr.sin_addr) &lt;= 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;%s \n&quot; , &quot; Error : cannot convert text to ip binary&quot;);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if ( connect(sockfd, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr)) &lt; 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;Error : canot connect server\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;Clinit: Send data to server, station id = %d\n&quot;, atoi(argv[3]));</span><br><span class="line">    snprintf(sendBuff,  sizeof(sendBuff), &quot;hi Sheldon, I am station id [%d]\n&quot;, atoi(argv[3]));</span><br><span class="line">    printf(&quot;Clint: data is &#123;%s&#125;\n&quot;, sendBuff);</span><br><span class="line">    write(sockfd, sendBuff, strlen(sendBuff));</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line">/*</span><br><span class="line">    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        recvBuff[n] =0;</span><br><span class="line">        if ( fputs(recvBuff, stdout) == EOF)</span><br><span class="line">        &#123;</span><br><span class="line">           printf(&quot;Error : Fputs error \n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   if (n &lt; 0)</span><br><span class="line">   &#123;</span><br><span class="line">        printf(&quot;Error : read error \n&quot;);</span><br><span class="line">        return 1;</span><br><span class="line">   &#125;</span><br><span class="line">*/</span><br><span class="line">   return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjvp058ol000oacggaskjzjlk" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/GPIO/">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Socket/">Socket</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [C++][Virtual Function/Inherit] My Animal World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Raspberry Pi] Demod_Video</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>

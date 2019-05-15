@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[C++][Virtual Function/Inherit] My Animal World | Crazy Keyboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目的最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型.  我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純,  可以來記錄你養寵物的體重. 以及每天都喂他飼料的話,  他們的體重會變成幾公斤.  練習1. main.h 我在main.h 裏面放了base class 以及 extended class.  分別帶表了動物和貓以及鼠鼠">
+<meta name="keywords" content="C++,Virtual Function,Inherit,Dynamical Binding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C++][Virtual Function&#x2F;Inherit] My Animal World">
+<meta property="og:url" content="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/index.html">
+<meta property="og:site_name" content="Crazy Keyboard">
+<meta property="og:description" content="目的最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型.  我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純,  可以來記錄你養寵物的體重. 以及每天都喂他飼料的話,  他們的體重會變成幾公斤.  練習1. main.h 我在main.h 裏面放了base class 以及 extended class.  分別帶表了動物和貓以及鼠鼠">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-07T09:27:10.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[C++][Virtual Function&#x2F;Inherit] My Animal World">
+<meta name="twitter:description" content="目的最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型.  我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純,  可以來記錄你養寵物的體重. 以及每天都喂他飼料的話,  他們的體重會變成幾公斤.  練習1. main.h 我在main.h 裏面放了base class 以及 extended class.  分別帶表了動物和貓以及鼠鼠">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Keyboard" type="application/atom+xml">
+  
+  
+    <link href="/sheldon.is.a.geek/favicon.png" rel="icon">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sheldon.is.a.geek/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="logo">Crazy Keyboard</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/sheldon.is.a.geek/sheldon.is.a.geek/" id="subtitle">While(1){printf(&quot;I&#39;m Sheldon&quot;)};</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/">Home</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ME</a>
+        
+          <a class="main-nav-link" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/">Demo_Video</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sheldonrush.github.io/sheldon.is.a.geek"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post--C-Virtual-Function-Inherit-My-Animal-World" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" class="article-date">
+  <time datetime="2015-03-09T17:22:34.000Z" itemprop="datePublished">Mar 10 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [C++][Virtual Function/Inherit] My Animal World
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#練習"><span class="toc-text">練習</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>最近爲了學習QT, 所以重新練習C++的程式, C++的精華就在於封裝、繼承、多型. 
+我寫了一個 My Animal World 來練習這些觀念. 這支程式也非常單純, 
+可以來記錄你養寵物的體重. 以及每天都喂他飼料的話, 
+他們的體重會變成幾公斤. </p>
+<h2 id="練習">練習</h2><p><strong><em>1. main.h</em></strong></p>
+<p>我在main.h 裏面放了base class 以及 extended class. </p>
+<p>分別帶表了動物和貓以及鼠鼠的屬性.</p>
+<p>要注意底下的一些重點. </p>
+<ol>
+<li>overload 結構子</li>
+<li>virutal function的用法. </li>
+<li>我把實作都放到.c 黨裏面了</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//***********************************</span><br><span class="line">//**********************************</span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//*********************************</span><br><span class="line">//**********************************</span><br><span class="line"></span><br><span class="line">#define MAX_ANIMAL_NUMBER 2</span><br><span class="line">enum &#123;</span><br><span class="line">  BIG_CAT,</span><br><span class="line">  SMALL_NAUGHTY,</span><br><span class="line">  MAX_ANIMAL = MAX_ANIMAL_NUMBER,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Animal();</span><br><span class="line">    Animal(double,double);</span><br><span class="line">    void feed(int);</span><br><span class="line">    double get_weight(void);</span><br><span class="line">    double get_increase_per_day(void);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line"></span><br><span class="line">  private :</span><br><span class="line">    double weight;</span><br><span class="line">    double increase_per_day;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Cat: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Cat(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Mouse: public Animal</span><br><span class="line">&#123;</span><br><span class="line">  public :</span><br><span class="line">    Mouse(double,double);</span><br><span class="line">    virtual void show_name(void);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2.1 main.c</em></strong></p>
+<p>2.1 的部分, 我放了class 成員的實作, 很間單的體重以及增重的vlaue.</p>
+<p>這裡很妙的是假如你 base和extended 有相同的member function (show_name)的話, </p>
+<p>你又想使用extended class 的member function (show_name), 你可以在member function 加上virtual</p>
+<p>假如你只想用base class的member function, 就把virtual 去除掉吧.</p>
+<p>底下這個範例是留下virtual, 畢竟我想要每個動物東有自己的名字XDDD</p>
+<p>我這邊還多定義了一個 pointer array 是放所有的動物的pointer. </p>
+<p>這樣比較好操作. 要注意, 宣告array的member , 我是用 base class的poiner (重要)</p>
+<p>這樣就非常方便了. 我就可以利用base class pointer 來操作所有extend class. 讃拉！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">//***********************************</span><br><span class="line">//**********************************</span><br><span class="line">// Arthur : Sheldon Peng</span><br><span class="line">// Date : 2015.3.9</span><br><span class="line">// Purpose : Try the understand the virtual function in C++</span><br><span class="line">//*********************************</span><br><span class="line">//**********************************</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &quot;main.h&quot;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">Animal* animal_list[MAX_ANIMAL_NUMBER];</span><br><span class="line"></span><br><span class="line">Animal::Animal()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;This is First Animal constructor&quot; &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal::Animal(double weight_value, double increase_per_day_value)</span><br><span class="line">&#123;</span><br><span class="line">  weight = weight_value;</span><br><span class="line">  increase_per_day = increase_per_day_value ; </span><br><span class="line">  cout &lt;&lt; &quot;This is Second Animal constructor&quot; &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::feed(int food)</span><br><span class="line">&#123;</span><br><span class="line">  for (int i=0;i&lt;food;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    weight += increase_per_day;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_weight(void)</span><br><span class="line">&#123;</span><br><span class="line">  return weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double Animal::get_increase_per_day(void)</span><br><span class="line">&#123;</span><br><span class="line">  return increase_per_day;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Animal::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;Hello, I don&apos;t have name, please give me a name .&quot; &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat::Cat(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;This is Cat&apos;s constructor&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Cat::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;Hello, My name is Lazy Cat .&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mouse::Mouse(double a,double b):Animal(a, b) </span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;This is Mouse&apos;s constructor .&quot; &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Mouse::show_name(void)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;Hello, My name is Sweet mouse .&quot; &lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>2.2 main.c (main function)</em></strong></p>
+<p>這是程式主題. 一開始會先init cat/mouse, 然後就進去while loop</p>
+<p>等待主人詢問是否要餵食你的可愛動物 XDDD . </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  int type;</span><br><span class="line">  int food_value;</span><br><span class="line"></span><br><span class="line">  Animal* animal_ptr;</span><br><span class="line">  Cat cat(7,0.05);</span><br><span class="line">  Mouse mouse(0.05,0.001);</span><br><span class="line">  animal_list[BIG_CAT] = &amp;cat; </span><br><span class="line">  animal_list[SMALL_NAUGHTY] = &amp;mouse;</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; &quot; Welcom to my animal house &quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  do  </span><br><span class="line">  &#123;</span><br><span class="line">    cout &lt;&lt;&quot; please chose the animal you want to feed &quot; &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt;&quot; [0] for cat, [1] for mouse, [2] check the weight of all cute animals !!&quot; &lt;&lt; endl;</span><br><span class="line">    cin &gt;&gt; type ;</span><br><span class="line"></span><br><span class="line">    if (type == 0)</span><br><span class="line">    &#123;</span><br><span class="line">       animal_ptr = &amp;cat;</span><br><span class="line">       cout &lt;&lt; &quot; 喵喵 !!!&quot; &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    else if (type == 1)</span><br><span class="line">    &#123;</span><br><span class="line">       animal_ptr = &amp;mouse;</span><br><span class="line">       cout &lt;&lt; &quot;唧唧 !!!&quot; &lt;&lt; endl;</span><br><span class="line">       animal_ptr-&gt;show_name();</span><br><span class="line">    &#125;</span><br><span class="line">    else if (type == 2)</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;======體重表=======&quot;&lt;&lt;endl;</span><br><span class="line">      </span><br><span class="line">      for (int i=0; i&lt; MAX_ANIMAL_NUMBER; i++)</span><br><span class="line">      &#123;</span><br><span class="line">        animal_ptr = animal_list[i];</span><br><span class="line">        animal_ptr-&gt;show_name();</span><br><span class="line">        cout &lt;&lt; &quot;我的重量是 &quot; &lt;&lt; animal_ptr-&gt;get_weight()&lt;&lt;&quot;(kg)&quot; &lt;&lt;endl;</span><br><span class="line">      &#125;</span><br><span class="line">      cout &lt;&lt; &quot;===================&quot;&lt;&lt;endl;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    else </span><br><span class="line">    &#123;</span><br><span class="line">       cout &lt;&lt; &quot; wow, qq, We don&apos;t have your animal !!&quot; &lt;&lt;endl;</span><br><span class="line">       continue; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot; How many days you want to feed ?? &quot; &lt;&lt; endl;</span><br><span class="line">    cin &gt;&gt; food_value; </span><br><span class="line">    animal_ptr-&gt;feed(food_value);</span><br><span class="line"></span><br><span class="line">  &#125;while(1);</span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjvp058nh0004acggjjiftj1m" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Dynamical-Binding/">Dynamical Binding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Inherit/">Inherit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Virtual-Function/">Virtual Function</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [C++][Virtual Function] Exercises
+        
+      </div>
+    </a>
+  
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Raspberry Pi] Socket Programming and GPIO</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習_1/">AI-人工智慧學校(基本Python練習-2)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sheldon Peng<br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/sheldon.is.a.geek/" class="mobile-nav-link">Home</a>
+  
+    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="mobile-nav-link">ME</a>
+  
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" class="mobile-nav-link">Demo_Video</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'rushpeng';
+  
+  var disqus_url = 'http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/sheldon.is.a.geek/fancybox/jquery.fancybox.css">
+  <script src="/sheldon.is.a.geek/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/sheldon.is.a.geek/js/script.js"></script>
+
+  </div>
+</body>
+</html>
