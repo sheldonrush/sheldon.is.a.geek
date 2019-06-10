@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2019/06/10/TensorFLowExercis2_Simpler_DNN/</loc>
+    <lastmod>2019-06-10T04:46:21.150Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2019/05/10/TensorFLowExercise1/</loc>
     <lastmod>2019-06-07T06:16:08.532Z</lastmod>
   </url>
@@ -37,6 +42,21 @@
   </url>
   
   <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/</loc>
+    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/</loc>
+    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-%E8%A1%8C%E8%BB%8A%E8%A8%98%E9%8C%84%E5%99%A8/</loc>
+    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
@@ -62,12 +82,7 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/</loc>
-    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
@@ -77,12 +92,12 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/04/04/C-Mutex-Pthread-Interface-A-sample-code-for-pthread-mutex-interface/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping%E7%9A%84%E7%94%A8%E6%B3%95/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
@@ -92,17 +107,17 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/</loc>
-    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/05/02/C-DB-Double-Link-List-Exercise-the-Double-Link-List/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
   <url>
     <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/24/Netwoek-Scan-IP-nmap/</loc>
+    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/%E7%90%86%E8%B2%A1-%E5%9F%BA%E6%9C%AC%E9%9D%A2%E5%90%8D%E8%A9%9E/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
@@ -117,7 +132,12 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping%E7%9A%84%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/21/%E5%AE%89%E8%A3%9DR%E8%AA%9E%E8%A8%80/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
@@ -137,32 +157,17 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-%E8%A1%8C%E8%BB%8A%E8%A8%98%E9%8C%84%E5%99%A8/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/</loc>
     <lastmod>2018-12-07T09:27:10.601Z</lastmod>
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/</loc>
-    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/06/21/%E5%AE%89%E8%A3%9DR%E8%AA%9E%E8%A8%80/</loc>
-    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/%E7%90%86%E8%B2%A1-%E5%9F%BA%E6%9C%AC%E9%9D%A2%E5%90%8D%E8%A9%9E/</loc>
-    <lastmod>2018-12-07T09:27:10.601Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/</loc>
     <lastmod>2018-12-07T09:27:10.597Z</lastmod>
   </url>
   
@@ -177,12 +182,12 @@
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/</loc>
     <lastmod>2018-12-07T09:27:10.597Z</lastmod>
   </url>
   
   <url>
-    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/</loc>
+    <loc>http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/</loc>
     <lastmod>2018-12-07T09:27:10.597Z</lastmod>
   </url>
   
