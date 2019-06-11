@@ -67,6 +67,82 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" class="article-date">
+  <time datetime="2015-03-23T13:22:47.000Z" itemprop="datePublished">Mar 23 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/">[C][Multi-Thread] How to use pthread_create and pthread_join to operate multi-thread</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Purpose"><span class="toc-text">Purpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Compiler"><span class="toc-text">Compiler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_1"><span class="toc-text">Sample Code 1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample_Code_2"><span class="toc-text">Sample Code 2</span></a></li></ol>
+        </div>
+        
+        </p><h1 id="Purpose">Purpose</h1><p>今天在練習如何使用pthread_create和pthread_join來練習multi-thread的操作.</p>
+<p>multi-thread 的code的好處, 在於你假如用multi-process 的話, CPU會在去多做context-switch,</p>
+<p>整體的效能下降. 但是由於每個thread都共用相同的memory 大小區塊, 所以有可能造成</p>
+<p>每個thread access 到其他人thread要用的資料, 底下有兩個sample code, 第一個sample code,</p>
+<p>就出現這樣的錯誤.</p>
+<h1 id="Compiler">Compiler</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.c -lpthread -o main</span><br></pre></td></tr></table></figure>
+<p>由於pthread是在libpthread.so的lib裏面, 所以我們在compiler 的時候, 必須將pthread lib include 進去. </p>
+<p>.c 檔裏面, 也記得要include pthread.h.</p>
+<h1 id="Sample_Code_1">Sample Code 1</h1><p>你可以從底下的結果看出一個奇特的現象,</p>
+<p>我產生了10個thread, 但是印出thread id 的時候， thread id =5, 卻印了4次. </p>
+<p>這代表, 我create thread 的時侯, 帶下去的thread id (i), 被其他thread access到了. 造成了這個問題, </p>
+<p>修這個bug的最簡單方法, 可以參考Sample Code 2.</p>
+<p>關於 pthread_join 的使用, 也很單純. </p>
+<p>他就wait 那裡,等待他要wait 的pthread id 被終止, 假如沒有終止的話, 那就GG了, 系統就會hang在那裏. </p>
+<p><strong><em>main.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">#define THREAD_NUM 10</span><br><span class="line">#define SR_DBG(fmt,arg...) printf(&quot;[%s][%d] &quot;fmt, __FUNCTION__,__LINE__, ##arg)</span><br><span class="line"></span><br><span class="line">void* thread_routine(void* argv)</span><br><span class="line">&#123;</span><br><span class="line">  int my_id = *((int*)argv);</span><br><span class="line">  SR_DBG(&quot;hello, i&apos;m new thread, my name is id[%d] \r\n&quot;,my_id);</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int create_multi_thread_test(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    if (0 != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;i))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, create thread FAILLL!!! \r\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Wait for termination of thread id [%d] \r\n&quot;, i);</span><br><span class="line">    if (0 != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, Mother thread cannot wait for thread id [%d]\r\n&quot;, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  SR_DBG(&quot;This is multi-thread test code \r\n&quot;);</span><br><span class="line">  </span><br><span class="line">  if (-1 == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;the multi thread test is FAILLLLL!!! \r\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result1</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v1.png">
+<h1 id="Sample_Code_2">Sample Code 2</h1><p>這個smaple code, 就是針對上面去做一些改良, 多用一個 array 來存要帶進去thread_routine 裏面的引數</p>
+<p>避免被其他thread access 倒.但是這一定不是最佳的方法... </p>
+<p><strong><em>main_v2.c</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">#define THREAD_NUM 10</span><br><span class="line">#define SR_DBG(fmt,arg...) printf(&quot;[%s][%d] &quot;fmt, __FUNCTION__,__LINE__, ##arg)</span><br><span class="line"></span><br><span class="line">void* thread_routine(void* argv)</span><br><span class="line">&#123;</span><br><span class="line">  int my_id = *((int*)argv);</span><br><span class="line">  SR_DBG(&quot;hello, i&apos;m new thread, my name is id[%d] \r\n&quot;,my_id);</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int create_multi_thread_test(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line"></span><br><span class="line">  pthread_t thread_id_array[THREAD_NUM];</span><br><span class="line">  int thread_i[THREAD_NUM];</span><br><span class="line"> </span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    thread_i[i] = i;</span><br><span class="line">    if (0 != pthread_create(&amp;thread_id_array[i], NULL, thread_routine, &amp;thread_i[i]))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, create thread FAILLL!!! \r\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (i=0; i&lt;THREAD_NUM; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;Wait for termination of thread id [%d] \r\n&quot;, i);</span><br><span class="line">    if (0 != pthread_join(thread_id_array[i], NULL))</span><br><span class="line">    &#123;</span><br><span class="line">      SR_DBG(&quot;OMG, Mother thread cannot wait for thread id [%d]\r\n&quot;, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">  SR_DBG(&quot;This is multi-thread test code \r\n&quot;);</span><br><span class="line">  </span><br><span class="line">  if (-1 == create_multi_thread_test())</span><br><span class="line">  &#123;</span><br><span class="line">    SR_DBG(&quot;the multi thread test is FAILLLLL!!! \r\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result2</em></strong></p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/pthread_v2.png">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/" data-id="cjwrh63jl0018crggdcpfv5rd" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/23/C-Multi-Thread-How-to-use-pthread-create-and-pthread-join-to-operate-multi-thread/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/multi-thread/">multi-thread</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-create/">pthread_create</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/pthread-join/">pthread_join</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" class="article-date">
@@ -128,7 +204,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cjwrden6700149qgguh13cxcj" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/" data-id="cjwrh63ji0014crgg9y3uyixx" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/21/C-Dynamic-Array-Exercise-to-operate-the-dyanmic-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -191,7 +267,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="cjwrden6i001f9qgg2j0oqcaq" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/" data-id="cjwrh63ju001fcrgg4ev4s5r9" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/18/C-readlink/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -269,7 +345,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="cjwrden51000e9qggl10e0f1q" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/" data-id="cjwrh63iq000ecrgg5m0yquz9" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/15/-QT-GUI-Hello-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -352,7 +428,7 @@ call一次 realloc 吧...這樣會造成你的memory不連續. 就失去了dynam
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="cjwrden4100009qggbghz9m83" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/" data-id="cjwrh63hb0000crggsx75jjbt" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/13/-C-ELF-Attribute-Section/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -419,7 +495,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cjwrden4900019qggur1oiasi" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/" data-id="cjwrh63hj0001crggjvrk0b3t" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Exercisels/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -499,7 +575,7 @@ base class 是否需要有相同引數的function member? </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjwrden4i00049qggh8mhptu1" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/" data-id="cjwrh63hs0004crggh7cpvp12" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/10/-C-Virtual-Function-Inherit-My-Animal-World/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -570,7 +646,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjwrden5p000o9qggrw7c9ayz" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/" data-id="cjwrh63j1000ocrggka3xxbiu" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Socket-Programming-and-GPIO/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -636,7 +712,7 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjwrden5g000j9qggxjq6jiyo" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/" data-id="cjwrh63iw000jcrggzn29nch3" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Demod-Video/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -700,85 +776,12 @@ About socket programming, server can receive the data from multi client.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjwrden54000f9qggxsce1ocd" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjwrh63it000fcrgghaszqocs" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post--Ubuntu-如何在Ubuntu底下安裝LINE" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" class="article-date">
-  <time datetime="2015-02-28T17:08:03.000Z" itemprop="datePublished">Mar 1 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/">[Ubuntu]如何在Ubuntu底下安裝LINE</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li></ol>
-        </div>
-        
-        </p><h2 id="目的">目的</h2><p>我每次要用line的時候,都需要把virtual box的windows打開，這樣才能使用
-PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何使用LINE.</p>
-<p><strong><em>1. Ubuntu 版本</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ cat /etc/issue</span><br><span class="line">Ubuntu 14.04.2 LTS \n \l</span><br></pre></td></tr></table></figure>
-<p><strong><em>2. Wine 版本</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sheldon$ wine --version</span><br><span class="line">wine-1.6.2</span><br></pre></td></tr></table></figure>
-<h2 id="方法">方法</h2><p>我參考了這個<a href="http://askubuntu.com/questions/517932/how-can-i-install-line" target="_blank" rel="noopener">聯結</a></p>
-<p><strong><em>0. 安裝p7zip以及vcrun2008</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install p7zip  # [p7zip](http://packages.ubuntu.com/zh-tw/lucid/utils/p7zip-full)是具有高壓縮率的套件</span><br><span class="line">wget http://winetricks.org/winetricks # [winetricks](http://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=66666) 是wine自動安裝函式庫的好工具XD</span><br><span class="line">chmod +x winetricks # 賦予執行的權利</span><br><span class="line">./winetricks #執行winetricks</span><br></pre></td></tr></table></figure>
-<p><strong><em>參考底下圖片安裝vcrun2008</em></strong>
-<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks1.png">
-<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks2.png">
-<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/winetricks3.png"></p>
-<p><strong><em>1. 產生一個暫存的line_tmp, 並cd 進去</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir line_tmp</span><br><span class="line">cd line_tmp</span><br></pre></td></tr></table></figure>
-<p><strong><em>2. wget 最新的LINE version, 並且利用7z去extract 資料出來</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://dl.desktop.line.naver.jp/naver/LINE/win/LineInst.exe</span><br><span class="line">7z x -y LineInst.exe</span><br><span class="line"># x      eXtract with full paths</span><br><span class="line"># -y     Assume Yes on all queries</span><br></pre></td></tr></table></figure>
-<p><strong><em>3. 由於你7z extract 出來的三個資料夾都是亂碼, 所以用node number去將名字改成LINE/resources,並將resources 放到LINE folder中</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">inode1=$(ls -ilab | awk &apos;FNR == 4 &#123;print $1&#125;&apos;)</span><br><span class="line">inode2=$(ls -ilab | awk &apos;FNR == 6 &#123;print $1&#125;&apos;)</span><br><span class="line">find . -inum $inode1 -exec mv &#123;&#125; LINE \;       #將inode1的folder更名成LINE</span><br><span class="line">find . -inum $inode2 -exec mv &#123;&#125; resources \;  #將indoe2的folder更名成resources</span><br><span class="line">mv ./resources/res ./LINE</span><br><span class="line">mv ./LINE ../</span><br><span class="line">cd ..</span><br><span class="line">rm -R line_tmp</span><br></pre></td></tr></table></figure>
-<p><strong><em>4. 用wine執行 Line.exe</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wine Line.exe</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjwrden5y000x9qggqs21kr4d" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Line/">Line</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Ubuntu/">Ubuntu</a></li></ul>
 
     </footer>
   </div>
@@ -804,6 +807,10 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
       <ul>
         
           <li>
+            <a href="/sheldon.is.a.geek/2019/06/11/TensorFLowExercis4_Dog_Cat_Classifier_NN/">DNN exercise for Cat-Dog Classifier by tensorflow</a>
+          </li>
+        
+          <li>
             <a href="/sheldon.is.a.geek/2019/06/11/TensorFLowExercis3_TensorFlow_Saver/">Two types of Saver in Tensorflow</a>
           </li>
         
@@ -813,10 +820,6 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
         
           <li>
             <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
-          </li>
-        
-          <li>
-            <a href="/sheldon.is.a.geek/2019/05/10/基本Python練習/">AI-人工智慧學校(基本Python練習)</a>
           </li>
         
           <li>
@@ -832,7 +835,7 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/tensorflow/">tensorflow</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/tensorflow/">tensorflow</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -841,7 +844,7 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
