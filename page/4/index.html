@@ -67,6 +67,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post--Raspberry-Pi-Cam-Module-行車記錄器" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" class="article-date">
+  <time datetime="2015-02-28T23:19:58.000Z" itemprop="datePublished">Mar 1 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/">[Raspberry Pi][Cam Module] 行車記錄器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>
+        <div id="toc" class="toc-article">
+        <strong class="toc-title"><font size="5">文章目錄</font></strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成果"><span class="toc-text">成果</span></a></li></ol>
+        </div>
+        
+        </p><h2 id="目的">目的</h2><p>自從桃園一場大水以後, </p>
+<img src="http://sheldonrush.github.io/sheldon.is.a.geek/imgs/11245.jpg">
+<p>我的小佛浮起來了,行車記錄器也跟着消失了...
+最近一直聽到有關行車糾紛,心理怕怕,但是又不想花錢買行車記錄器.
+所以想說用免錢的PI camera module 來玩玩.</p>
+<h2 id="方法">方法</h2><p><strong><em>1.製作免費的case,在<a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-%E8%A3%BD%E4%BD%9CPI%E7%9A%84%E8%A1%A3%E6%9C%8D-Case/">上一篇文章</a>中, 可以參考一下. </em></strong></p>
+<p><strong><em>2. 我主要<a href="http://dreamgreenhouse.com/projects/2013/picar/" target="_blank" rel="noopener">參考這篇</a> </em></strong></p>
+<p>這篇功能超級多...但是我現在其實只要錄制的功能, 所以我把大部分的東西都拔掉了.
+假如想要玩更高階的行車記錄器,可以仔細研究聯結.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># Purpose : Just test for recording video on cam module of raspberry pi</span><br><span class="line"># Author : Sheldon</span><br><span class="line">echo `date +%D` &quot;, Start the test for cam module !!&quot;</span><br><span class="line"></span><br><span class="line">cd /home/pi</span><br><span class="line"># set limit of rolling videos to 16GB</span><br><span class="line">limit=4000000</span><br><span class="line"></span><br><span class="line">while [ true ]; do </span><br><span class="line">        # Video disk space used</span><br><span class="line">        used=$(du Video | tail -1 | awk &apos;&#123;print $1&#125;&apos;)</span><br><span class="line">        #echo `date +%s` &quot;U Video&quot; $used</span><br><span class="line">        </span><br><span class="line">        # Free up disk space if needed</span><br><span class="line">        while [ $limit -le $used ]</span><br><span class="line">        do</span><br><span class="line">                remove=$(ls -1tr Video | grep .h264 | head -n 1)</span><br><span class="line">                echo `date +%D` &quot;-&quot; $remove</span><br><span class="line">                rm Video/$remove</span><br><span class="line">                # Calculate disk space used</span><br><span class="line">                used=$(du Video | tail -1 | awk &apos;&#123;print $1&#125;&apos;)</span><br><span class="line">        done</span><br><span class="line"></span><br><span class="line">        # New file name</span><br><span class="line">        current=$(date +&quot;%Y_%m_%d_%H:%M:%S.h264&quot;)</span><br><span class="line">        echo `date +%s` &quot;+&quot; $current</span><br><span class="line"></span><br><span class="line">        # Capture a 5 minute segment of video</span><br><span class="line">        raspivid -n -b 9000000 -w 1280 -h 720 -o Video/$current -t 300000</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h2 id="成果">成果</h2><p>Raspberry Pi 放反了,..主要是來測試cam module, 基本功能看起來work...XDD</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/dSsiKKEKirw" frameborder="0" allowfullscreen></iframe></div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/" data-id="cjwrzfez9000fghggs65wpoje" class="article-share-link">Share</a>
+      
+        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Raspberry-Pi-Cam-Module-行車記錄器/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Cam-Module/">Cam Module</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/Raspberry-Pi/">Raspberry Pi</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post--Ubuntu-如何在Ubuntu底下安裝LINE" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" class="article-date">
@@ -125,7 +189,7 @@ PC上的line,這樣真的太耗時了,所以今天研究了在ubuntu底下如何
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjwrh63ja000xcrggkywhojkq" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/" data-id="cjwrzfezq000xghggs05vawyn" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/03/01/-Ubuntu-如何在Ubuntu底下安裝LINE/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -201,7 +265,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjwrh63j4000qcrgg4crdnbco" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/" data-id="cjwrzfezj000qghggtqpff2t2" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/26/-Raspberry-Pi-製作PI的衣服-Case/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -269,7 +333,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjwrh63j7000ucrgg0axizje1" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/" data-id="cjwrzfezn000ughggygh7nsp5" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-要如何自動的進入shell裏面-而不需要輸入密碼/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -324,7 +388,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjwrh63iz000kcrgg8zl0gmp2" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/" data-id="cjwrzfeze000kghggis1z0j7s" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Raspberry-Pi-How-to-get-the-root/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -388,7 +452,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjwrh63i80009crggrzu1syxa" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/" data-id="cjwrzfeyp0009ghgg7vjng7fn" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/25/-Network-fping的用法/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -446,7 +510,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" data-id="cjwrh63i40006crggyg3md79d" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/" data-id="cjwrzfeyk0006ghgg99qv7mqd" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/02/04/-GDB-基本指令/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -513,7 +577,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="cjwrh63ic000acrgg55j9qo4o" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/" data-id="cjwrzfeys000aghggvm0mqncu" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-Pointer-Simple-concept/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -569,7 +633,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" data-id="cjwrh63i00005crggp3yk4r4y" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/" data-id="cjwrzfeyf0005ghgg1mc8ob1f" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/29/-GCC-MACRO-LOG/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -633,7 +697,7 @@ HaHa</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/" data-id="cjwrh63lt002ycrggeglp17y1" class="article-share-link">Share</a>
+      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/" data-id="cjwrzff290031ghgg89tpvvry" class="article-share-link">Share</a>
       
         <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/16/理財-基本面名詞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -648,188 +712,9 @@ HaHa</p>
 
 
   
-    <article id="post-My-First-Post" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/sheldon.is.a.geek/2015/01/14/My-First-Post/" class="article-date">
-  <time datetime="2015-01-13T16:06:08.000Z" itemprop="datePublished">Jan 14 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/sheldon.is.a.geek/categories/ME/">ME</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sheldon.is.a.geek/2015/01/14/My-First-Post/">ReadMe</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>
-        <div id="toc" class="toc-article">
-        <strong class="toc-title"><font size="5">文章目錄</font></strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why_Do_I_Create_This_Blog_?"><span class="toc-text">Why Do I Create This Blog ?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Who_Am_I_?"><span class="toc-text">Who Am I ?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Technical_Skill"><span class="toc-text">Technical Skill</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">Project</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">Project-Mstar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">Project-HTC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">Project-Innolux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">Side Project</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Working_Experience"><span class="toc-text">Working Experience</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Academic"><span class="toc-text">Academic</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Contact_ME"><span class="toc-text">Contact ME</span></a></li></ol>
-        </div>
-        
-        </p><h1 id="Why_Do_I_Create_This_Blog_?">Why Do I Create This Blog ?</h1><p>This blog tell what I learn in my life. I waste a lot of time in boring thing.
-Right now, it is time to do more the signitifant thing what I interested. This blog tells the
-technical skill, knowledgement, programming, life news, funny things, how to
-manage your finance and how to be a wonderful man.</p>
-<h1 id="Who_Am_I_?">Who Am I ?</h1><p>I was a physics students in the university. Then I got the master degree of EE.
-But I was interested in computer science for a long time, so I took an effert to learn the knowledge by myself.
-Finally, I am a software engineer. Hope that I can be an entrepreneur in the software field.</p>
-<h2 id="Technical_Skill">Technical Skill</h2><p>10+ years working experience in software development.</p>
-<ol>
-<li>Focus on ARM/MIPS embedded linux/ecos for STB (set-top-box)</li>
-<li>Video Codec knowledge</li>
-<li>Developing Mstar multimedia player for customer (Trick Mode/Seek Mode/AV SYNC mechanism)</li>
-<li>Design customer system by Inter-Process Communication for commercial product</li>
-<li>Excellent in C/C++ with a good knowledge of algorithm and data structures</li>
-<li>Mstar BSP integration</li>
-<li>Develpoing VMX-CA Loader</li>
-<li>Rich co-work experience with foreign staff and customers</li>
-<li>Project leader for EU project and succeed in mass production</li>
-<li>had experience for on-site support in Brazil/Italy/Poland/Serbia</li>
-<li>Android RIL framework</li>
-<li>TV knowledge (T-CON/Over-Driver/Decompression/Local Dimming)</li>
-<li>Object identification in Raspberry PI using OpenCV</li>
-<li>Familiar with git</li>
-<li>Familiar with GDB debugging tool</li>
-<li>Trace netlog by wireshark tool</li>
-</ol>
-<p></p><h3>Project</h3><p></p>
-<p></p><h4>Project-Mstar</h4><p></p>
-<table style="width:100%" border="1">
-  <tr>
-    <td>Project Name</td>
-    <td>OS/Chip</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td>Nagra OTT STB (機上盒)</td>
-    <td>Linux/MSTAR CHIP</td>
-    <td> <br> 在Nagra OTT STB上, 完成軟體系統整合 <br>
-         1. 由於CA廠商Nagra要求, 規劃Multi-Process的系統應用<br>
-         2. Maintian Mstar Plugin in Gstreamer.<br>
-         3. Developing Mstar IPC driver and IPC server<br>
-         4. Fine tune the performance of multimedia process<br>
-         <br></td>
-  </tr>
-  <tr>
-   <td>VMX OTT STB (機上盒)</td>
-   <td>Linux &amp; OPTEE/ MSTAR CHIP</td>
-   <td> <br> 在VMX OTT STB上, 完成軟體系統整合 <br>
-         1. Developing VMX boot loader <br> 
-         2. Develpoing Mstar multimedia player to meet Youtube 2018 certifiacation. (such as Seek/Trick mode, AV sync mechanism, etc...)
-         <br>
-         3. Develping Mstar user space driver to meet custmer requirement. <br>
-         4. Debuging OPTEE OS issue. <br>
-         <br></td>
-  </tr>
-</table>
-
-<p><br></p>
-<p></p><h4>Project-HTC</h4><p></p>
-<table style="width:100%" border="1">
-  <tr>
-    <td>Project Name</td>
-    <td>OS/Chip</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td>HTC (smart phone )</td>
-    <td>Linux/Qualcomm CHIP</td>
-    <td> <br> maintain android RIL module <br>
-         maintain the function of voice call/data call/sms ...etc.
-         <br></td>
-  </tr>
-</table>
-
-<p><br></p>
-<p></p><h4>Project-Innolux</h4><p></p>
-<table style="width:100%" border="1">
-  <tr>
-    <td>Project Name</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td> Timming Control(TCON) </td>
-    <td> <br> Developing TCON algorithm <br>
-         1. encoder/reduce OVER DRIVER TABLE <br>
-         2. develping local dimming algorithm <br>
-         <br></td>
-  </tr>
-</table>
-
-<p><br></p>
-<p></p><h4>Side Project</h4><p></p>
-<table style="width:100%" border="1">
-  <tr>
-    <td>Project Name</td>
-    <td>OS/Chip</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td> 樹梅派應用 </td>
-    <td>Linux/Broadcom </td>
-    <td> <br>
-         1. 利用PCA9505 擴充樹梅派的GPIO接口 <br>
-         2. Face Detection by OpenCV <br>
-         3. Socket Programming and GPIO control <br>
-         4. use CAM module to do Driving recorder. <br>
-         5. Control DHT22 and update data to google <br>
-         <br></td>
-  </tr>
-</table>
-
-<h2 id="Working_Experience">Working Experience</h2><ol>
-<li><a href="https://www.mstarsemi.com/tw/" target="_blank" rel="noopener">Mstar</a> 2014/2~now</li>
-<li><a href="https://www.htc.com/tw/" target="_blank" rel="noopener">HTC</a> 2011/1~2014/1</li>
-<li><a href="https://electronics.chimei.com.tw/" target="_blank" rel="noopener">奇美光電</a> 2008/11~2011/1</li>
-</ol>
-<p>//奇美光電已在2010併入群創光電</p>
-<h2 id="Academic">Academic</h2><ol>
-<li>國立清華大學電機碩士</li>
-<li>國立高雄大學物理學士</li>
-</ol>
-<h1 id="Contact_ME">Contact ME</h1><ol>
-<li>email : rushpeng@gmail.com</li>
-<li><a href="https://www.linkedin.com/in/sheldon-peng-b7804625" target="_blank" rel="noopener">LinkedIn</a></li>
-<li><a href="https://www.cakeresume.com/sheldon-peng" target="_blank" rel="noopener">Resume</a></li>
-<li>Phone : (+886)918721062</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/14/My-First-Post/" data-id="cjwrh63k5001mcrggka74rovr" class="article-share-link">Share</a>
-      
-        <a href="http://sheldonrush.github.io/sheldon.is.a.geek/2015/01/14/My-First-Post/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/geek/">geek</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/sheldon.is.a.geek/tags/resume/">resume</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/sheldon.is.a.geek/page/3/">&laquo; Prev</a><a class="page-number" href="/sheldon.is.a.geek/">1</a><a class="page-number" href="/sheldon.is.a.geek/page/2/">2</a><a class="page-number" href="/sheldon.is.a.geek/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/sheldon.is.a.geek/page/3/">&laquo; Prev</a><a class="page-number" href="/sheldon.is.a.geek/">1</a><a class="page-number" href="/sheldon.is.a.geek/page/2/">2</a><a class="page-number" href="/sheldon.is.a.geek/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/sheldon.is.a.geek/page/5/">5</a><a class="extend next" rel="next" href="/sheldon.is.a.geek/page/5/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -841,6 +726,10 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/sheldon.is.a.geek/2019/06/11/TensorFLowExercis5_parameter_tunning/">DNN exercise for Cat-Dog Classifier(2) by tensorflow</a>
+          </li>
         
           <li>
             <a href="/sheldon.is.a.geek/2019/06/11/TensorFLowExercis4_Dog_Cat_Classifier_NN/">DNN exercise for Cat-Dog Classifier by tensorflow</a>
@@ -858,10 +747,6 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
             <a href="/sheldon.is.a.geek/2019/05/15/Python-Crawler/">Python_Crawler</a>
           </li>
         
-          <li>
-            <a href="/sheldon.is.a.geek/2019/05/10/python_crawler/">AI-人工智慧學校(基本Python練習)</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -871,7 +756,7 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/tensorflow/">tensorflow</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/uinstd/">uinstd</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/C/">C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Double-Link-List/">Double Link List</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Dynamic-Array/">Dynamic Array</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ELF/">ELF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GCC/">GCC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/GDB/">GDB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/ME/">ME</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Multi-Thread/">Multi-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/">Mutex</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Mutex/Read-Write-Lock/">Read/Write Lock</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/POST/">POST</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Pthread-Mutex/">Pthread_Mutex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/R/">R</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Raspberry-Pi/">Raspberry Pi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/VIM/">VIM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/nmap/">nmap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/pointer/">pointer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/">python</a><span class="category-list-count">8</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/python/tensorflow/">tensorflow</a><span class="category-list-count">5</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/queue/">queue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/stack/">stack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/sheldon.is.a.geek/categories/理財/">理財</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -880,7 +765,7 @@ Finally, I am a software engineer. Hope that I can be an entrepreneur in the sof
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/06/">June 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/05/">May 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/02/">February 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/sheldon.is.a.geek/archives/2015/01/">January 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
